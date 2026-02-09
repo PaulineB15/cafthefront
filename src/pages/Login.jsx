@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext.jsx";
+import {useNavigate} from "react-router-dom";
+
+
 
 const Login = () => {
+    const {login} = useContext(AuthContext);
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [motDePasse, setMotDePasse] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
@@ -30,10 +36,14 @@ const Login = () => {
             }
 
             const { token, client } = data;
+            console.log(token);
 
             // Appel au login via le contexte
+            login(token, client);
 
             // Puis retour à l'accueil
+            navigate("/");
+
         } catch (error) {
             console.error("Erreur lors de la connexion: ", error);
             setErrorMsg("Une erreur s'est produite lors de la connexion");

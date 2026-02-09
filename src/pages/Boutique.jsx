@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "../components/ProductCard.jsx";
 
-const ProductList = () => {
+const Boutique = () => {
     const [produits, setProduits] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -73,13 +73,14 @@ const ProductList = () => {
     // Affichage normal (si tout est OK)
     return (
         <div>
+            <h1>Notre boutique</h1>
             <div className="product-list">
                 {produits.map((produit) => (
-                    <ProductCard key={produit.ID_ARTICLE} produit={produit}/>
+                    <ProductCard key={produit.ID_PRODUIT} produit={produit}/>
                 ))}
             </div>
         </div>
     );
 };
 
-export default ProductList;
+export default Boutique;
