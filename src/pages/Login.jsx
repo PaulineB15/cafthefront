@@ -21,6 +21,7 @@ const Login = () => {
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
+                    credentials: "include",
                     body: JSON.stringify({
                         email,
                         mot_de_passe: motDePasse,
@@ -35,11 +36,10 @@ const Login = () => {
                 return;
             }
 
-            const { token, client } = data;
-            console.log(token);
+            // const {client} = data;
 
             // Appel au login via le contexte
-            login(token, client);
+            login(data.client);
 
             // Puis retour à l'accueil
             navigate("/");

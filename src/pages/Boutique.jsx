@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "../components/ProductCard.jsx";
+import HeroBoutique from "../assets/photo/HeroBoutique.webp";
 
 const Boutique = () => {
     const [produits, setProduits] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
+
 
     useEffect(() => {
         const fetchProduits = async () => {
@@ -21,7 +25,8 @@ const Boutique = () => {
                 }
 
                 const data = await response.json();
-                setProduits(data.produit);
+                setProduits(data.produit); // On charge Tous les produits
+
             } catch (err) {
                 console.error("Erreur lors du chargement des produits :", err);
                 setError("Impossible de charger les produits");
@@ -32,6 +37,7 @@ const Boutique = () => {
 
         void fetchProduits();
     }, []);
+
 
     // Chargement : Skeleton
     if (isLoading) {
@@ -72,14 +78,23 @@ const Boutique = () => {
 
     // Affichage normal (si tout est OK)
     return (
-        <div>
-            <h1>Notre boutique</h1>
-            <div className="product-list">
+        <main>
+            <section className="hero" style={{ backgroundImage: `url(${HeroBoutique})` }}>
+
+                <div className="hero-overlay">
+                    <div className="hero-content">
+                        <h1>Notre Boutique</h1>
+                        <p>Découvrez notre collection complète de cafés et thés d'exception.</p>
+                    </div>
+                </div>
+            </section>
+            <section className="product-list">
                 {produits.map((produit) => (
                     <ProductCard key={produit.ID_PRODUIT} produit={produit}/>
                 ))}
-            </div>
-        </div>
+            </section>
+
+        </main>
     );
 };
 
