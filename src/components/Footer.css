@@ -1,0 +1,154 @@
+/* Container principal */
+.footer {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    border-top: 1px solid #333; /* Séparation discrète avec le contenu */
+    font-size: 0.9rem;
+    padding:0;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Important pour le responsive */
+    gap: 40px;
+    padding: 60px 10% 40px;
+}
+
+/* --- COLONNES --- */
+.footer-column {
+    flex: 1; /* Chaque colonne prend la même largeur */
+    min-width: 200px; /* Largeur min avant de passer à la ligne */
+}
+
+/* Gestion du Logo */
+.logo-column {
+    display: flex;
+    align-items: flex-start;
+}
+
+.footer-logo {
+    width: auto; /* Ajuste selon la taille de ton logo */
+    height: 120px;
+}
+
+/* Titres (Contact, Infos...) */
+.footer h4 {
+    font-family: 'Tenor Sans', sans-serif;
+    color: var(--gold-detail);
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* --- CONTACT (<address>) --- */
+.footer-address {
+    font-style: normal; /* Annule l'italique par défaut de la balise address */
+    line-height: 1.8;
+}
+
+.footer-address p {
+    margin-bottom: 5px;
+    font-family: 'Montserrat', sans-serif;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.footer-address a {
+    color: #ccc;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-address a:hover {
+    color: var(--gold-detail);
+}
+
+/* --- LISTES DE LIENS (Infos) --- */
+.footer-links {
+    list-style: none; /* Enlève les puces */
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #ccc;
+    font-family: 'Montserrat', sans-serif;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--gold-detail);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-detail);
+    padding-left: 5px; /* Petit effet de glissement au survol */
+}
+
+/* --- RÉSEAUX SOCIAUX --- */
+.social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #444; /* Bordure grise subtile */
+    border-radius: 2px; /* Micro-arrondi */
+    color: var(--text-light);
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    border-color: var(--gold-detail);
+    color: var(--gold-detail);
+    transform: translateY(-3px); /* Effet de montée */
+}
+
+/* --- COPYRIGHT (Bas de page) --- */
+.footer-bottom {
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid #333;
+    color: #666;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 900px) {
+    .footer {
+        padding: 40px 20px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .footer-column {
+        text-align: center;
+        align-items: center;
+    }
+
+    .logo-column {
+        justify-content: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}

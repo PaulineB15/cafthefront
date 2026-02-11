@@ -6,6 +6,8 @@ import Home from "./pages/Home.jsx";
 import Boutique from "./pages/Boutique.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
 import Login from "./pages/Login.jsx";
+import Contact from "./pages/Contact.jsx";
+import FAQ from "./pages/FAQ.jsx";
 import {AuthProvider} from "./context/AuthContext.jsx";
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
                     <Route path="boutique" element={<Boutique />} />
                     <Route path="produit/:id"  element={<ProductDetails />} />
                     <Route path="login" element={<Login />} />
+                    <Route path="contact" element={<Contact />} />
+                    <Route path="faq" element={<FAQ />} />
                 </Route>
             </Routes>
             </BrowserRouter>

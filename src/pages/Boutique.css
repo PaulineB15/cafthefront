@@ -1,0 +1,237 @@
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Voile noir */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 10%;
+}
+
+.hero-content h1 {
+    margin-bottom: 10px;
+    font-size: 3rem;
+    color: var(--text-light);
+}
+
+.hero-content p {
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
+/* --- WRAPPER GLOBAL (Sidebar + Liste) --- */
+.boutique-content-wrapper {
+    display: flex; /* Active le mode colonne gauche / droite */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    gap: 50px;
+}
+
+/* --- SIDEBAR (Gauche) --- */
+.filters-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    color: var(--text-light);
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.filter-header h3 {
+    color: var(--gold-detail);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.reset-btn {
+    background: none;
+    border: none;
+    color: #888;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.filter-group {
+    margin-bottom: 30px;
+}
+
+.filter-group h4 {
+    font-size: 0.9rem;
+    color: var(--gold-detail);
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.filter-section {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-subtitle {
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 0.9rem;
+}
+
+.filters-sidebar label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ccc;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.filters-sidebar label:hover {
+    color: var(--gold-detail);
+}
+
+.filters-sidebar input[type="radio"] {
+    accent-color: var(--gold-detail);
+}
+
+/* --- PRODUCT LIST (Droite) --- */
+.product-list-section {
+    flex-grow: 1; /* Prend tout l'espace restant */
+}
+
+.results-count {
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* Ta classe .product-list devient une grille */
+.product-list {
+    display: grid;
+    /* Grid responsive : minimum 250px de large par carte */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+/* --- STYLE DU SKELETON (Pour que ça ressemble à des cartes) --- */
+.product-list-skeleton-container {
+    padding: 60px 10%;
+}
+.product-skeleton {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .boutique-content-wrapper {
+        flex-direction: column;
+    }
+    .filters-sidebar {
+        width: 100%;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #333;
+        padding-bottom: 20px;
+    }
+}
+
+/* --- GRILLE DES PRODUITS --- */
+/* Cela crée des colonnes automatiques */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    width: 100%;
+}
+
+/* --- LA CARTE (Le cadre noir) --- */
+.product-card {
+    background-color: #222; /* Fond sombre */
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    border-color: #C5A059; /* Bordure Or au survol */
+    transform: translateY(-5px);
+}
+
+/* --- L'IMAGE (Magie du 210x210) --- */
+.card-image-wrapper {
+    background-color: #fff; /* Fond blanc derrière l'image propre */
+    padding: 10px;
+    border-radius: 2px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card img {
+    width: 210px;      /* Largeur FORCÉE */
+    height: 210px;     /* Hauteur FORCÉE */
+    object-fit: cover; /* Coupe l'image pour qu'elle remplisse le carré sans être écrasée */
+    display: block;
+}
+
+/* --- TEXTES & BOUTON --- */
+.card-info h3 {
+    color: #F5F5F0;
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    text-transform: uppercase;
+    height: 3em; /* Hauteur fixe pour aligner les titres */
+    overflow: hidden;
+}
+
+.card-details {
+    color: #888;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.card-price {
+    color: #C5A059; /* Or */
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.btn-detail {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #F5F5F0;
+    color: #F5F5F0;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    margin-top: auto; /* Pousse le bouton en bas */
+}
+
+.btn-detail:hover {
+    background-color: #C5A059;
+    border-color: #C5A059;
+    color: #1A1A1A;
+}

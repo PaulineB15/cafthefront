@@ -1,0 +1,271 @@
+/* --- CONFIGURATION GLOBALE PAGE --- */
+.product-details-page {
+    background-color: var(--bg-dark); /* #1A1A1A */
+    color: var(--text-light);
+    padding: 40px 0;
+    min-height: 80vh;
+}
+
+.product-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- LIEN RETOUR --- */
+.top-nav {
+    margin-bottom: 30px;
+}
+
+.back-link-simple {
+    display: inline-flex;
+    align-items: center;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.back-link-simple:hover {
+    color: var(--gold-detail);
+}
+
+/* --- LAYOUT 2 COLONNES --- */
+.product-layout {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+/* --- IMAGE --- */
+.product-image-block {
+    flex: 1;
+    background-color: #fff; /* Fond blanc */
+    padding: 20px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-image-block img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+}
+
+/* --- INFOS --- */
+.product-info-block {
+    flex: 1;
+}
+
+.category-tag {
+    color: var(--gold-detail);
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.product-info-block h1 {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+/* PRIX */
+.price-section {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.current-price {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-light);
+}
+
+.ttc-label {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.price-per-kg {
+    color: #666;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-left: auto; /* Pousse à droite */
+}
+
+/* TEXTES (Description, Origine, Stock) */
+.origin-text {
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    color: var(--text-light);
+}
+
+.description {
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 25px;
+    font-size: 1rem;
+}
+
+.stock-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 30px;
+    background: rgba(255,255,255,0.05);
+    padding: 8px 15px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.status-dot.green { background-color: #4A5D4E; box-shadow: 0 0 5px #4A5D4E; }
+.status-dot.red { background-color: #d9534f; }
+
+/* --- OPTIONS POIDS (VRAC) --- */
+.options-vrac {
+    margin-bottom: 30px;
+}
+
+.options-vrac label {
+    display: block;
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.weight-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.weight-buttons button {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.weight-buttons button:hover {
+    border-color: var(--gold-detail);
+    color: var(--text-light);
+}
+
+.weight-buttons button.active {
+    border-color: var(--gold-detail);
+    background-color: var(--gold-detail);
+    color: var(--bg-dark); /* Texte noir sur fond or */
+    font-weight: 600;
+}
+
+/* --- ACTIONS (Panier) --- */
+.actions-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #444;
+    background-color: #222;
+}
+
+.quantity-selector button {
+    background: none;
+    border: none;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.quantity-selector span {
+    width: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.btn-add-cart {
+    flex: 1;
+    background-color: var(--green-cta);
+    color: #fff;
+    border: none;
+    height: 47px; /* Alignement avec quantite */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-add-cart:hover {
+    background-color: #5a715f;
+    transform: translateY(-2px);
+}
+
+.btn-add-cart:disabled {
+    background-color: #333;
+    cursor: not-allowed;
+    color: #666;
+}
+
+.view-cart-link {
+    text-align: right;
+    font-size: 0.85rem;
+}
+
+.view-cart-link a {
+    color: var(--gold-detail);
+    text-decoration: underline;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+    .product-layout {
+        flex-direction: column;
+    }
+
+    .actions-row {
+        flex-direction: column;
+    }
+
+    .btn-add-cart {
+        width: 100%;
+    }
+}

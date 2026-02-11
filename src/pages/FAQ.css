@@ -1,0 +1,132 @@
+/* --- HERO --- */
+.faq-hero {
+    position: relative;
+    height: 300px; /* Même hauteur que contact */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+/* --- CONTAINER --- */
+.faq-container {
+    max-width: 900px; /* Un peu plus étroit pour la lecture */
+    margin: 0 auto;
+    padding: 0 20px 80px 20px;
+}
+
+/* --- SECTION CATEGORIE --- */
+.faq-section {
+    margin-bottom: 50px;
+}
+
+.faq-section h2 {
+    font-family: 'Tenor Sans', sans-serif;
+    color: var(--gold-detail);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* --- ITEM ACCORDEON --- */
+.faq-item {
+    background-color: #222; /* Fond sombre carte */
+    border: 1px solid #333;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: #444;
+}
+
+.faq-item.open {
+    border-color: var(--gold-detail); /* Bordure or quand ouvert */
+}
+
+/* QUESTION (HEADER) */
+.faq-question {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-question h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: var(--text-light);
+    margin: 0;
+    font-weight: 500;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    color: var(--gold-detail);
+    font-weight: 300;
+    line-height: 1;
+}
+
+/* REPONSE (BODY) */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease;
+    opacity: 0;
+    padding: 0 20px;
+    background-color: rgba(0, 0, 0, 0.2); /* Fond légèrement plus foncé */
+}
+
+.faq-answer.show {
+    max-height: 200px; /* Assez grand pour le texte */
+    opacity: 1;
+    padding: 0 20px 20px 20px; /* Padding bas ajouté quand ouvert */
+    border-top: 1px solid #333; /* Séparation fine */
+    margin-top: 5px;
+    padding-top: 15px;
+}
+
+.faq-answer p {
+    color: #ccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- FOOTER FAQ --- */
+.faq-footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #333;
+}
+
+.faq-footer p {
+    color: #ccc;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.btn-contact {
+    display: inline-block;
+    background-color: var(--green-cta);
+    color: #fff;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+.btn-contact:hover {
+    background-color: #5a715f;
+    transform: translateY(-2px);
+}
