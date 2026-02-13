@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import { AuthContext } from "../context/AuthContext.jsx";
+import { CartContext } from "../context/CartContext.jsx";
 import { Link, NavLink, useNavigate } from "react-router-dom"; // Ajout de useNavigate pour plus de contrôle
 import Logo from "../assets/logo/logo1.webp";
 
@@ -7,6 +8,10 @@ import './NavBar.css';
 
 function NavBar() {
     const { user, isAuthenticated, logout } = useContext(AuthContext);
+
+    // Récuperer le nombre de produits dans le panier
+    const { totalItems } = useContext(CartContext);
+
     const navigate = useNavigate();
 
     // Etat pour stocker le texte de la barre de recherche
@@ -66,7 +71,8 @@ function NavBar() {
                 <div className="navbar-actions">
                     {isAuthenticated ? (
                         <div className="user-logged">
-                            <span>Bonjour, {user.prenom}</span>
+                            {/* Affichage du nom du client // Code pour éviter que le nom ne casse la mise en page sur mobile */}
+                            <span title={`Bonjour ${user.prenom}`}>Bonjour, {user.prenom}</span>
                             <button onClick={handleLogout} className="logout-btn">
                                 Déconnexion
                             </button>
@@ -88,6 +94,11 @@ function NavBar() {
                             <circle cx="20" cy="21" r="1"></circle>
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                         </svg>
+
+                        {/* AFFICHER LA NOTIFICATION SUR LE PANIER SEULEMENT SI > 0 */}
+                        {totalItems > 0 && (
+                            <span className="cart-badge">{totalItems}</span>
+                        )}
                     </Link>
                 </div>
 

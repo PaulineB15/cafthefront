@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "./ProductDetails.css";
+import { CartContext } from "../context/CartContext.jsx";
 
 // Icône Panier (SVG Inline pour éviter les erreurs d'import)
 const CartIcon = () => (
@@ -23,6 +24,9 @@ const ArrowLeft = () => (
 const ProductDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+
+    // RECUPERER L'AJOUT AU PANIER DANS LE CONTEXTE
+    const { addToCart } = useContext(CartContext);
 
     const [produit, setProduit] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -71,21 +75,21 @@ const ProductDetails = () => {
 
     // --- AJOUT AU PANIER ---
     const handleAddToCart = () => {
-        const prixFinal = getPrixAffiché();
+        // Sécurité : on n'ajoute pas si le produit n'est pas chargé
+        if (!produit) return;
 
-        // C'est ici que tu connecteras ton Context ou Redux plus tard
-        console.log("Ajout Panier:", {
-            id: produit.ID_PRODUIT,
-            nom: produit.NOM_PRODUIT,
-            quantite: quantite,
-            poids: produit.TYPE_VENTE === 'Vrac' ? poidsSelectionne : null,
-            prixTotal: prixFinal * quantite
-        });
+        // 1. APPEL AU CONTEXTE
+        // On envoie : le produit entier, la quantité choisie, et le poids (si c'est du vrac)
+        addToCart(produit, quantite, poidsSelectionne);
 
-        // Feedback simple pour l'utilisateur
-        alert(`${quantite} x ${produit.NOM_PRODUIT} ajouté au panier !`);
-        // Optionnel : rediriger vers le panier
-        // navigate('/panier');
+        // 2. FEEDBACK UTILISATEUR (Petit message de succès)
+        // Plus tard, on pourra faire une belle notification "Toast"
+        // Pour l'instant, une alerte native suffit pour tester
+        const messagePoids = produit.TYPE_VENTE === 'Vrac'
+            ? ` (${(poidsSelectionne * 1000)}g)`
+            : '';
+
+        alert(`${quantite} x ${produit.NOM_PRODUIT}${messagePoids} ajouté au panier !`);
     };
 
     if (isLoading) return <div style={{padding: "100px"}}><Skeleton height={500} /></div>;
