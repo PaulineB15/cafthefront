@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// useSeachParams = HOOK POUR LIRE URL (ex: ?search=cafe)
 import { useSearchParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import ProductCard from "../components/ProductCard.jsx";
@@ -6,22 +7,45 @@ import HeroBoutique from "../assets/photo/HeroBoutique.webp";
 import "./Boutique.css";
 
 const Boutique = () => {
+    // --- 1. ETATS (STATE) ---
+    // Stockage des produits venant de l'API
     const [produits, setProduits] = useState([]);
+    // Gestion du chargement (pour afficher un skeleton)
     const [isLoading, setIsLoading] = useState(true);
+    // Gestion des erreurs (pour afficher un message d'erreur)')
     const [error, setError] = useState(null);
 
-    // --- ÉTATS DES FILTRES ---
+    // ---2. ÉTATS DES FILTRES (Sidebar sur le coté gauche)---
     const [selectedCategory, setSelectedCategory] = useState("Tous");
     const [selectedType, setSelectedType] = useState("Tous");
     const [priceRange, setPriceRange] = useState("Tous");
 
+    // ---3. ÉTATS DE LA RECHERCHE URL---
+    // Récupère le paramètre "search" de l'URL (ex: ?search=cafe)"
     const [searchParams] = useSearchParams();
+    // Si pas de recherche, chaîne vide
     const searchItems = searchParams.get("search") || "";
 
+    // --- 4. RESET AUTOMATIQUE DES FILTRES (Sidebar gauche) ---
+    // UX : Si l'utilisateur lance une recherche, on désactive les filtres latéraux
+    // pour éviter les conflits (ex: chercher "Thé" alors que le filtre "Café" est actif)
+    // Dès que le mot recherché (searchItems) change, on remet les filtres à zéro.
+    useEffect(() => {
+        if (searchItems) {
+            // On remet tout à "Tous" pour chercher dans tout le magasin
+            setSelectedCategory("Tous");
+            setSelectedType("Tous");
+            setPriceRange("Tous");
+        }
+    }, [searchItems]); // Se déclenche uniquement quand le mot recherché change
+
+    // --- 5. CHARGEMENT DES DONNEES (FETCH) ---
     useEffect(() => {
         const fetchProduits = async () => {
             try {
+                // On remet l'erreur à null avant de commencer
                 setError(null);
+                // Appel de l'API
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/api/produits`);
 
                 if (!response.ok) {
@@ -29,45 +53,71 @@ const Boutique = () => {
                 }
 
                 const data = await response.json();
+                // Stock les produits dans le state
                 setProduits(data.produit);
             } catch (err) {
                 console.error("Erreur lors du chargement des produits :", err);
                 setError("Impossible de charger les produits");
             } finally {
+                // Quoi qu'il arrive (réussite ou échec), on met fin au chargement
                 setIsLoading(false);
             }
         };
+        // Lancement de la fonction asynchrone
         void fetchProduits();
-    }, []);
+    }, []); // [] = se lance une seule fois au montage de la page
 
-    // --- LOGIQUE DE FILTRAGE ---
+    // --- 6. LOGIQUE DE FILTRAGE (COEUR DU SYSTEME)---
     const filteredProduits = produits.filter(produit => {
-        const matchSearch = produit.NOM_PRODUIT.toLowerCase().includes(searchItems.toLowerCase());
+
+        // A. FILTRE RECHERCHE (NAVBAR)
+        // On met tout en minuscule pour comparer (insensible à la casse)
+        const recherche = searchItems.toLowerCase();
+
+        // Sécurité : on s'assure que les champs existent (|| "")
+        const nom = (produit.NOM_PRODUIT || "").toLowerCase();
+        const categorie = (produit.CATEGORIE || "").toLowerCase(); //ex: Café
+        const type = (produit.TYPE || "").toLowerCase(); // ex: Moulu
+
+        // Logique "Large" : Si le mot cherché est dans le Nom OU la Catégorie OU le Type
+        // Cela permet de taper "Thé" et de trouver "Earl Grey" (car sa catégorie est Thé)
+        // On cherche PARTOUT (Nom OU Catégorie OU Type)
+        // Le symbole || signifie "OU"
+        const matchSearch = nom.includes(recherche) ||
+                                    categorie.includes(recherche) ||
+                                    type.includes(recherche);
+
+        // B. FILTRES LATÉRAUX (SIDEBAR)
+        // Si "Tous" est sélectionné, on prend tout, sinon on vérifie la correspondance
         const matchCategory = selectedCategory === "Tous" || produit.CATEGORIE === selectedCategory;
+        // Pour le type, on vérifie aussi que produit.TYPE existe (certains produits n'en ont pas)
         const matchType = selectedType === "Tous" || (produit.TYPE && produit.TYPE === selectedType);
 
+        // C. FILTRE PRIX
         let matchPrice = true;
         const prix = parseFloat(produit.PRIX_TTC);
         if (priceRange === "moin20") matchPrice = prix < 20;
         else if (priceRange === "20-50") matchPrice = prix >= 20 && prix <= 50;
         else if (priceRange === "plus50") matchPrice = prix > 50;
 
+        // D. RESULTAT FINAL
+        // On garde le produit uniquement si toutes les conditions sont vraies (&&)
         return matchSearch && matchCategory && matchType && matchPrice;
     });
 
-    // Fonction reset
+    // Fonction pour le bouton "Réinitialiser" de la sidebar
     const resetFilters = () => {
         setSelectedCategory("Tous");
         setSelectedType("Tous");
         setPriceRange("Tous");
     };
 
-    // --- CHARGEMENT (Ton code Skeleton conservé) ---
+    // ---7. AFFICHAGE CONDITIONNEL : CHARGEMENT ---
     if (isLoading) {
         return (
             <div className="product-list-skeleton-container">
-                {/* J'ai ajouté un wrapper pour que le skeleton soit centré si besoin */}
                 <div className="product-list">
+                    {/* Génère 6 squelettes de chargement */}
                     {Array.from({ length: 6 }).map((_, i) => (
                         <div key={i} className="product-skeleton">
                             <Skeleton height={200} width={300} />
@@ -84,7 +134,7 @@ const Boutique = () => {
         );
     }
 
-    // --- ERREUR (Ton code Erreur conservé) ---
+    // --- 8. AFFICHAGE CONDITIONNEL: ERREUR ---
     if (error) {
         return (
             <div className="product-list-error">
@@ -102,7 +152,7 @@ const Boutique = () => {
         );
     }
 
-    // --- AFFICHAGE NORMAL ---
+    // --- 9. AFFICHAGE PRINCIPAL ---
     return (
         <main className="boutique-page">
 
@@ -122,13 +172,13 @@ const Boutique = () => {
                 {/* 1. SIDEBAR (Filtres) */}
                 <aside className="filters-sidebar">
                     <div className="filter-header">
-                        <h3>FILTRES</h3>
+                        <h2>FILTRES</h2>
                         <button onClick={resetFilters} className="reset-btn">Réinitialiser</button>
                     </div>
 
                     {/* Filtres Catégories */}
                     <div className="filter-group">
-                        <h4>CATÉGORIES</h4>
+                        <h3>CATÉGORIES</h3>
 
                         <div className="filter-section">
                             <span className="filter-subtitle">Cafés</span>
@@ -152,7 +202,7 @@ const Boutique = () => {
 
                     {/* Filtres Prix */}
                     <div className="filter-group">
-                        <h4>PRIX</h4>
+                        <h3>PRIX</h3>
                         <label><input type="radio" name="prix" onChange={() => setPriceRange("Tous")} checked={priceRange === "Tous"} /> Tous les prix</label>
                         <label><input type="radio" name="prix" onChange={() => setPriceRange("moin20")} checked={priceRange === "moin20"} /> Moins de 20€</label>
                         <label><input type="radio" name="prix" onChange={() => setPriceRange("20-50")} checked={priceRange === "20-50"} /> 20€ - 50€</label>
@@ -160,7 +210,7 @@ const Boutique = () => {
                     </div>
                 </aside>
 
-                {/* 2. LISTE DES PRODUITS (Ta section product-list) */}
+                {/* 2. LISTE DES PRODUITS (Section product-list) */}
                 <section className="product-list-section">
                     <p className="results-count">{filteredProduits.length} produits trouvés</p>
 

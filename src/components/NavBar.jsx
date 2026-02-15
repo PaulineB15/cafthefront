@@ -17,11 +17,6 @@ function NavBar() {
     // Etat pour stocker le texte de la barre de recherche
     const [searchItems, setSearchItems] = useState("");
 
-    const handleLogout = () => {
-        logout(); // Appelle la fonction de déconnexion du contexte
-        navigate("/"); // Redirige vers l'accueil pour éviter de rester sur une page privée
-    }
-
     // Fonction de recherche
     const handleSearch = (e) => {
         e.preventDefault(); // Empeche le chargement de la page
@@ -29,6 +24,13 @@ function NavBar() {
         navigate(`/boutique?search=${searchItems}`);
         setSearchItems("");// Vider la barre après recherche
     };
+
+    const handleLogout = () => {
+        logout(); // Appelle la fonction de déconnexion du contexte
+        navigate("/"); // Redirige vers l'accueil pour éviter de rester sur une page privée
+    }
+
+
 
     return (
         <header className="main-header">
