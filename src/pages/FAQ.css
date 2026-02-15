@@ -1,92 +1,86 @@
-/* --- HERO (Cohérent avec le site) --- */
+/* --- HERO SECTION (Modifié pour l'alignement Gauche) --- */
 .faq-hero {
     position: relative;
-    height: 300px;
+    height: 70vh;
     background-size: cover;
     background-position: center;
     display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 60px;
 }
 
-.hero-overlay {
-    background-color: rgba(0, 0, 0, 0.6);
+.hero-faq-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Voile noir */
     width: 100%;
     height: 100%;
     display: flex;
+    align-items: center; /* Centre verticalement */
     justify-content: center;
-    align-items: center;
 }
 
-.hero-content.centered {
-    text-align: center;
+.hero-faq-content {
+    text-align: left; /* Texte aligné à gauche */
     color: var(--text-light);
-    max-width: 600px;
-    padding: 0 20px;
+    max-width: 800px;
 }
 
-.hero-content h1 {
-    font-family: 'Tenor Sans', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+/* Titre H1 */
+.hero-faq-content h1 {
+    margin-bottom: 20px;
 }
 
-.hero-content p {
-    color: #ccc;
-    font-size: 1.1rem;
+/* Paragraphe P */
+.hero-faq-content p {
+    line-height: 1.6;
 }
 
-/* --- CONTENEUR GLOBAL --- */
+/* --- CONTENEUR PRINCIPAL --- */
 .faq-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px 80px 20px;
 }
 
-/* --- SECTION (Catégorie) --- */
+/* --- SECTIONS (Catégories) --- */
 .faq-section {
     margin-bottom: 60px;
 }
 
 .faq-section h2 {
     font-family: 'Tenor Sans', sans-serif;
-    color: var(--gold-detail);
+    color: var(--gold-detail); /* Titre en Or */
     font-size: 1.5rem;
     margin-bottom: 30px;
     border-bottom: 1px solid #333;
     padding-bottom: 10px;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-/* --- GRILLE & CARTES (Le nouveau design) --- */
+/* --- GRILLE & CARTES --- */
 .faq-grid {
     display: grid;
-    /* 2 colonnes sur PC, 1 sur mobile */
+    /* 2 colonnes sur PC */
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-    gap: 30px;
+    gap: 40px;
 }
 
 .faq-card {
-    background-color: transparent;
-    /* Optionnel : mettre background-color: #222; si tu veux des boites visibles */
     padding-right: 20px;
 }
 
 .faq-card h3 {
     font-family: 'Montserrat', sans-serif;
-    color: var(--text-light); /* Titre en blanc */
+    color: var(--text-light);
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 15px;
     line-height: 1.4;
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
 }
 
-/* Petit puce dorée avant la question pour le style */
+/* Puce dorée */
 .faq-card h3::before {
     content: "•";
     color: var(--gold-detail);
@@ -96,13 +90,14 @@
 
 .faq-card p {
     font-family: 'Montserrat', sans-serif;
-    color: #ccc; /* Texte gris clair */
+    color: #ccc;
     font-size: 0.95rem;
     line-height: 1.6;
-    margin-left: 20px; /* Alignement avec le texte du titre */
+    margin-left: 20px; /* Alignement sous le texte du titre */
+    margin-top: 0;
 }
 
-/* --- FOOTER FAQ --- */
+/* --- FOOTER DE LA FAQ (Lien Contact) --- */
 .faq-footer {
     text-align: center;
     margin-top: 80px;
@@ -111,6 +106,7 @@
 }
 
 .faq-footer p {
+    font-family: 'Montserrat', sans-serif;
     color: #ccc;
     margin-bottom: 20px;
     font-size: 1.1rem;
@@ -125,6 +121,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 1px;
     border-radius: 2px;
     transition: 0.3s;
 }
@@ -134,13 +131,33 @@
     transform: translateY(-2px);
 }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 900px) {
-    .faq-grid {
-        grid-template-columns: 1fr; /* 1 seule colonne sur mobile */
+    /* Ajustement Héro Mobile */
+    .faq-hero {
+        height: 300px; /* Moins haut sur mobile */
+        min-height: auto;
     }
 
-    .faq-hero {
-        height: 250px;
+    .hero-overlay {
+        justify-content: center; /* On recentre tout sur mobile */
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        margin-bottom: 20px;
+    }
+
+    .hero-content p {
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+
+    /* Ajustement Grille Mobile */
+    .faq-grid {
+        grid-template-columns: 1fr; /* 1 colonne */
+        gap: 30px;
     }
 }

@@ -1,0 +1,296 @@
+/* =========================================
+      PAGE ACCUEIL (HOME)
+   ========================================= */
+
+.home-page {
+    width: 100%;
+}
+
+/* Padding standard pour les sections */
+.selection, .histoire, .Offre-section {
+    padding: 80px 10%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- SECTION HERO --- */
+.hero-home {
+    position: relative;
+    height: 85vh; /* Hauteur écran accueil */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+}
+
+.hero-home-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; /* Centre verticalement */
+    padding-left: 10%;   /* Aligne à gauche */
+    box-sizing: border-box;
+}
+
+.hero-home-content {
+    max-width: 650px;
+    text-align: left; /* Force l'alignement gauche */
+}
+
+.hero-home-content h1 {
+    margin-bottom: 25px;
+    font-size: 3.5rem;
+    font-family: 'Tenor Sans', sans-serif;
+    color: #F5F5F0;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.hero-home-content p {
+    line-height: 1.6;
+    margin-bottom: 40px; /* Espace avant le bouton */
+    font-family: 'Montserrat', sans-serif;
+    color: #eee;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+/* BOUTONS (Tous verts comme demandé) */
+.button, .button-dark {
+    display: inline-block;
+    padding: 15px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    border-radius: 2px;
+    background-color: var(--green-cta);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover, .button-dark:hover {
+    background-color: #5a715f;
+    transform: translateY(-2px);
+}
+
+
+/* --- SECTION SELECTION --- */
+.selection {
+    text-align: center;
+}
+.selection h2 {
+    font-family: 'Tenor Sans', sans-serif;
+    color: var(--gold-detail);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+.selection-grid {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+/* --- SECTION OFFRES --- */
+.Offre-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: center;
+}
+
+.card-offre, .card-fidelite {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    /* On force une hauteur minimale pour donner l'aspect carré sans casser le contenu */
+    padding: 60px 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre horizontalement */
+    justify-content: center; /* Centre verticalement */
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+.card-offre {
+    background-color: #222;
+    border: 1px solid #333;
+}
+
+.card-fidelite {
+    background-color: var(--bg-dark); /* #1A1A1A */
+    border: 1px solid var(--gold-detail);
+}
+
+.card-header {
+    display: flex;           /* Met les éléments côte à côte */
+    align-items: center;     /* Centre verticalement */
+    justify-content: center; /* Centre horizontalement */
+    gap: 15px;               /* Espace entre le texte et l'image */
+    margin-bottom: 20px;     /* Espace sous le bloc titre/image */
+    width: 100%;
+}
+
+.card-header h3 {
+    font-family: 'Tenor Sans', sans-serif;
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0;               /* On enlève les marges pour un alignement parfait */
+    text-transform: uppercase;
+    line-height: 1;          /* Évite que la hauteur de ligne décalé l'image */
+    padding-bottom: 15px;
+}
+
+.card-header img {
+    width: 20px;             /* Taille ajustée du picto */
+    height: auto;
+    display: block;
+    padding-bottom: 15px;
+}
+
+.promotion-titre {
+    font-family: 'Tenor Sans', sans-serif;
+    color: var(--gold-detail);
+    font-size: 2rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.card-desc {
+    color: #ccc;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 35px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+
+/* --- SECTION HISTOIRE --- */
+.histoire {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.histoire-image {
+    flex: 1;
+}
+
+.histoire-image img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    padding: 15px;
+}
+
+.histoire-text {
+    flex: 1;
+    text-align: left;
+}
+
+.histoire-text h2 {
+    font-family: 'Tenor Sans', sans-serif;
+    color: var(--gold-detail);
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.intro-text {
+    font-family: 'Montserrat', sans-serif;
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* LISTE DES VALEURS (Picto + Texte) */
+.valeurs-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.valeur-item {
+    display: flex;
+    align-items: flex-start; /* Aligne en haut */
+    gap: 20px;
+}
+
+.valeur-icon {
+    width: 40px; /* Largeur fixe pour que tout soit aligné */
+    flex-shrink: 0; /* Empêche le picto de s'écraser */
+    display: flex;
+    justify-content: center;
+    padding-top: 5px; /* Petit ajustement optique */
+}
+
+.valeur-icon img {
+    width: 100%;
+    height: auto;
+}
+
+.valeur-content strong {
+    display: block;
+    color: var(--gold-detail);
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.valeur-content p {
+    margin: 0;
+    color: #888;
+    font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.4;
+}
+
+/* Classe utilitaire SEO */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 900px) {
+    .hero-home-overlay {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .histoire {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .histoire-image {
+        order: -1;
+    }
+
+    .histoire-text {
+        text-align: left; /* Garde le texte aligné à gauche même sur mobile pour lisibilité */
+    }
+}

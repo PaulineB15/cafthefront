@@ -139,7 +139,7 @@ const Boutique = () => {
         return (
             <div className="product-list-error">
                 <div className="error-container">
-                    <h3>Une erreur est survenue</h3>
+                    <p>Une erreur est survenue</p>
                     <p>{error}</p>
                     <button
                         onClick={() => window.location.reload()}
@@ -157,9 +157,9 @@ const Boutique = () => {
         <main className="boutique-page">
 
             {/* SECTION HERO */}
-            <section className="hero" style={{ backgroundImage: `url(${HeroBoutique})` }}>
-                <div className="hero-overlay">
-                    <div className="hero-content">
+            <section className="hero-boutique" style={{ backgroundImage: `url(${HeroBoutique})` }}>
+                <div className="hero-boutique-overlay">
+                    <div className="hero-boutique-content">
                         <h1>NOTRE BOUTIQUE</h1>
                         <p>Découvrez notre collection complète de cafés et thés d'exception.</p>
                     </div>
@@ -172,13 +172,13 @@ const Boutique = () => {
                 {/* 1. SIDEBAR (Filtres) */}
                 <aside className="filters-sidebar">
                     <div className="filter-header">
-                        <h2>FILTRES</h2>
+                        <p>FILTRES</p>
                         <button onClick={resetFilters} className="reset-btn">Réinitialiser</button>
                     </div>
 
                     {/* Filtres Catégories */}
                     <div className="filter-group">
-                        <h3>CATÉGORIES</h3>
+                        <h2>CATÉGORIES</h2>
 
                         <div className="filter-section">
                             <span className="filter-subtitle">Cafés</span>
@@ -202,7 +202,7 @@ const Boutique = () => {
 
                     {/* Filtres Prix */}
                     <div className="filter-group">
-                        <h3>PRIX</h3>
+                        <h2>PRIX</h2>
                         <label><input type="radio" name="prix" onChange={() => setPriceRange("Tous")} checked={priceRange === "Tous"} /> Tous les prix</label>
                         <label><input type="radio" name="prix" onChange={() => setPriceRange("moin20")} checked={priceRange === "moin20"} /> Moins de 20€</label>
                         <label><input type="radio" name="prix" onChange={() => setPriceRange("20-50")} checked={priceRange === "20-50"} /> 20€ - 50€</label>
