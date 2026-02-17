@@ -1,0 +1,174 @@
+:root {
+    --gold-detail: #C4A484; /* Définition de la variable si elle n'est pas globale */
+    --dark-bg: #1A1A1A;
+    --text-light: #F5F5F0;
+}
+
+.main-header {
+    background-color: var(--dark-bg);
+    border-bottom: 1px solid #333;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 15px 20px;
+}
+
+.navbar-logo img {
+    height: 120px;
+    width: auto;
+    display: block;
+    transition: opacity 0.3s;
+}
+
+.navbar-logo img:hover {
+    opacity: 0.8;
+}
+
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu a {
+    color: var(--text-light);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease ;
+
+}
+
+.navbar-menu a:hover,
+.navbar-menu a.active {
+    color: var(--gold-detail); /* Couleur dorée/beige de la maquette */
+    text-decoration: underline;
+
+}
+
+/* LOGIN / PANIER */
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.icon-btn:hover {
+    color: var(--gold-detail);
+    transform: translate(0, -2px);
+}
+
+
+/* BARRE DE RECHERCHE */
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: rgba(245, 245, 240, 0.05); /* Très léger contraste sur le fond sombre */
+    border: 1px solid rgba(197, 160, 89, 0.3); /* Bordure Or Mat fine */
+    border-radius: 2px; /* Micro-arrondi de ta charte */
+    padding: 5px 12px;
+    margin: 0 20px;
+    flex: 1; /* Permet à la barre de prendre l'espace disponible */
+    max-width: 300px;
+    transition: border-color 0.3s ease;
+}
+
+/* Changement de bordure au survol de tout le bloc recherche */
+.search-bar:hover,
+.search-bar:focus-within {
+    border-color: var(--gold-detail);
+    box-shadow: 0 0 5px rgba(197, 160, 89, 0.2);
+}
+
+
+.search-input {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    width: 100%;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #D9C5B2; /* Sable de Grès pour le placeholder */
+    opacity: 0.6;
+}
+
+.search-icon-btn {
+    background: none;
+    border: none;
+    color: #C5A059; /* Loupe couleur Or Mat */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    transition: transform 0.2s ease;
+}
+
+.search-icon-btn:hover {
+    transform: scale(1.1);
+    color: #D9C5B2; /* Sable au survol */
+}
+
+
+/* LE BADGE VERT DU PANIER */
+.cart-badge {
+    position: absolute;
+    top: -5px;   /* Ajuste pour monter/descendre */
+    right: -8px; /* Ajuste pour aller à gauche/droite */
+
+    background-color: #4A5D4E; /* BADGE VERT */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+
+    /* Pour faire un rond parfait */
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+
+    /* Pour centrer le chiffre parfaitement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Petit effet d'ombre et bordure pour détacher du fond sombre */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    border: 2px solid var(--dark-bg);
+
+    pointer-events: none; /* Pour que le clic passe au travers si besoin */
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Petite animation bonus quand le badge apparaît */
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
