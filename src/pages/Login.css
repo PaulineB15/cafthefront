@@ -1,0 +1,243 @@
+/* --- Login.css --- */
+
+.auth-page {
+    background-color: #121212;
+    min-height: 100vh;
+    color: #fff;
+    font-family: 'Playfair Display', serif; /* Ou ta police principale */
+}
+
+/* HERO HEADER */
+.auth-hero {
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.user-icon-circle {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #c5a47e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.hero-overlay h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.hero-overlay p {
+    color: #ccc;
+    font-size: 1rem;
+    max-width: 500px;
+    font-family: 'Open Sans', sans-serif; /* Police secondaire */
+}
+
+/* CONTENEUR PRINCIPAL */
+.auth-container {
+    max-width: 600px;
+    margin: -50px auto 50px; /* Chevauchement sur le hero */
+    background: #1a1a1a;
+    border: 1px solid #333;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* ONGLETS */
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid #333;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: #c5a47e;
+    border-bottom: 2px solid #c5a47e;
+    background: #222;
+}
+
+.auth-content {
+    padding: 40px;
+}
+
+/* FORMULAIRES */
+.form-wrapper h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: #888;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+    font-family: sans-serif;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    color: #c5a47e;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* DANS Login.css - Remplace le bloc des inputs par ceci : */
+
+/* On ajoute .auth-container devant pour ne pas toucher à la barre de recherche du site */
+.auth-container input[type="text"],
+.auth-container input[type="email"],
+.auth-container input[type="password"],
+.auth-container input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    background: #121212;
+    border: 1px solid #333;
+    color: #fff;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.auth-container input:focus {
+    border-color: #c5a47e;
+}
+
+/* CHECKBOX & LINKS */
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+.form-footer.column {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.legal-text {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 10px;
+}
+.legal-text a {
+    color: #888;
+    text-decoration: underline;
+}
+
+/* BOUTON SUBMIT */
+.btn-auth {
+    width: 100%;
+    padding: 15px;
+    background: #5a6e5a; /* Le vert CafThé */
+    color: #fff;
+    border: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: background 0.3s;
+}
+
+.btn-auth:hover {
+    background: #4a5e4a;
+}
+
+/* ALERTS */
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+.alert.error {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid #a00;
+    color: #ff6b6b;
+}
+.alert.success {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #0a0;
+    color: #6bff6b;
+}
+
+/* ANIMATION */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .auth-container {
+        margin: 0;
+        border: none;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}

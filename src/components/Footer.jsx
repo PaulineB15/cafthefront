@@ -35,7 +35,7 @@ function Footer() {
                     <h4>INFORMATIONS</h4>
                     <nav aria-label="Liens légaux et aide">
                         <ul className="footer-links">
-                            <li><Link to="/mentions-legales">Mentions légales</Link></li>
+                            <li><Link to="/MentionsLegales">Mentions légales</Link></li>
                             <li><Link to="/cgv">CGV</Link></li>
                             <li><Link to="/plan-du-site">Plan du site</Link></li>
                             <li><Link to="/confidentialite">Politique de confidentialité</Link></li>

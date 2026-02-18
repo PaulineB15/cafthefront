@@ -16,6 +16,9 @@ import { CartProvider } from "./context/CartContext.jsx";
 
 import LivraisonPaiement from "./pages/LivraisonPaiement.jsx";
 import Confirmation from "./pages/Confirmation.jsx";
+import MentionsLegales from "./pages/MentionsLegales.jsx";
+import Confidentialite from "./pages/PolitiqueConfidentialité.jsx";
+import CVG from "./pages/CGV.jsx";
 
 function App() {
 
@@ -33,10 +36,13 @@ function App() {
                             <Route path="produit/:id"  element={<ProductDetails />} />
                             <Route path="login" element={<Login />} />
                             <Route path="contact" element={<Contact />} />
-                            <Route path="faq" element={<FAQ />} />
                             <Route path="panier" element={<Panier />} />
                             <Route path="commande" element={<LivraisonPaiement />} />
                             <Route path="confirmation" element={<Confirmation />} />
+                            <Route path="faq" element={<FAQ />} />
+                            <Route path="MentionsLegales" element={<MentionsLegales />} />
+                            <Route path="confidentialite" element={<Confidentialite />} />
+                            <Route path="cgv" element={<CVG />} />
 
                         </Route>
                     </Routes>

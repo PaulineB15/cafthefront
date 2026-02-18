@@ -1,7 +1,7 @@
 /* --- HERO SECTION (Modifié pour l'alignement Gauche) --- */
 .faq-hero {
     position: relative;
-    height: 70vh;
+    height: 60vh;
     background-size: cover;
     background-position: center;
     display: flex;
