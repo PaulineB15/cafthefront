@@ -1,0 +1,422 @@
+/* --- CONFIGURATION PAGE --- */
+.commande-page {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    min-height: 100vh;
+    padding-top: 0;
+}
+
+/* Réutilisation hero */
+.hero-panier {
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero-panier h1 {
+    font-family: var(--font-title);
+    color: #FFF;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+}
+
+.commande-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* --- SECTIONS GÉNÉRALES --- */
+.checkout-section {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 15px;
+}
+
+/* Icône de titre de section (Dorée) */
+.section-icon {
+    width: 24px;
+    height: 24px;
+    /* Filtre doré */
+    filter: invert(81%) sepia(21%) saturate(735%) hue-rotate(357deg) brightness(91%) contrast(89%);
+}
+
+.checkout-section h2 {
+    font-family: var(--font-title);
+    color: var(--gold-detail);
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+/* --- GRILLE D'OPTIONS (Livraison & Paiement) --- */
+.options-grid {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.sr-only{
+    padding-bottom: 1rem;
+}
+
+/* CARTE D'OPTION (Label) */
+.option-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #1A1A1A;
+    position: relative;
+}
+
+.option-card:hover {
+    border-color: #666;
+    background-color: #252525;
+}
+
+.option-card.active {
+    border-color: var(--gold-detail);
+    background-color: rgba(197, 160, 89, 0.05);
+}
+
+/* Cache le rond radio par défaut et le personnalise si besoin,
+   ou on le garde simple */
+.option-card input[type="radio"] {
+    margin-top: 5px;
+    accent-color: var(--gold-detail);
+}
+
+/* --- ICÔNES BLANCHES --- */
+/* Forcer les SVG Location/Store à être de couleur blanche */
+.option-icon-wrapper img {
+    width: 24px;
+    height: 24px;
+    opacity: 1;
+    /* Ce filtre transforme n'importe quelle couleur en blanc pur */
+    filter: brightness(0) invert(1);
+}
+
+/* --- TEXTES DES OPTIONS --- */
+.option-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Pour centrer le contenu paiement verticalement si pas d'icône à gauche */
+.option-info.full-center {
+    align-items: flex-start;
+}
+
+.option-title {
+    font-weight: bold;
+    color: #FFF;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-family: var(--font-text);
+    text-transform: uppercase;
+}
+
+.option-desc {
+    font-size: 0.8rem; /* un peu plus lisible */
+    color: #AAA;
+    margin: 0 0 8px 0; /* Reset margin p */
+    line-height: 1.4;
+}
+
+.option-price {
+    color: var(--gold-detail);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Style spécifique Paiement */
+.payment-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+
+/* Selecteur transporteur */
+.carrier-choice {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px dashed #444;
+}
+.carrier-choice label {
+    display: block;
+    margin-bottom: 8px;
+    color: #CCC;
+    font-size: 0.9rem;
+}
+.input-select {
+    width: 100%;
+    padding: 10px;
+    background-color: #1A1A1A;
+    border: 1px solid #444;
+    color: #FFF;
+    border-radius: 2px;
+}
+
+/* --- FORMULAIRE ADRESSE --- */
+.form-row { display: flex; gap: 20px; margin-bottom: 20px; }
+.three-cols { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 20px; }
+.form-group { flex: 1; display: flex; flex-direction: column; }
+.form-group.full-width { margin-bottom: 20px; }
+
+label {
+    font-size: 0.75rem;
+    color: #AAA;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input {
+    background-color: #1A1A1A;
+    border: 1px solid #444;
+    padding: 12px 15px;
+    color: #FFF;
+    border-radius: 2px;
+    font-family: var(--font-text);
+    outline: none;
+    transition: 0.3s;
+}
+input:focus { border-color: var(--gold-detail); }
+
+
+/* --- SECURITÉ --- */
+.payment-security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+    border-top: 1px solid #333;
+    padding-top: 15px;
+}
+.lock-icon {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    filter: brightness(0) invert(1); /* Lock en blanc aussi */
+}
+.payment-security p { margin: 0; font-size: 0.8rem; color: #888; }
+
+
+/* --- RÉCAPITULATIF (colonne droite --- */
+.order-summary-box {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 4px;
+    position: sticky;
+    top: 20px;
+    border: 1px solid var(--gold-detail);
+}
+.order-summary-box h3 {
+    font-family: var(--font-title);
+    color: var(--gold-detail);
+    text-align: center;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+
+.mini-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #CCC;
+    margin-bottom: 10px;
+}
+.mini-item p { margin: 0; }
+
+.summary-items-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #444 #222;
+}
+
+hr { border: 0; border-top: 1px solid #444; margin: 20px 0; }
+.summary-line { display: flex; justify-content: space-between; margin-bottom: 15px; color: #DDD; }
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--gold-detail);
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.btn-pay {
+    width: 100%;
+    background-color: var(--gold-detail);
+    color: #121212;
+    border: none;
+    padding: 18px;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 30px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+.btn-pay:hover { background-color: #dcb66d; transform: translateY(-2px); }
+
+.legal-text { font-size: 0.7rem; color: #888888; text-align: center; margin-top: 15px; }
+.legal-text a { text-decoration: underline; color: #888888; }
+
+/* ANIMATION (APPARITION EN DOUCEUR DU FORMULAIRE*/
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.4s ease-out; }
+
+
+/* ======================================================= */
+/* CODE RESPONSIVE MOBILE (CORRIGÉ & CENTRÉ)               */
+/* ======================================================= */
+
+@media (max-width: 900px) {
+
+    /* 1. On réinitialise le conteneur principal pour le mobile */
+    .panier-container {
+        width: 100%;               /* Force la largeur totale */
+        max-width: 100%;           /* Empêche de dépasser */
+        box-sizing: border-box;    /* Important : inclut le padding dans le calcul de la largeur */
+        margin: 0 auto;            /* Centre le bloc s'il reste de la place */
+    }
+
+    /* 2. On empile les colonnes (Produits au-dessus, Résumé en dessous) */
+    .panier-content {
+        display: flex;             /* On passe en Flex pour empiler proprement */
+        flex-direction: column;    /* Vertical */
+        width: 100%;               /* Prend toute la largeur disponible */
+        gap: 30px;                 /* Espace entre la liste et le résumé */
+    }
+
+    /* 3. On s'assure que la liste des produits prend toute la largeur */
+    .cart-items {
+        width: 100%;
+        margin: 0;                 /* Enlève toute marge parasite */
+    }
+
+    /* 4. On s'assure que le résumé prend toute la largeur */
+    .cart-summary {
+        width: 100%;
+        margin: 0;                 /* Enlève toute marge parasite */
+        box-sizing: border-box;    /* Pour que le padding ne dépasse pas de l'écran */
+    }
+
+    /* 5. Design de la Carte Produit Mobile (Identique à avant, mais sécurisé) */
+    .cart-item {
+        display: grid;
+        width: 100%;               /* Force la carte à prendre 100% de la largeur */
+        box-sizing: border-box;    /* Évite que le padding fasse déborder la carte */
+
+        /* Grille : Image | Infos | Delete */
+        grid-template-columns: 80px 1fr auto;
+
+        /* Zones */
+        grid-template-areas:
+            "img info del"
+            "img qty price";
+
+        gap: 15px;
+        align-items: center;
+        padding: 15px;
+    }
+
+    /* --- Placement des éléments dans la grille --- */
+
+    .item-image {
+        grid-area: img;
+        margin: 0;
+    }
+    .item-image img {
+        width: 100%;
+        height: auto;
+        max-height: 80px;
+        object-fit: cover;
+    }
+
+    .item-info {
+        grid-area: info;
+        margin: 0;
+        padding-right: 5px; /* Petite sécu pour ne pas toucher le bouton delete */
+    }
+
+    /* Titre un peu plus petit sur mobile pour éviter que ça casse la mise en page */
+    .item-info h3 {
+        font-size: 1rem;
+    }
+
+    .btn-delete {
+        grid-area: del;
+        justify-self: end;
+        align-self: start;
+        margin: 0;
+        padding: 0; /* Réduit la zone de clic parasite */
+    }
+
+    .item-quantity {
+        grid-area: qty;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0;
+    }
+    /* Cache le label "Quantité :" sur mobile */
+    .item-quantity label { display: none; }
+
+    .item-price {
+        grid-area: price;
+        justify-self: end;
+        text-align: right;
+        margin: 0;
+    }
+}

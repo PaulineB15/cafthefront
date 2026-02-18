@@ -166,7 +166,7 @@ const ProductDetails = () => {
                                 : "Rupture de stock"}
                         </p>
 
-                        {/* 2. SÉLECTEUR DE POIDS (Vrac uniquement) */}
+                        {/* SÉLECTEUR DE POIDS (Vrac uniquement) */}
                         {produit.TYPE_VENTE === 'Vrac' && (
                             <div className="options-vrac">
                                 <label>POIDS :</label>

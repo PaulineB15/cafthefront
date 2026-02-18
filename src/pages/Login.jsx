@@ -1,15 +1,26 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 
 
 const Login = () => {
     const {login} = useContext(AuthContext);
     const navigate = useNavigate();
+    // Email et mot de passe pour l'identification
     const [email, setEmail] = useState("");
     const [motDePasse, setMotDePasse] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+
+    // C'est pour savoir d'où vient l'utilisateur
+    const location = useLocation();
+
+    // Si "location.state.from" existe, c'est notre destination, sinon -> home.jsx (Accueil)
+    // ?. dit à React : "Essaye de lire from seulement si state existe. Sinon, ne plante pas et renvoie undefined
+    const from = location.state?.from || "/"; // || --> OU la page d'accueil "/"
+    // Cette variable from contient maintenant soit "/commande" (si on vient du panier), soit "/" (par défaut
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,7 +53,14 @@ const Login = () => {
             login(data.client);
 
             // Puis retour à l'accueil
-            navigate("/");
+            // navigate("/");
+
+            // Au lieu de navigate("/"), on va vers la variable "from"
+            // Si on vient du panier, on ira vers "/commande"
+            navigate(from, { replace: true });
+            // replace: true pour éviter que l'utilisateur ne
+            // retombe sur la page de connexion s'il clique sur le bouton 'Retour'.
+            // Cela remplace la page Login par la page Commande dans l'historique du navigateur.
 
         } catch (error) {
             console.error("Erreur lors de la connexion: ", error);

@@ -3,15 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext.jsx";
 import { AuthContext } from "../context/AuthContext.jsx"; // Pour vérifier si connecté
 import HeroPanier from "../assets/photo/HeroPanier.webp";
+import Corbeille from "../assets/picto/Corbeille.svg";
 import "./Panier.css";
+import Lock from "../assets/picto/lock.svg";
 
-// Petites icônes SVG pour la corbeille et les boutons
-const TrashIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="3 6 5 6 21 6"></polyline>
-        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-    </svg>
-);
 
 const Panier = () => {
     // 1. On récupère les données du Panier
@@ -23,21 +18,28 @@ const Panier = () => {
 
     // 3. Gestion du Code Promo (Local à cette page)
     const [promoCode, setPromoCode] = useState("");
-    const [remise, setRemise] = useState(0); // Montant de la remise
+    const [isPromoValid, setIsPromoValid] = useState(false); // On stocke si le code est valide ou non
     const [messagePromo, setMessagePromo] = useState("");
 
-    // --- LOGIQUE DES CALCULS ---
-    const fraisLivraison = cartTotal > 50 ? 0 : 4.90;
-    const totalFinal = cartTotal + fraisLivraison - remise;
 
-    // Fonction pour appliquer le code promo
+    // --- LOGIQUE DES CALCULS (Automatique) ---
+    // 1. Calcul de la remise (Si code valide : 20% du total, sinon 0)
+    const montantRemise = isPromoValid ? (cartTotal * 0.20) : 0;
+
+    // 2. Frais de port (Gratuit si > 50€ APRES remise ou AVANT remise ? Souvent avant)
+    // Ici : Gratuit si le sous-total dépasse 50€
+    const fraisLivraison = cartTotal > 50 ? 0 : 4.90;
+
+    // 3. Total final
+    const totalFinal = cartTotal + fraisLivraison - montantRemise;
+
+    // Fonction pour vérifier le code
     const handleApplyPromo = () => {
-        if (promoCode.toUpperCase() === "BIENVENUE20") {
-            const montantRemise = cartTotal * 0.20; // 20%
-            setRemise(montantRemise);
+        if (promoCode.trim().toUpperCase() === "BIENVENUE20") {
+            setIsPromoValid(true);
             setMessagePromo("Code promo appliqué : -20%");
         } else {
-            setRemise(0);
+            setIsPromoValid(false);
             setMessagePromo("Code promo invalide");
         }
     };
@@ -46,11 +48,16 @@ const Panier = () => {
     const handleCheckout = () => {
         if (cart.length === 0) return;
 
+        // Est-ce que l'utilisateur est identifié ?
         if (isAuthenticated) {
-            navigate("/commande"); // Vers la page livraison/paiement (à créer plus tard)
+            // Situation 1: OUI, il est déjà connecté - Direct sur commande
+            navigate("/commande");
+            // Situation 2: NON, il n'est pas connecté. Login
         } else {
-            // On l'envoie se connecter, mais on lui dit de revenir ici après !
-            navigate("/login");
+            // Diriger l'utilisateur pour se connecter sur son compte avant de passer commande
+            // Ajout d'un "state" pour dire qu'on voulait aller à la page LivraisonPaiement.jsx
+            // Le but ici est de dire "Va te connecter mais souviens-toi que tu voulais aller sur l'url cafthe/commande (Route dans APP.JSX)
+            navigate("/login", {state: {from:"/commande"}});
         }
     };
 
@@ -71,7 +78,7 @@ const Panier = () => {
                 {cart.length === 0 ? (
                     <div className="empty-cart">
                         <p>Votre panier est vide pour le moment.</p>
-                        <Link to="/boutique" className="btn-gold">Retourner à la boutique</Link>
+                        <Link to="/boutique" className="button">Retourner à la boutique</Link>
                     </div>
                 ) : (
                     <div className="panier-content">
@@ -115,13 +122,16 @@ const Panier = () => {
 
                                         {/* Prix */}
                                         <div className="item-price">
-                                            <span className="unit-price">{prixUnitaire.toFixed(2)} € / unit</span>
+                                            {/*<span className="unit-price">{prixUnitaire.toFixed(2)} € / unité</span>*/}
                                             <span className="total-row-price">{totalLigne.toFixed(2)} €</span>
+                                            <span>{item.isVrac ? ` / ${item.poids * 1000}g`:' / unité'}</span>
                                         </div>
 
                                         {/* Supprimer */}
-                                        <button className="btn-delete" onClick={() => removeFromCart(item.cartId)}>
-                                            <TrashIcon />
+                                        <button className="btn-delete" onClick={() => removeFromCart(item.cartId)}
+                                        aria-label="Supprimer le produit du panier">
+
+                                            <img src={Corbeille} alt="Pictogramme supprimer" className="trash-icon-img" />
                                         </button>
                                     </div>
                                 );
@@ -131,9 +141,10 @@ const Panier = () => {
                             </div>
                         </div>
 
+
                         {/* COLONNE DROITE : RÉCAPITULATIF */}
                         <div className="cart-summary">
-                            <h2>RÉCAPITULATIF</h2>
+                            <h2>Récapitulatif</h2>
 
                             {/* Code Promo */}
                             <div className="promo-code">
@@ -147,20 +158,26 @@ const Panier = () => {
                                     />
                                     <button onClick={handleApplyPromo}>APPLIQUER</button>
                                 </div>
-                                {messagePromo && <p className="promo-msg">{messagePromo}</p>}
+                                {/* Message de succès ou d'erreur */}
+                                {messagePromo && (
+                                    <p className="promo-msg" style={{color: isPromoValid ? '#27ae60' : '#e74c3c'}}>
+                                        {messagePromo}
+                                    </p>
+                                )}
                             </div>
 
-                            <hr />
+                           <hr className="separator"/>
 
                             <div className="summary-row">
                                 <span>Sous-total</span>
                                 <span>{cartTotal.toFixed(2)} €</span>
                             </div>
 
-                            {remise > 0 && (
+                            {/* Affichage conditionnel de la remise */}
+                            {isPromoValid && (
                                 <div className="summary-row promo">
-                                    <span>Remise</span>
-                                    <span>- {remise.toFixed(2)} €</span>
+                                    <span>Remise (20%)</span>
+                                    <span> {montantRemise.toFixed(2)} €</span>
                                 </div>
                             )}
 
@@ -168,7 +185,12 @@ const Panier = () => {
                                 <span>Frais de livraison</span>
                                 <span>{fraisLivraison === 0 ? "Gratuit" : `${fraisLivraison} €`}</span>
                             </div>
-                            {fraisLivraison > 0 && <p className="free-shipping-hint">Livraison gratuite dès 50€</p>}
+
+                            {fraisLivraison > 0 &&
+                                <p className="free-shipping-hint">
+                                    (Gratuit dès 50€)
+                                </p>
+                            }
 
                             <div className="summary-total">
                                 <span>TOTAL</span>
@@ -179,9 +201,9 @@ const Panier = () => {
                                 PASSER LA COMMANDE →
                             </button>
 
-                            <div className="secure-payment">
-                                <p>🔒 Paiement 100% sécurisé</p>
-                                <p className="small">Carte bancaire, PayPal, Virement</p>
+                            <div className="payment-security">
+                                <img src={Lock} alt="" className="lock-icon" />
+                                <p>Paiement 100% sécurisé et crypté</p>
                             </div>
                         </div>
 

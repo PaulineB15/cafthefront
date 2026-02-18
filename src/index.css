@@ -1,85 +1,143 @@
-/* IMPORT DES FONTS */
+/* =========================================
+   1. IMPORTS & RESET
+   ========================================= */
+/* Un seul import pour toutes les graisses de Montserrat et Tenor Sans */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap');
 
-
+/* Reset de base */
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Important pour que les padding ne cassent pas la largeur */
+  box-sizing: border-box;
 }
 
-/* STYLE GENERAL */
+/* Images fluides par défaut (évite qu'elles dépassent) */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
+/* =========================================
+   2. VARIABLES GLOBALES (:ROOT)
+   ========================================= */
 :root {
-  --bg-dark: #1A1A1A; /* Couleur background*/
+  /* Couleurs de ta charte */
+  --bg-dark: #1A1A1A;
   --text-light: #F5F5F0;
-  --green-cta: #4A5D4E;
+  --green-cta: #4A5D4E;       /* Ton vert spécifique */
+  --green-hover: #3b4b3e;     /* Ton vert au survol */
   --gold-detail: #C5A059;
   --sand-text: #D9C5B2;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0;
+
+  /* Polices (Variables pour ne pas répéter les noms partout) */
+  --font-title: 'Tenor Sans', sans-serif;
+  --font-text: 'Montserrat', sans-serif;
+}
+
+/* =========================================
+   3. STYLE GÉNÉRAL (BODY & HTML)
+   ========================================= */
+html {
+  scroll-behavior: smooth; /* Défilement fluide */
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-text);
   background-color: var(--bg-dark);
   color: var(--text-light);
+  line-height: 1.6; /* Meilleure lisibilité globale */
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased; /* Rendu de police plus net sur Mac */
 }
 
-/* TITRES */
-
-h1 {
-  font-family: 'Tenor Sans', sans-serif;
-  color: var(--text-light);
-  font-size: 56px;
-  text-transform: uppercase;
+/* =========================================
+   4. TYPOGRAPHIE GLOBALE
+   ========================================= */
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
   font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 1rem; /* Espace par défaut sous les titres */
 }
 
+/* H1 : Titre principal */
+h1 {
+  color: var(--text-light);
+  /* Clamp permet une taille fluide entre 2.5rem (mobile) et 3.5rem (desktop) */
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  line-height: 1.1;
+}
+
+/* H2 : Titres de sections */
 h2 {
-  font-family: 'Tenor Sans', sans-serif;
   color: var(--gold-detail);
-  font-size: 40px;
-  text-transform: uppercase;
+  font-size: clamp(2rem, 4vw, 2.5rem); /* Env. 32px à 40px */
 }
 
+/* H3 : Sous-titres */
 h3 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-text); /* Tu avais mis Montserrat pour H3 */
   color: var(--sand-text);
-  font-size: 18px;
-  font-weight: lighter;
-  text-transform: uppercase;
+  font-size: 1.125rem; /* 18px */
+  font-weight: 300; /* Lighter */
+  letter-spacing: 1px;
 }
 
 p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-text);
   color: var(--text-light);
-  font-size: 18px;
+  font-size: 1rem; /* Base standard (16px) - 18px peut faire gros sur mobile */
   font-weight: 300;
+  margin-bottom: 1rem;
 }
-/* BOUTONS */
-/* Bouton principal (Vert) */
-.button {
+
+/* Liens par défaut */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+/* =========================================
+   5. COMPOSANTS GLOBAUX (BOUTONS)
+   ========================================= */
+/* On crée une classe générique .btn que tu pourras utiliser partout */
+.btn {
   display: inline-block;
-  background-color: var(--green-cta);
-  color: var(--text-light);
   padding: 15px 35px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-text);
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px */
   letter-spacing: 1px;
   font-weight: 600;
-  border-radius: 2px; /* Micro-arrondi luxe */
+  border-radius: 2px;
   border: 1px solid transparent;
   cursor: pointer;
-  margin-top: 20px;
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-.button:hover {
-  background-color: #3b4b3e; /* Un peu plus foncé */
-  border-color: var(--gold-detail); /* Bordure or au survol */
+/* Style primaire (Vert) */
+.btn-primary {
+  background-color: var(--green-cta);
+  color: var(--text-light);
 }
 
+.btn-primary:hover {
+  background-color: var(--green-hover);
+  border-color: var(--gold-detail); /* Petit détail chic */
+  transform: translateY(-2px); /* Petit effet de levée */
+}
+
+/* Style secondaire (Contour doré - optionnel, utile pour la home) */
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--gold-detail);
+  color: var(--gold-detail);
+}
+
+.btn-secondary:hover {
+  background-color: var(--gold-detail);
+  color: var(--bg-dark);
+}

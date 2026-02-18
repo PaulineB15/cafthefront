@@ -5,7 +5,7 @@ export const CartContext = createContext(null);
 
 export const CartProvider = ({children}) => {
 
-    // Initialise le panier
+    // Initialise le panier (localStorage)
     const [cart, setCart] = useState(() => {
         const savedCart = localStorage.getItem('panierCafThe'); //panierCafThe = Clé(nom du fichier de sauvegarde) dans localStorage
         return savedCart ? JSON.parse(savedCart) : [];
@@ -76,6 +76,13 @@ export const CartProvider = ({children}) => {
         setCart(prevCart => prevCart.filter(item => item.cartId !== cartId));
     };
 
+
+    // VIDER LE PANIER
+    const clearCart = () => {
+        setCart([]); // Remet le panier à un tableau vide
+        localStorage.removeItem('panierCafThe'); // Vide le localStorage
+    }
+
     // CALCULS DU NOMBRE DE PRODUIT DANS LE PANIER ET DU PRIX TOTAL
 
     // Nombre de produits dans le panier (pour la notification sur le panier)
@@ -100,6 +107,7 @@ export const CartProvider = ({children}) => {
         addToCart,
         updateQuantite,
         removeFromCart,
+        clearCart, // Vide le panier et le localStorage
         totalItems, // Pour la notification sur le panier dans la NavBar
         cartTotal}; // Pour le prix total du panier
 

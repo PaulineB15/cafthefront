@@ -9,13 +9,13 @@ import Contact from "./pages/Contact.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import Panier from "./pages/Panier.jsx";
 
+
 // 1. IMPORT DU CONTEXTE AUTH ET CART
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 
-
-// import Commande from "./pages/Commande.jsx";
-// import Confirmation from "./pages/Confirmation.jsx";
+import LivraisonPaiement from "./pages/LivraisonPaiement.jsx";
+import Confirmation from "./pages/Confirmation.jsx";
 
 function App() {
 
@@ -34,13 +34,10 @@ function App() {
                             <Route path="login" element={<Login />} />
                             <Route path="contact" element={<Contact />} />
                             <Route path="faq" element={<FAQ />} />
-
-                            {/* AJOUT DE LA ROUTE PANIER */}
                             <Route path="panier" element={<Panier />} />
+                            <Route path="commande" element={<LivraisonPaiement />} />
+                            <Route path="confirmation" element={<Confirmation />} />
 
-                            {/* Routes futures (à décommenter quand tu créeras les fichiers) */}
-                            {/* <Route path="commande" element={<Commande />} /> */}
-                            {/* <Route path="confirmation" element={<Confirmation />} /> */}
                         </Route>
                     </Routes>
                 </BrowserRouter>

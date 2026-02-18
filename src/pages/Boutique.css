@@ -1,99 +1,129 @@
+/* =========================================
+   PAGE BOUTIQUE
+   ========================================= */
 
+/* --- HERO SECTION --- */
 .hero-boutique {
     position: relative;
-    height: 70vh;
+    /* Hauteur un peu réduite sur mobile, ajustée sur desktop */
+    height: 60vh;
+    min-height: 400px;
     background-size: cover;
     background-position: center;
-    display: flex; /* Permet à l'overlay de prendre toute la place */
-    justify-content: center;
-}
-
-.hero-boutique-overlay {
-    background-color: rgba(0, 0, 0, 0.5); /* Voile noir */
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.hero-boutique-overlay {
+    background-color: rgba(0, 0, 0, 0.6); /* Un peu plus sombre pour lisibilité texte */
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-boutique-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+}
+
+/* Le titre H1 est déjà géré globalement dans index.css,
+   on peut juste ajuster la marge ici si besoin */
 .hero-boutique-content h1 {
     margin-bottom: 20px;
 }
 
 .hero-boutique-content p {
-    line-height: 1.6;
+    font-size: 1.125rem; /* 18px */
+    color: #eee;
 }
 
 /* --- WRAPPER GLOBAL (Sidebar + Liste) --- */
 .boutique-content-wrapper {
-    display: flex; /* Active le mode colonne gauche / droite */
+    display: flex;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 60px 40px;
+    padding: 60px 5%; /* % pour s'adapter aux écrans */
     gap: 50px;
+    align-items: flex-start; /* Important pour que la sidebar ne s'étire pas */
 }
 
-/* --- SIDEBAR (Gauche) --- */
+/* --- SIDEBAR (Filtres - Gauche) --- */
 .filters-sidebar {
     width: 250px;
-    flex-shrink: 0;
-    color: var(--text-light);
+    flex-shrink: 0; /* Empêche la sidebar de rétrécir */
+    background-color: rgba(255, 255, 255, 0.02); /* Très léger fond pour délimiter */
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #333;
 }
 
 .filter-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--gold-detail);
+    padding-bottom: 10px;
 }
 
 .filter-header p {
-font-size: 1rem;
-}
-
-
-.filter-group h2 {
-    font-size: 1rem;
-    margin-bottom: 20px;
+    font-family: var(--font-title);
+    color: var(--gold-detail);
+    font-size: 1.2rem;
+    margin: 0;
 }
 
 .reset-btn {
     background: none;
     border: none;
     color: #888;
+    font-size: 0.85rem;
     text-decoration: underline;
     cursor: pointer;
+    transition: color 0.3s;
+}
+
+.reset-btn:hover {
+    color: var(--text-light);
 }
 
 .filter-group {
     margin-bottom: 30px;
 }
 
-.filter-group h4 {
-    font-size: 0.9rem;
-    color: var(--gold-detail);
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
+.filter-group h2 {
+    /* Surcharge du H2 global pour qu'il soit plus petit dans la sidebar */
+    font-size: 1rem;
+    color: var(--text-light);
     margin-bottom: 15px;
+    border-left: 3px solid var(--gold-detail);
+    padding-left: 10px;
 }
 
 .filter-section {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .filter-subtitle {
-    font-weight: bold;
-    color: #fff;
+    font-weight: 600;
+    color: var(--sand-text);
     margin-bottom: 5px;
     display: block;
     font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
+/* Style des Inputs Radio customisés */
 .filters-sidebar label {
     display: flex;
     align-items: center;
@@ -101,7 +131,7 @@ font-size: 1rem;
     color: #ccc;
     font-size: 0.9rem;
     cursor: pointer;
-    margin-bottom: 5px;
+    transition: color 0.2s;
 }
 
 .filters-sidebar label:hover {
@@ -109,140 +139,232 @@ font-size: 1rem;
 }
 
 .filters-sidebar input[type="radio"] {
-    accent-color: var(--gold-detail);
+    accent-color: var(--gold-detail); /* Couleur native du navigateur pour le bouton */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
 }
+
 
 /* --- PRODUCT LIST (Droite) --- */
 .product-list-section {
     flex-grow: 1; /* Prend tout l'espace restant */
+    width: 100%; /* Sécurité */
 }
 
 .results-count {
     color: #888;
     margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-align: right; /* Alignement propre à droite */
 }
 
-/* Ta classe .product-list devient une grille */
+/* GRILLE DES PRODUITS */
 .product-list {
     display: grid;
-    /* Grid responsive : minimum 250px de large par carte */
+    /* Grid responsive magique : crée autant de colonnes que possible de min 260px */
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 30px;
 }
 
 .no-results {
     text-align: center;
-    padding: 50px;
+    padding: 80px 0;
     font-size: 1.2rem;
     color: #888;
-}
-
-/* --- STYLE DU SKELETON (Pour que ça ressemble à des cartes) --- */
-.product-list-skeleton-container {
-    padding: 60px 10%;
-}
-.product-skeleton {
-    display: flex;
-    flex-direction: column;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 900px) {
-    .boutique-content-wrapper {
-        flex-direction: column;
-    }
-    .filters-sidebar {
-        width: 100%;
-        margin-bottom: 30px;
-        border-bottom: 1px solid #333;
-        padding-bottom: 20px;
-    }
-}
-
-/* --- GRILLE DES PRODUITS --- */
-/* Cela crée des colonnes automatiques */
-.product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-    width: 100%;
-}
-
-/* --- LA CARTE (Le cadre noir) --- */
-.product-card {
-    background-color: #222; /* Fond sombre */
-    border: 1px solid #333;
+    border: 1px dashed #444;
     border-radius: 4px;
+}
+
+
+/* --- CARTE PRODUIT (ProductCard) --- */
+/* (Je l'intègre ici pour que tout soit au même endroit,
+    mais tu pourrais aussi avoir un ProductCard.css séparé) */
+
+.product-card {
+    background-color: #222;
+    border: 1px solid #333;
+    border-radius: 2px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; -> On enlève pour laisser le texte s'aligner naturellement */
     text-align: center;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    height: 100%; /* Important pour que toutes les cartes aient la même hauteur */
 }
 
 .product-card:hover {
-    border-color: #C5A059; /* Bordure Or au survol */
+    border-color: var(--gold-detail);
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* --- L'IMAGE (Magie du 210x210) --- */
 .card-image-wrapper {
-    background-color: #fff; /* Fond blanc derrière l'image propre */
-    padding: 10px;
+    background-color: #fff;
+    padding: 15px;
     border-radius: 2px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* Ratio carré parfait */
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
 }
 
 .product-card img {
-    width: 210px;      /* Largeur FORCÉE */
-    height: 210px;     /* Hauteur FORCÉE */
-    object-fit: cover; /* Coupe l'image pour qu'elle remplisse le carré sans être écrasée */
-    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* L'image ne sera pas coupée */
+    transition: transform 0.5s ease;
 }
 
-/* --- TEXTES & BOUTON --- */
+.product-card:hover img {
+    transform: scale(1.05); /* Petit zoom au survol */
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Remplit l'espace pour pousser le bouton en bas */
+}
+
 .card-info h3 {
-    color: #F5F5F0;
-    font-family: 'Tenor Sans', sans-serif;
+    color: var(--text-light);
+    font-family: var(--font-title);
     font-size: 1.1rem;
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     text-transform: uppercase;
-    height: 3em; /* Hauteur fixe pour aligner les titres */
+    /* Limite à 2 lignes pour éviter les décalages */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
+    height: 2.8em;
 }
 
 .card-details {
     color: #888;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
 }
 
 .card-price {
-    color: #C5A059; /* Or */
-    font-weight: bold;
-    font-size: 1.2rem;
+    color: var(--gold-detail);
+    font-weight: 700; /* Bold */
+    font-size: 1.25rem;
     margin-bottom: 20px;
+    margin-top: auto; /* Pousse le prix vers le bas si le titre est court */
 }
 
 .btn-detail {
     display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #F5F5F0;
-    color: #F5F5F0;
+    padding: 12px 20px;
+    background-color: transparent;
+    border: 1px solid var(--text-light);
+    color: var(--text-light);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 0.8rem;
-    transition: 0.3s;
-    margin-top: auto; /* Pousse le bouton en bas */
+    font-weight: 600;
+    transition: all 0.3s;
+    width: 100%; /* Bouton pleine largeur */
 }
 
 .btn-detail:hover {
-    background-color: #C5A059;
-    border-color: #C5A059;
-    color: #1A1A1A;
+    background-color: var(--gold-detail);
+    border-color: var(--gold-detail);
+    color: var(--bg-dark);
+}
+
+
+/* --- SKELETON LOADER --- */
+.product-list-skeleton-container {
+    padding: 60px 10%;
+}
+
+
+/* =========================================
+   RESPONSIVE (MEDIA QUERIES)
+   ========================================= */
+
+/* Tablette (max 1024px) */
+@media (max-width: 1024px) {
+    .boutique-content-wrapper {
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .filters-sidebar {
+        width: 220px;
+    }
+}
+
+/* Mobile (max 900px) -> On passe en colonne */
+@media (max-width: 900px) {
+    .boutique-content-wrapper {
+        flex-direction: column;
+    }
+
+    .filters-sidebar {
+        width: 100%; /* Prend toute la largeur */
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+    }
+
+    /* On peut mettre les filtres en Grid sur mobile pour gagner de la place */
+    .filter-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        border-bottom: 1px solid #333;
+        padding-bottom: 20px;
+    }
+
+    .filter-group h2 {
+        width: 100%; /* Le titre prend toute la ligne */
+        border: none;
+        padding: 0;
+        margin-bottom: 10px;
+        text-decoration: underline decoration-color: var(--gold-detail);
+    }
+
+    .filter-section {
+        flex: 1;
+        min-width: 140px; /* Taille min pour chaque bloc de filtre */
+    }
+
+    .hero-boutique {
+        height: 40vh;
+        min-height: 300px;
+    }
+
+    .product-list {
+        /* Sur mobile, on force parfois 1 ou 2 colonnes selon la largeur */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Cartes plus petites */
+        gap: 15px;
+    }
+
+    /* Ajustement des cartes pour petit écran */
+    .product-card {
+        padding: 10px;
+    }
+
+    .card-image-wrapper {
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    .card-info h3 {
+        font-size: 0.9rem;
+        height: auto; /* Hauteur auto sur mobile */
+    }
+
+    .btn-detail {
+        padding: 8px;
+        font-size: 0.75rem;
+    }
 }

@@ -1,186 +1,181 @@
 /* =========================================
-      PAGE ACCUEIL (HOME)
+      PAGE ACCUEIL (SPÉCIFIQUE)
    ========================================= */
 
+/* --- LAYOUT & ESPACEMENTS --- */
 .home-page {
-    width: 100%;
+    overflow-x: hidden;
 }
 
-/* Padding standard pour les sections */
-.selection, .histoire, .Offre-section {
+/* Classe utilitaire pour uniformiser les paddings des sections */
+.section-padding {
     padding: 80px 10%;
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* --- SECTION HERO --- */
+/* --- HERO SECTION --- */
 .hero-home {
     position: relative;
-    height: 85vh; /* Hauteur écran accueil */
+    height: 85vh;
+    min-height: 400px;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
+    align-items: center; /* Centre verticalement */
 }
 
+/* Overlay sombre pour lisibilité du texte */
 .hero-home-overlay {
-    background-color: rgba(0, 0, 0, 0.4);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center; /* Centre verticalement */
-    padding-left: 10%;   /* Aligne à gauche */
-    box-sizing: border-box;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
+    z-index: 1;
 }
 
 .hero-home-content {
+    position: relative;
+    z-index: 2;
     max-width: 650px;
-    text-align: left; /* Force l'alignement gauche */
+    padding-left: 10%; /* S'aligne avec le padding global */
 }
 
+/* On surcharge le H1 global juste pour le hero si besoin d'espacement spécifique */
 .hero-home-content h1 {
     margin-bottom: 25px;
-    font-size: 3.5rem;
-    font-family: 'Tenor Sans', sans-serif;
-    color: #F5F5F0;
-    line-height: 1.1;
-    text-transform: uppercase;
 }
 
 .hero-home-content p {
-    line-height: 1.6;
-    margin-bottom: 40px; /* Espace avant le bouton */
-    font-family: 'Montserrat', sans-serif;
     color: #eee;
-    font-size: 1.1rem;
-    font-weight: 300;
-}
-
-/* BOUTONS (Tous verts comme demandé) */
-.button, .button-dark {
-    display: inline-block;
-    padding: 15px 30px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    letter-spacing: 1px;
-    transition: 0.3s;
-    border-radius: 2px;
-    background-color: var(--green-cta);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-.button:hover, .button-dark:hover {
-    background-color: #5a715f;
-    transform: translateY(-2px);
+    font-size: 1.125rem; /* 18px un peu plus grand pour l'intro */
+    margin-bottom: 40px;
 }
 
 
-/* --- SECTION SELECTION --- */
+/* --- SECTION SÉLECTION --- */
 .selection {
     text-align: center;
-}
-.selection h2 {
-    font-family: 'Tenor Sans', sans-serif;
-    color: var(--gold-detail);
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-}
-.selection-grid {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    margin-top: 40px;
-    flex-wrap: wrap;
+    background-color: #222; /* Légère nuance par rapport au fond noir */
 }
 
+/* Grille responsive automatique */
+.selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    margin-top: 50px;
+}
+
+
 /* --- SECTION OFFRES --- */
-.Offre-section {
+
+/* --- SECTION OFFRES --- */
+.offre-section {
+    background-color: var(--bg-dark);
+    text-align: center; /* Centre le titre H2 */
+}
+
+/* On ajoute un peu d'espace sous le titre pour qu'il ne colle pas aux cartes */
+.offre-section h2 {
+    margin-bottom: 50px;
+    color: var(--gold-detail); /* S'assure qu'il est bien doré */
+}
+
+/* Nouveau conteneur pour les cartes uniquement */
+.offres-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-    justify-content: center;
+    justify-content: center; /* Centre les cartes au milieu de l'écran */
 }
 
-.card-offre, .card-fidelite {
-    flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-    /* On force une hauteur minimale pour donner l'aspect carré sans casser le contenu */
-    padding: 60px 40px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centre horizontalement */
-    justify-content: center; /* Centre verticalement */
-    text-align: center;
-
-    box-sizing: border-box;
-}
+/* Style des cartes */
 
 .card-offre {
+    flex: 1;
+    min-width: 300px; /* Sur mobile, la carte ne sera pas écrasée */
+    max-width: 450px; /* Sur grand écran, elle ne sera pas géante */
+
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-radius: 2px;
+
     background-color: #222;
     border: 1px solid #333;
+    transition: transform 0.3s ease;
 }
 
-.card-fidelite {
-    background-color: var(--bg-dark); /* #1A1A1A */
+/* Variante dorée */
+.card-offre.gold-border {
+    background-color: var(--bg-dark);
     border: 1px solid var(--gold-detail);
 }
 
+.card-offre:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
 .card-header {
-    display: flex;           /* Met les éléments côte à côte */
-    align-items: center;     /* Centre verticalement */
-    justify-content: center; /* Centre horizontalement */
-    gap: 15px;               /* Espace entre le texte et l'image */
-    margin-bottom: 20px;     /* Espace sous le bloc titre/image */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Important pour centrer le contenu header */
+    gap: 15px;
+    margin-bottom: 20px;
     width: 100%;
 }
 
-.card-header h3 {
-    font-family: 'Tenor Sans', sans-serif;
-    color: #fff;
-    font-size: 1.2rem;
-    margin: 0;               /* On enlève les marges pour un alignement parfait */
-    text-transform: uppercase;
-    line-height: 1;          /* Évite que la hauteur de ligne décalé l'image */
-    padding-bottom: 15px;
+.card-header img {
+    width: 24px;
+    height: auto;
 }
 
-.card-header img {
-    width: 20px;             /* Taille ajustée du picto */
-    height: auto;
-    display: block;
-    padding-bottom: 15px;
+.card-header h3 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--gold-detail);
+    padding-bottom: 5px;
+    text-transform: uppercase;
 }
 
 .promotion-titre {
-    font-family: 'Tenor Sans', sans-serif;
+    font-family: var(--font-title);
     color: var(--gold-detail);
     font-size: 2rem;
+    text-transform: uppercase;
     margin-bottom: 15px;
     line-height: 1.2;
-    text-transform: uppercase;
 }
 
 .card-desc {
-    color: #ccc;
-    font-family: 'Montserrat', sans-serif;
-    margin-bottom: 35px;
+    color: var(--sand-text);
     font-size: 0.95rem;
-    line-height: 1.5;
+    margin-bottom: 35px;
+    flex-grow: 1;
 }
-
 
 /* --- SECTION HISTOIRE --- */
 .histoire {
     display: flex;
     align-items: center;
     gap: 80px;
+    /* Fond blanc pour casser le rythme sombre (optionnel, sinon retirer) */
+    background-color: #F9F9F9;
+    color: #1A1A1A; /* Texte sombre sur fond clair */
+}
+
+/* Si fond clair, on adapte les titres */
+.histoire h2 {
+    color: #1A1A1A;
+}
+.histoire p {
+    color: #555;
 }
 
 .histoire-image {
@@ -188,97 +183,58 @@
 }
 
 .histoire-image img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border: 1px solid rgba(197, 160, 89, 0.3);
+    border: 1px solid rgba(197, 160, 89, 0.5);
     padding: 15px;
+    background: #fff;
 }
 
 .histoire-text {
     flex: 1;
-    text-align: left;
 }
 
-.histoire-text h2 {
-    font-family: 'Tenor Sans', sans-serif;
-    color: var(--gold-detail);
-    font-size: 2rem;
-    margin-bottom: 30px;
-    text-transform: uppercase;
-}
-
-.intro-text {
-    font-family: 'Montserrat', sans-serif;
-    color: #ccc;
-    line-height: 1.8;
-    margin-bottom: 20px;
-}
-
-/* LISTE DES VALEURS (Picto + Texte) */
+/* LISTE VALEURS */
 .valeurs-list {
-    margin-top: 30px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
 }
 
 .valeur-item {
     display: flex;
-    align-items: flex-start; /* Aligne en haut */
     gap: 20px;
+    align-items: flex-start;
 }
 
 .valeur-icon {
-    width: 40px; /* Largeur fixe pour que tout soit aligné */
-    flex-shrink: 0; /* Empêche le picto de s'écraser */
-    display: flex;
-    justify-content: center;
-    padding-top: 5px; /* Petit ajustement optique */
-}
-
-.valeur-icon img {
-    width: 100%;
-    height: auto;
+    width: 50px;
+    flex-shrink: 0;
 }
 
 .valeur-content strong {
     display: block;
-    color: var(--gold-detail);
-    font-family: 'Tenor Sans', sans-serif;
-    font-size: 1rem;
+    font-family: var(--font-title);
+    color: #C5A059; /* On force le doré ici */
+    font-size: 1.1rem;
     margin-bottom: 5px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.valeur-content p {
-    margin: 0;
-    color: #888;
-    font-size: 0.9rem;
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.4;
-}
-
-/* Classe utilitaire SEO */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
 }
 
 
 /* --- RESPONSIVE MOBILE --- */
 @media (max-width: 900px) {
-    .hero-home-overlay {
-        padding-left: 20px;
-        padding-right: 20px;
+    .section-padding {
+        padding: 60px 5%; /* Moins de marge sur les côtés */
+    }
+
+    .hero-home-content {
+        padding: 40px 20px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .hero-home-content h1 {
+        font-size: 2.5rem; /* Ajustement titre mobile */
     }
 
     .histoire {
@@ -286,11 +242,14 @@
         text-align: center;
     }
 
+    /* On remet l'image au dessus du texte */
     .histoire-image {
         order: -1;
+        width: 100%;
+        max-width: 400px;
     }
 
-    .histoire-text {
-        text-align: left; /* Garde le texte aligné à gauche même sur mobile pour lisibilité */
+    .valeur-item {
+        text-align: left; /* Garde les valeurs alignées à gauche pour lisibilité */
     }
 }

@@ -1,18 +1,19 @@
-/* --- STRUCTURE GLOBALE --- */
+/* --- 1. CONFIGURATION GÉNÉRALE --- */
 .panier-page {
-    background-color: #121212; /* Fond très sombre */
-    color: #F5F5F0;
+    background-color: var(--bg-dark); /* #1A1A1A */
+    color: var(--text-light);         /* #F5F5F0 */
     min-height: 100vh;
 }
 
 .panier-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 20px;
 }
 
+/* --- 2. HÉRO PANIER --- */
 .hero-panier {
-    height: 200px;
+    height: 60vh;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -20,42 +21,62 @@
     align-items: center;
     justify-content: center;
 }
+
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Filtre sombre */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .hero-panier h1 {
-    font-size: 2.5rem;
+    font-family: var(--font-title);   /* Tenor Sans */
+    font-size: 3rem;
     letter-spacing: 3px;
     color: #FFF;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    z-index: 2;
 }
 
-/* --- MISE EN PAGE : GRID 2 COLONNES --- */
+/* --- 3. MISE EN PAGE (GRID) --- */
 .panier-content {
     display: grid;
-    grid-template-columns: 2fr 1fr; /* 2/3 pour la liste, 1/3 pour le résumé */
+    grid-template-columns: 2fr 1fr; /* 2 tiers produits, 1 tiers résumé */
     gap: 40px;
+    align-items: start;
 }
 
-/* --- LISTE DES ARTICLES --- */
+/* --- 4. LISTE DES ARTICLES --- */
 .cart-item {
     display: flex;
     align-items: center;
-    background-color: #1A1A1A;
+    background-color: #222; /* Légèrement plus clair que le fond */
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-radius: 4px;
     border: 1px solid #333;
+    position: relative;
+    transition: 0.3s;
 }
 
+.cart-item:hover {
+    border-color: #444;
+}
+
+/* Image */
 .item-image img {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     object-fit: cover;
-    margin-right: 20px;
+    margin-right: 25px;
     border-radius: 4px;
+    display: block;
 }
 
+/* Info Produit */
 .item-info {
-    flex: 2; /* Prend la place disponible */
+    flex: 2; /* Prend l'espace disponible */
 }
 
 .item-type {
@@ -63,129 +84,196 @@
     text-transform: uppercase;
     color: #888;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
 }
 
 .item-info h3 {
     margin: 0 0 5px 0;
+    font-family: var(--font-text);
     font-size: 1.1rem;
     color: #FFF;
+    font-weight: 600;
 }
 
 .item-weight {
     font-size: 0.85rem;
-    color: #C4A484; /* Doré */
+    color: var(--gold-detail);
 }
 
-/* SÉLECTEUR QUANTITÉ */
+/* Quantité */
+.item-quantity {
+    margin-right: 40px;
+    text-align: center;
+}
+.item-quantity label {
+    font-size: 0.7rem;
+    color: #888;
+    display: block;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
 .qty-selector {
     display: flex;
     align-items: center;
     background: #252525;
     border: 1px solid #444;
     border-radius: 4px;
-    margin-top: 5px;
 }
 .qty-selector button {
     background: none;
     border: none;
     color: #FFF;
-    padding: 5px 10px;
+    padding: 5px 12px;
     cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+.qty-selector button:hover {
+    background-color: #333;
+    color: var(--gold-detail);
 }
 .qty-selector span {
     padding: 0 10px;
     font-weight: bold;
+    min-width: 30px;
+    text-align: center;
 }
 
-.item-quantity {
-    margin-right: 30px;
-}
-.item-quantity label {
-    font-size: 0.7rem;
-    color: #888;
-    display: block;
-    margin-bottom: 4px;
-}
-
-/* PRIX */
+/* Prix */
 .item-price {
     text-align: right;
-    margin-right: 20px;
-    min-width: 100px;
+    margin-right: 25px;
+    min-width: 110px;
 }
 .unit-price {
     display: block;
     font-size: 0.8rem;
     color: #888;
+    margin-bottom: 3px;
 }
 .total-row-price {
     display: block;
     font-size: 1.2rem;
-    color: #C4A484; /* Doré */
+    color: var(--gold-detail);
     font-weight: bold;
 }
 
+/* Bouton Supprimer */
 .btn-delete {
     background: none;
     border: none;
-    color: #666;
     cursor: pointer;
-    transition: color 0.3s;
+    padding: 8px;
+    opacity: 0.7;
+    transition: 0.3s;
 }
 .btn-delete:hover {
-    color: #e74c3c; /* Rouge au survol */
+    opacity: 1;
+    transform: scale(1.1);
+}
+.trash-icon-img {
+    width: 30px;
+    height: 30px;
+    display: block;
 }
 
-/* --- RÉSUMÉ (DROITE) --- */
+/* Lien retour */
+.continue-shopping {
+    margin-top: 20px;
+}
+.continue-shopping a {
+    color: #888;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+.continue-shopping a:hover {
+    color: var(--gold-detail);
+}
+
+/* --- 5. PANIER VIDE --- */
+.empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #222;
+    border-radius: 4px;
+}
+.empty-cart p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+/* --- 6. RÉCAPITULATIF (DROITE) --- */
 .cart-summary {
-    background-color: #252525;
+    background-color: #222;
     padding: 30px;
     border-radius: 4px;
-    height: fit-content;
+    position: sticky; /* Reste visible au scroll */
+    top: 20px;
 }
 
 .cart-summary h2 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    margin-bottom: 25px;
     text-align: center;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    color: var(--gold-detail);
 }
 
+/* Code Promo */
 .promo-code label {
-    font-size: 0.8rem;
-    color: #888;
+    font-size: 0.75rem;
+    color: #AAA;
     display: block;
     margin-bottom: 8px;
+    letter-spacing: 1px;
 }
-
 .promo-input-group {
     display: flex;
-    gap: 10px;
+    gap: 0;
     margin-bottom: 10px;
 }
 .promo-input-group input {
     background: #1A1A1A;
     border: 1px solid #444;
-    padding: 10px;
+    border-right: none;
+    padding: 12px;
     color: #FFF;
     flex: 1;
-    border-radius: 2px;
+    border-radius: 2px 0 0 2px;
+    outline: none;
 }
 .promo-input-group button {
     background: #444;
-    border: none;
+    border: 1px solid #444;
     color: #FFF;
     padding: 0 15px;
     cursor: pointer;
-    font-size: 0.8rem;
-    border-radius: 2px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 0 2px 2px 0;
+    transition: 0.3s;
 }
-.promo-msg {
-    font-size: 0.8rem;
-    color: #C4A484;
+.promo-input-group button:hover {
+    background-color: var(--gold-detail);
+    border-color: var(--gold-detail);
+    color: #1A1A1A;
 }
 
+/* Message dynamique promo */
+.promo-msg { font-size: 0.8rem; margin-top: 5px; }
+.promo-msg.valid { color: #27ae60; }
+.promo-msg.invalid { color: #e74c3c; }
+
+/* Lignes de calcul */
+.separator {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 25px 0;
+}
 .summary-row {
     display: flex;
     justify-content: space-between;
@@ -194,9 +282,17 @@
     color: #DDD;
 }
 .summary-row.promo {
-    color: #27ae60; /* Vert pour la remise */
+    color: #27ae60;
+}
+.free-shipping-hint {
+    font-size: 0.8rem;
+    color: #888;
+    text-align: right;
+    margin-top: -10px;
+    margin-bottom: 15px;
 }
 
+/* Total */
 .summary-total {
     display: flex;
     justify-content: space-between;
@@ -204,45 +300,93 @@
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid #444;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 .total-price {
-    color: #C4A484;
-    font-size: 1.5rem;
+    color: var(--gold-detail);
+    font-size: 1.6rem;
 }
 
+/* Bouton Commander */
 .btn-checkout {
+    display: block;
     width: 100%;
-    background-color: #C4A484;
+    background-color: var(--gold-detail);
     color: #121212;
     border: none;
-    padding: 15px;
-    font-weight: bold;
-    font-size: 1rem;
-    margin-top: 25px;
+    padding: 18px;
+    font-family: var(--font-text);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    margin-top: 30px;
     cursor: pointer;
     border-radius: 2px;
-    transition: background 0.3s;
+    transition: transform 0.2s, background 0.3s;
 }
 .btn-checkout:hover {
-    background-color: #b08d6b;
+    background-color: #dcb66d;
+    transform: translateY(-2px);
 }
 
-.secure-payment {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.8rem;
-    color: #888;
-}
+/* --- 7. RESPONSIVE --- */
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
+    /* On passe sur une seule colonne */
     .panier-content {
-        grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
+
+    /* Le résumé n'est plus sticky sur mobile */
+    .cart-summary {
+        position: static;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .panier-container {
+        padding: 30px 15px;
+    }
+
+    .hero-panier h1 {
+        font-size: 2rem;
+    }
+
+    /* Carte produit repensée pour mobile */
     .cart-item {
-        flex-wrap: wrap; /* Permet de passer à la ligne sur mobile */
-        gap: 15px;
+        flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
+        padding-bottom: 60px; /* Espace pour les boutons en bas */
+        position: relative; /* Pour positionner le bouton supprimer */
+    }
+
+    .item-image {
+        margin-bottom: 15px;
+    }
+
+    /* Titre et infos prennent plus de place */
+    .item-info {
+        min-width: 100%; /* Force le retour à la ligne après les infos */
+        margin-bottom: 15px;
+    }
+
+    /* Alignement quantité et prix en bas */
+    .item-quantity {
+        margin-right: auto; /* Pousse le prix à droite */
+        margin-bottom: 0;
+    }
+
+    .item-price {
+        margin-right: 0;
+        text-align: right;
+    }
+
+    /* Bouton supprimer en haut à droite (Position absolue) */
+    .btn-delete {
+        position: absolute;
+        top: 15px;
+        right: 15px;
     }
 }
