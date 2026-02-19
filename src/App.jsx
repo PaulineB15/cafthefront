@@ -19,6 +19,8 @@ import Confirmation from "./pages/Confirmation.jsx";
 import MentionsLegales from "./pages/MentionsLegales.jsx";
 import Confidentialite from "./pages/PolitiqueConfidentialité.jsx";
 import CVG from "./pages/CGV.jsx";
+import Page404 from "./pages/Page404.jsx";
+import PlanSite from "./pages/PlanDuSite.jsx";
 
 function App() {
 
@@ -43,6 +45,8 @@ function App() {
                             <Route path="MentionsLegales" element={<MentionsLegales />} />
                             <Route path="confidentialite" element={<Confidentialite />} />
                             <Route path="cgv" element={<CVG />} />
+                            <Route path="*" element={<Page404 />} /> // * Page 404 si aucune route ne correspond
+                            <Route path="plan-du-site" element={<PlanSite />} />
 
                         </Route>
                     </Routes>

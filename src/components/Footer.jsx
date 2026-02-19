@@ -39,7 +39,6 @@ function Footer() {
                             <li><Link to="/cgv">CGV</Link></li>
                             <li><Link to="/plan-du-site">Plan du site</Link></li>
                             <li><Link to="/confidentialite">Politique de confidentialité</Link></li>
-                            <li><Link to="/accessibilite">Accessibilité</Link></li>
                             <li><Link to="/faq">FAQ</Link></li>
                         </ul>
                     </nav>
@@ -72,6 +71,9 @@ function Footer() {
 
             <div className="footer-bottom">
                 <small>&copy; {new Date().getFullYear()} CafThé - Tous droits réservés</small>
+                {/* Séparateur visuel et mention accessibilité */}
+                <small style={{ margin: '0 10px' }}>|</small>
+                <small>Accessibilité : démarche RGAA</small>
             </div>
         </footer>
     );

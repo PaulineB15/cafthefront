@@ -329,7 +329,9 @@
         border: none;
         padding: 0;
         margin-bottom: 10px;
-        text-decoration: underline decoration-color: var(--gold-detail);
+        text-decoration: underline;
+        decoration-color: var(--gold-detail);
+
     }
 
     .filter-section {

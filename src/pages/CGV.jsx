@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroInformations from '../assets/photo/HeroInformations.webp';
-import './MentionsLegales.css';
+import './PageLegales.css';
 
 const CGV = () => {
     return (
@@ -9,7 +9,6 @@ const CGV = () => {
                 <div className="hero-legal-overlay">
                     <div className="hero-legal-content">
                         <h1>Conditions Générales de Vente</h1>
-                        <p>Dernière mise à jour : Février 2026</p>
                     </div>
                 </div>
             </section>
@@ -51,10 +50,6 @@ const CGV = () => {
                     <p>En cas de litige, le Client peut s'adresser au service client de CafThé. Si aucune solution n'est trouvée, le Client peut recourir gratuitement à un médiateur de la consommation conformément aux dispositions du Code de la consommation.</p>
                 </section>
 
-                <div className="legal-footer">
-                    <p>CafThé SAS — Capital social n/a€ — SIRET en cours</p>
-                    <a href="/contact" className="btn btn-primary">Une question ? Contactez-nous</a>
-                </div>
             </div>
         </main>
     );

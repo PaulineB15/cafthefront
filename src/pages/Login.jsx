@@ -1,7 +1,10 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
 import {useLocation, useNavigate, Link} from "react-router-dom";
+import HeroCompte from "../assets/photo/HeroCompte.webp";
+import Moncompte from "../assets/picto/Moncompte.svg";
 import "./Login.css";
+
 
 
 
@@ -26,19 +29,19 @@ const Login = () => {
         motDePasse: "",
         confirmPassword: ""
     });
+
     // Pour indiquer si l'inscription a réussi ( message)
     const [successMsg, setSuccessMsg] = useState("");
 
     // C'est pour savoir d'où vient l'utilisateur
     const location = useLocation();
-
     // Si "location.state.from" existe, c'est notre destination, sinon -> home.jsx (Accueil)
     // ?. dit à React : "Essaye de lire from seulement si state existe. Sinon, ne plante pas et renvoie undefined
     const from = location.state?.from || "/"; // || --> OU la page d'accueil "/"
     // Cette variable from contient maintenant soit "/commande" (si on vient du panier), soit "/" (par défaut
 
 
-    // Fonction de connexion
+    // FONCTION DE CONNEXION
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrorMsg("");
@@ -85,7 +88,7 @@ const Login = () => {
         }
     };
 
-    // --- NOUVEAU : FONCTION POUR L'INSCRIPTION ---
+    // --- FONCTION POUR L'INSCRIPTION ---
     const handleRegisterChange = (e) => {
         setRegisterData({...registerData, [e.target.name]: e.target.value});
     };
@@ -136,134 +139,156 @@ const Login = () => {
     };
 
     return (
-        <div className="auth-page"> {/* J'ai changé la classe pour correspondre au CSS fourni */}
-            <div className="auth-container">
-
-                {/* --- NOUVEAU : ONGLETS (TABS) --- */}
-                <div className="auth-tabs">
-                    <button
-                        className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('login')}
-                    >
-                        SE CONNECTER
-                    </button>
-                    <button
-                        className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('register')}
-                    >
-                        CRÉER UN COMPTE
-                    </button>
+        <main className="auth-page">
+            <section className="auth-hero" style={{backgroundImage: `url(${HeroCompte})`}}>
+                <div className="hero-overlay">
+                    <div className="user-icon-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h1>MON COMPTE </h1>
+                    <p>Connectez-vous ou créez un compte pour accéder à votre espace personnel</p>
                 </div>
+            </section>
 
-                <div className="auth-content">
-                    {/* Affichage des messages globaux */}
-                    {errorMsg && <div className="alert error">{errorMsg}</div>}
-                    {successMsg && <div className="alert success">{successMsg}</div>}
+            {/* CONTAINER FENETRE CONNEXION / INSCRIPTION  */}
 
+            <section className="auth-section">
+                <div className="auth-container">
+                    {/* --- ONGLETS (TABS) --- */}
+                    <div className="auth-tabs">
+                        <button
+                            className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('login')}
+                        >
+                            SE CONNECTER
+                        </button>
+                        <button
+                            className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('register')}
+                        >
+                            CRÉER UN COMPTE
+                        </button>
+                    </div>
 
-                    {/* --- PARTIE 1 : VOTRE FORMULAIRE DE CONNEXION EXISTANT --- */}
-                    {activeTab === 'login' && (
-                        <div className="form-wrapper fade-in">
-                            <h2>Connexion</h2> {/* Votre titre d'origine */}
+                    <div className="auth-content">
+                        {/* Affichage des messages globaux */}
+                        {errorMsg && <div className="alert error">{errorMsg}</div>}
+                        {successMsg && <div className="alert success">{successMsg}</div>}
 
-                            {/* J'ai gardé votre balise <form> et son onSubmit */}
-                            <form onSubmit={handleSubmit}>
-                                <div className="form-group">
-                                    <label htmlFor="email">Email :</label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        value={email}
-                                        required
-                                        placeholder="votre@email.fr"
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
+                        {/* --- PARTIE 1 : FORMULAIRE DE CONNEXION --- */}
+                        {activeTab === 'login' && (
+                            <div className="form-wrapper fade-in">
+                                <h2>BIENVENUE</h2>
+                                <p className="subtitle">Connectez-vous pour accéder à votre compte et retrouver vos commandes</p>
 
-                                <div className="form-group">
-                                    <label htmlFor="password">Mot de passe :</label>
-                                    <input
-                                        id="password"
-                                        type="password"
-                                        value={motDePasse}
-                                        required
-                                        placeholder="Votre mot de passe"
-                                        onChange={(e) => setMotDePasse(e.target.value)}
-                                    />
-                                </div>
-
-                                {/* --- AJOUT DEMANDÉ : Mot de passe oublié --- */}
-                                <div className="form-footer" style={{textAlign: 'right', marginBottom: '15px'}}>
-                                    <Link to="/forgot-password" style={{color: '#c5a47e', fontSize: '0.9rem'}}>
-                                        Mot de passe oublié ?
-                                    </Link>
-                                </div>
-
-                                {/* Affichage conditionnel du message d'erreur (VOTRE CODE) */}
-                                {/* Je l'ai laissé ici, mais j'ai aussi mis un affichage global plus haut */}
-                                {errorMsg && <div className="error-message">{errorMsg}</div>}
-
-                                <button type="submit" className="login-button">
-                                    Se Connecter
-                                </button>
-                            </form>
-                        </div>
-                    )}
-
-
-                    {/* --- PARTIE 2 : NOUVEAU FORMULAIRE D'INSCRIPTION --- */}
-                    {activeTab === 'register' && (
-                        <div className="form-wrapper fade-in">
-                            <h2>Créer un compte</h2>
-                            <form onSubmit={handleRegisterSubmit}>
-                                <div className="form-row" style={{display:'flex', gap:'10px'}}>
-                                    <div className="form-group" style={{flex:1}}>
-                                        <label>Prénom</label>
-                                        <input type="text" name="prenom" required
-                                               value={registerData.prenom} onChange={handleRegisterChange}/>
+                                <form onSubmit={handleSubmit}>
+                                    <div className="form-group">
+                                        <label htmlFor="email">Adresse Email</label>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            value={email}
+                                            required
+                                            placeholder="votre@email.com"
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
                                     </div>
-                                    <div className="form-group" style={{flex:1}}>
-                                        <label>Nom</label>
-                                        <input type="text" name="nom" required
-                                               value={registerData.nom} onChange={handleRegisterChange}/>
+
+                                    <div className="form-group">
+                                        <label htmlFor="password">Mot de passe</label>
+                                        <input
+                                            id="password"
+                                            type="password"
+                                            value={motDePasse}
+                                            required
+                                            placeholder="......."
+                                            onChange={(e) => setMotDePasse(e.target.value)}
+                                        />
                                     </div>
-                                </div>
 
-                                <div className="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" required
-                                           value={registerData.email} onChange={handleRegisterChange}/>
-                                </div>
+                                    <div className="form-footer">
+                                        <label className="checkbox-label">
+                                            <input type="checkbox" /> Se souvenir de moi
+                                        </label>
+                                        <Link to="/forgot-password" style={{ color: 'var(--gold-detail)', fontSize: '0.85rem' }}>
+                                            Mot de passe oublié ?
+                                        </Link>
+                                    </div>
 
-                                <div className="form-group">
-                                    <label>Téléphone</label>
-                                    <input type="tel" name="telephone"
-                                           value={registerData.telephone} onChange={handleRegisterChange}/>
-                                </div>
+                                    <button type="submit" className="btn btn-primary w-100">
+                                        SE CONNECTER
+                                    </button>
+                                </form>
+                            </div>
+                        )}
 
-                                <div className="form-group">
-                                    <label>Mot de passe</label>
-                                    <input type="password" name="motDePasse" required
-                                           placeholder="Minimum 12 caractères"
-                                           value={registerData.motDePasse} onChange={handleRegisterChange}/>
-                                </div>
+                        {/* --- PARTIE 2 : FORMULAIRE D'INSCRIPTION --- */}
+                        {activeTab === 'register' && (
+                            <div className="form-wrapper fade-in">
+                                <h2>CRÉER UN COMPTE</h2>
+                                <p className="subtitle">Rejoignez-nous et profitez d'une expérience personnalisée</p>
 
-                                <div className="form-group">
-                                    <label>Confirmer le mot de passe</label>
-                                    <input type="password" name="confirmPassword" required
-                                           value={registerData.confirmPassword} onChange={handleRegisterChange}/>
-                                </div>
+                                <form onSubmit={handleRegisterSubmit}>
+                                    <div className="form-row">
+                                        <div className="form-group">
+                                            <label>Prénom</label>
+                                            <input type="text" name="prenom" required
+                                                   placeholder="Jean"
+                                                   value={registerData.prenom} onChange={handleRegisterChange} />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Nom</label>
+                                            <input type="text" name="nom" required
+                                                   placeholder="Dupont"
+                                                   value={registerData.nom} onChange={handleRegisterChange} />
+                                        </div>
+                                    </div>
 
-                                <button type="submit" className="login-button">
-                                    Créer mon compte
-                                </button>
-                            </form>
-                        </div>
-                    )}
+                                    <div className="form-group">
+                                        <label>Adresse Email</label>
+                                        <input type="email" name="email" required
+                                               placeholder="votre@email.com"
+                                               value={registerData.email} onChange={handleRegisterChange} />
+                                    </div>
 
+                                    <div className="form-group">
+                                        <label>Téléphone</label>
+                                        <input type="tel" name="telephone" required
+                                               placeholder="+33 6 12 34 56 78"
+                                               value={registerData.telephone} onChange={handleRegisterChange} />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label>Mot de passe</label>
+                                        <input type="password" name="motDePasse" required
+                                               placeholder="Minimum 12 caractères"
+                                               value={registerData.motDePasse} onChange={handleRegisterChange} />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <label>Confirmer le mot de passe</label>
+                                        <input type="password" name="confirmPassword" required
+                                               placeholder="......."
+                                               value={registerData.confirmPassword} onChange={handleRegisterChange} />
+                                    </div>
+
+                                    <p className="legal-text">
+                                        J'accepte les conditions générales de vente et la politique de confidentialité
+                                    </p>
+
+                                    <button type="submit" className="btn btn-primary w-100">
+                                        CRÉER MON COMPTE
+                                    </button>
+                                </form>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
     );
 };
 

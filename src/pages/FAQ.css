@@ -18,7 +18,7 @@
 }
 
 .hero-faq-content {
-    text-align: left; /* Texte aligné à gauche */
+    text-align: center;
     color: var(--text-light);
     max-width: 800px;
 }

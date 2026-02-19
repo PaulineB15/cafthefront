@@ -141,3 +141,35 @@ a {
   background-color: var(--gold-detail);
   color: var(--bg-dark);
 }
+
+
+/* =========================================
+   PAGE 404
+   ========================================= */
+.error-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.error-container h1 {
+  /* On utilise une taille très large pour l'impact visuel du 404 */
+  font-size: clamp(6rem, 15vw, 10rem);
+  color: var(--gold-detail); /* Utilisation de ta variable dorée */
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.error-container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-light); /* Utilisation de ta variable claire */
+}
+
+.error-container p {
+  max-width: 550px;
+  margin: 0 auto 2.5rem;
+  color: var(--sand-text); /* Utilisation de ta variable sable */
+}

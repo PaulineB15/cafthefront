@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroInformations from '../assets/photo/HeroInformations.webp';
-import './MentionsLegales.css';
+import './PageLegales.css';
 
 const MentionsLegales = () => {
     return (
@@ -102,10 +102,6 @@ const MentionsLegales = () => {
                     <p>Tout litige en relation avec l’utilisation du site <a href="https://www.Caftheluxe.fr" className="legal-link">https://www.Caftheluxe.fr</a> est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Paris.</p>
                 </section>
 
-                <div className="legal-footer">
-                    <p>Ce modèle de mentions légales est proposé par le générateur gratuit offert par Orson.io</p>
-                    <a href="/contact" className="btn btn-primary">Nous contacter</a>
-                </div>
             </div>
         </main>
     );

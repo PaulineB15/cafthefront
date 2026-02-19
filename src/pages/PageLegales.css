@@ -1,0 +1,169 @@
+
+/* =========================================
+   PAGE FAQ, MENTIONS LEGALES, CGV, POLITIQUE DE CONFIDENTIALITE, ACCESSIBILITE, PLAN DU SITE
+   ========================================= */
+
+/* --- HERO SECTION COMMUNE --- */
+.legal-hero {
+    position: relative;
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 60px;
+}
+
+.hero-legal-overlay {
+    background-color: rgba(0, 0, 0, 0.65);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.hero-legal-content {
+    text-align: center;
+    max-width: 800px;
+}
+
+/* --- CONTENEURS --- */
+.legal-container {
+    max-width: 850px; /* Étroit pour les CGV/Mentions */
+    margin: 0 auto;
+    padding: 0 20px 80px 20px;
+}
+
+/* Conteneur spécifiquement pour la grille FAQ */
+.legal-container.faq-wide {
+    max-width: 1200px;
+}
+
+/* --- SECTIONS ET TITRES --- */
+.legal-section {
+    margin-bottom: 60px;
+}
+
+/* H2 Doré avec bordure comme dans tes fichiers */
+.legal-section h2 {
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 35px;
+    color: var(--gold-detail);
+}
+
+/* --- GRILLE FAQ --- */
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 40px;
+}
+
+.faq-card h3 {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+}
+
+/* Puce dorée pour les questions et les listes légales */
+.faq-card h3::before, .legal-list li::before {
+    content: "•";
+    color: var(--gold-detail);
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    line-height: 1.2rem;
+}
+
+/* --- FOOTER COMMUN --- */
+.legal-footer {
+    text-align: center;
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid #333;
+}
+
+
+/* =========================================
+    RESPONSIVE
+   ========================================= */
+
+/* --- AJUSTEMENTS GLOBAUX --- */
+@media (max-width: 1024px) {
+    .faq-grid {
+        /* Passage à une colonne plus tôt pour éviter que les cartes soient trop étroites */
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .legal-container.faq-wide {
+        max-width: 900px; /* On réduit la largeur max sur tablette */
+    }
+}
+
+@media (max-width: 768px) {
+    /* --- HERO SECTION --- */
+    .legal-hero {
+        height: 45vh; /* On réduit la hauteur sur mobile pour voir le contenu plus vite */
+        margin-bottom: 40px;
+    }
+
+    .hero-legal-content h1 {
+        /* Utilisation du clamp de index.css ou réduction manuelle */
+        font-size: 2rem;
+    }
+
+    /* --- CONTENEURS --- */
+    .legal-container {
+        padding: 0 15px 50px 15px; /* Moins de padding latéral sur petit écran */
+    }
+
+    /* --- SECTIONS ET TITRES --- */
+    .legal-section {
+        margin-bottom: 40px;
+    }
+
+    .legal-section h2 {
+        font-size: 1.5rem; /* Réduction de la taille des titres d'articles */
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+    }
+
+    .legal-section h3 {
+        font-size: 1rem;
+    }
+
+    /* --- TEXTES --- */
+    p, .legal-list li {
+        font-size: 0.95rem; /* Texte légèrement plus petit pour mobile */
+        line-height: 1.5;
+    }
+
+    /* --- FOOTER --- */
+    .legal-footer {
+        margin-top: 50px;
+        padding-top: 30px;
+    }
+}
+
+/* --- OPTIMISATION PETITS MOBILES (iPhone SE, etc.) --- */
+@media (max-width: 480px) {
+    .legal-hero {
+        height: 35vh;
+    }
+
+    .faq-card h3::before, .legal-list li::before {
+        font-size: 1.2rem; /* Puces plus discrètes */
+    }
+
+    /* Ajustement des liens pour éviter les débordements (liens mail ou urls longues) */
+    .legal-link, b, strong {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}

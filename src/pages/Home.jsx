@@ -158,6 +158,7 @@ function Home() {
                 /* Note: J'ai retiré la classe 'histoire' du CSS global index.css pour
                    éviter les conflits, tout est géré via Home.css maintenant */
             }
+
             <section className="section-padding histoire">
 
                 <div className="histoire-image">
@@ -176,6 +177,26 @@ function Home() {
                     <p>
                         Notre passion pour l'excellence nous pousse à voyager aux quatre coins du monde
                         pour dénicher les meilleures variétés, tout en respectant l'environnement et les producteurs.
+                    </p>
+
+                    <p>
+                        Au-delà du goût, notre démarche s'inscrit dans une forte Responsabilité Sociétale des Entreprises (RSE).
+                        Nous croyons qu'une grande tasse commence par le respect de la terre et des femmes et des hommes qui la cultivent.
+                    </p>
+
+                    <p>
+                        Nos produits sont issus de cultures biologiques certifiées. Nous privilégions l'agroforesterie et les méthodes
+                        de récolte manuelles qui préservent la biodiversité, protègent la santé des sols et limitent drastiquement notre empreinte carbone.
+                    </p>
+
+                    <p>
+                        Nous travaillons en circuit court avec les coopératives locales. En supprimant les intermédiaires superflus,
+                        nous garantissons une rémunération juste, stable et transparente aux producteurs, assurant ainsi des conditions de travail dignes.
+                    </p>
+
+                    <p>
+                        Nous réinvestissons une partie de nos bénéfices dans les communautés qui nous nourrissent. Nos actions financent des projets concrets
+                        de développement local, comme l'accès à l'eau potable et des programmes de reforestation dans les pays producteurs.
                     </p>
 
                     {/* Liste des Valeurs (Pictos) */}

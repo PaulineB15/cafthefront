@@ -17,17 +17,22 @@ function NavBar() {
     // Etat pour stocker le texte de la barre de recherche
     const [searchItems, setSearchItems] = useState("");
 
+    // Etat pour gérer l'ouverture du menu mobile
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     // Fonction de recherche
     const handleSearch = (e) => {
         e.preventDefault(); // Empeche le chargement de la page
         // Redirection vers la boutique avec le paramètre de recherche
         navigate(`/boutique?search=${searchItems}`);
         setSearchItems("");// Vider la barre après recherche
+        setIsMenuOpen(fasle); // Fermer le menu mobile
     };
 
     const handleLogout = () => {
         logout(); // Appelle la fonction de déconnexion du contexte
         navigate("/"); // Redirige vers l'accueil pour éviter de rester sur une page privée
+        setIsMenuOpen(false); // Fermer le menu mobile à la déconnexion
     }
 
 
@@ -35,6 +40,13 @@ function NavBar() {
     return (
         <header className="main-header">
             <nav className="navbar-container">
+
+                {/* --- Bouton Burger (caché sur PC via le CSS) --- */}
+                <button className="burger-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    <span className="burger-line"></span>
+                    <span className="burger-line"></span>
+                    <span className="burger-line"></span>
+                </button>
 
                 {/* LOGO */}
                 <div className="navbar-logo">
@@ -44,14 +56,16 @@ function NavBar() {
                 </div>
 
                 {/* LIENS CENTRAUX */}
-                <ul className="navbar-menu">
-                    <li><NavLink to="/" end>Accueil</NavLink></li>
-                    <li><NavLink to="./boutique">Boutique</NavLink></li>
-                    <li><NavLink to="./contact">Contact</NavLink></li>
+                {/*  Ajout de la condition isMenuOpen ? 'active' : '' */}
+                <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
+                    <li><NavLink to="/" end onClick={() => setIsMenuOpen(false)}>Accueil</NavLink></li>
+                    <li><NavLink to="./boutique" onClick={() => setIsMenuOpen(false)}>Boutique</NavLink></li>
+                    <li><NavLink to="./contact" onClick={() => setIsMenuOpen(false)}>Contact</NavLink></li>
                 </ul>
 
                 {/* BARRE DE RECHERCHE */}
-                <form className="search-bar" onSubmit={handleSearch}>
+                {/* (suite) : Ajout de la classe active */}
+                <form className={`search-bar ${isMenuOpen ? 'active' : ''}`} onSubmit={handleSearch}>
                     <input
                         type="text"
                         placeholder="Rechercher un produit..."

@@ -82,6 +82,31 @@
     transform: translate(0, -2px);
 }
 
+/* BOUTON DÉCONNEXION (Style similaire au btn-primary mais adapté pour la navbar) */
+.logout-btn {
+    background-color: var(--green-cta); /* Le vert de ta charte */
+    color: var(--text-light);
+    font-family: var(--font-text);
+    text-transform: uppercase;
+    font-size: 0.75rem; /* Plus petit qu'un bouton classique pour s'intégrer au menu */
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding: 8px 16px; /* Des marges internes plus fines */
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Effet au survol (identique au btn-primary) */
+.logout-btn:hover {
+    background-color: var(--green-hover);
+    border-color: var(--gold-detail); /* Bordure dorée au survol */
+    transform: translateY(-2px); /* Petit effet de soulèvement */
+}
 
 /* BARRE DE RECHERCHE */
 
@@ -171,4 +196,121 @@
 @keyframes popIn {
     0% { transform: scale(0); }
     100% { transform: scale(1); }
+}
+
+/* =========================================
+   AJOUTS POUR LE RESPONSIVE (MOBILE)
+   ========================================= */
+
+/* Bouton Burger caché par défaut (sur Desktop) */
+.burger-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.burger-line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* --- TABLETTE ET MOBILE (Menu Burger) --- */
+@media (max-width: 900px) {
+    /* La navbar autorise le passage à la ligne (Wrap) */
+    .navbar-container {
+        flex-wrap: wrap;
+        padding: 10px 20px;
+    }
+
+    /* 1. Burger à gauche */
+    .burger-btn {
+        display: flex;
+        order: 1;
+    }
+
+    /* 2. Logo au milieu */
+    .navbar-logo {
+        order: 2;
+        margin-right: auto;
+        margin-left: 15px;
+    }
+
+    .navbar-logo img {
+        height: 60px; /* Réduit un peu le logo sur mobile */
+    }
+
+    /* 3. Icônes de connexion/panier à droite */
+    .navbar-actions {
+        order: 3;
+    }
+
+    /* 4. Menu des liens : Caché par défaut, forcé en bas */
+    .navbar-menu {
+        display: none;
+        width: 100%;
+        order: 4;
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--dark-bg);
+        padding: 20px 0;
+        margin-top: 15px;
+        border-top: 1px solid #333;
+    }
+
+    /* 5. Barre de recherche : Cachée par défaut, forcée tout en bas */
+    .search-bar {
+        display: none;
+        width: 100%;
+        max-width: 100%;
+        order: 5;
+        margin: 10px 0 20px 0;
+    }
+
+    /* QUAND ON CLIQUE SUR LE BURGER (La classe 'active' s'ajoute en JS) */
+    .navbar-menu.active,
+    .search-bar.active {
+        display: flex;
+    }
+}
+
+/* --- TRES PETIT MOBILE (Ex: iPhone SE) --- */
+@media (max-width: 480px) {
+    /* Cache le logo comme demandé */
+    .navbar-logo {
+        display: none;
+    }
+
+    /* Pousse le burger à gauche et les icônes à droite */
+    .burger-btn {
+        margin-right: auto;
+    }
+
+    /* Sur petit écran, le nom "Bonjour Prénom" prend trop de place, on le cache */
+    .user-logged span {
+        display: none;
+    }
+}
+
+/* --- RÉDUCTION DU BOUTON DÉCONNEXION SUR MOBILE --- */
+@media (max-width: 900px) {
+    .logout-btn {
+        padding: 5px 10px; /* On divise les marges internes par presque deux */
+        font-size: 0.7rem; /* On réduit très légèrement la police */
+        letter-spacing: 0.5px; /* On resserre un peu les lettres */
+    }
+}
+
+/* Sur les très petits écrans (ex: iPhone SE), on peut le réduire encore plus */
+@media (max-width: 480px) {
+    .logout-btn {
+        padding: 4px 8px;
+        font-size: 0.65rem;
+    }
 }

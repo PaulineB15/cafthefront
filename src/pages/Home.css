@@ -166,16 +166,16 @@
     align-items: center;
     gap: 80px;
     /* Fond blanc pour casser le rythme sombre (optionnel, sinon retirer) */
-    background-color: #F9F9F9;
+    background-color: #222;
     color: #1A1A1A; /* Texte sombre sur fond clair */
 }
 
 /* Si fond clair, on adapte les titres */
 .histoire h2 {
-    color: #1A1A1A;
+    color: var(--gold-detail);
 }
 .histoire p {
-    color: #555;
+    color: var(--text-light);
 }
 
 .histoire-image {
