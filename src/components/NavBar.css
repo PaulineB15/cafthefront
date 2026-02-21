@@ -58,6 +58,18 @@
 
 }
 
+.user-logged {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-link:hover {
+color: var(--gold-detail);
+    text-decoration: underline;
+}
+
+
 /* LOGIN / PANIER */
 .navbar-actions {
     display: flex;

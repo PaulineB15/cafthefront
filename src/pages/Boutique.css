@@ -177,9 +177,7 @@
 }
 
 
-/* --- CARTE PRODUIT (ProductCard) --- */
-/* (Je l'intègre ici pour que tout soit au même endroit,
-    mais tu pourrais aussi avoir un ProductCard.css séparé) */
+/* --- CARTE PRODUIT (ProductCard.jsx) --- */
 
 .product-card {
     background-color: #222;
@@ -245,7 +243,7 @@
 }
 
 .card-details {
-    color: #888;
+    color: var(--text-light);
     font-size: 0.8rem;
     text-transform: uppercase;
     margin-bottom: 15px;

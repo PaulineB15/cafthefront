@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext.jsx";
+import { AuthContext} from "../context/AuthContext.jsx";
 import "./LivraisonPaiement.css";
 
 // Import des assets
@@ -14,6 +15,9 @@ import HeroPanier from "../assets/photo/HeroPanier.webp";
 const LivraisonPaiement = () => {
     // Récupération les données du panier, du total et de la fonction de vider le panier après paiement(clearCart)
     const { cart, cartTotal, clearCart } = useContext(CartContext);
+    // Récupérer les infos de l'utilisateur connecté (adresse) pour passer la commande
+    const { user } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     // State pour le mode de livraison et paiement
@@ -26,6 +30,23 @@ const LivraisonPaiement = () => {
         prenom: '', nom: '', email: '', telephone: '',
         adresse: '', complement: '', codePostal: '', ville: '', pays: 'France'
     });
+
+    // Pré-remplir si l'utilisateur charge une fraction de seconde plus tard (API)
+    useEffect(() => {
+        // On ajoute la condition formData.email === '' pour éviter la boucle ESLint !
+        if (user && formData.email === '') {
+            setFormData(prevData => ({
+                ...prevData,
+                prenom: user.prenom || '',
+                nom: user.nom || '',
+                email: user.email || '',
+                telephone: user.tel || '',
+                adresse: user.adresse_livraison || '',
+                codePostal: user.cp_livraison || '',
+                ville: user.ville_livraison || ''
+            }));
+        }
+    }, [user, formData.email]); // On prévient React des variables observées
 
     // SECURITE: Redirection si panier vide
     useEffect(() => {
@@ -73,7 +94,9 @@ const LivraisonPaiement = () => {
             produits: cart.map(item => ({ id_produit: item.id, quantite: item.quantite })),
         };
 
-        console.log("Données envoyées:", orderData);
+        // Sécurité pour l'email de confirmation (au cas où on est en retrait boutique)
+        const emailConfirmation = formData.email || (user ? user.email : "");
+
 
         try {
             const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -89,10 +112,29 @@ const LivraisonPaiement = () => {
                 body: JSON.stringify(orderData)
             });
 
+
             if (response.ok) {
-                // 3. SI C'EST BON : On vide le panier et on redirige
-                clearCart();
-                navigate("/confirmation");
+                // On lit la réponse JSON envoyée par ton API (OrderController)
+                const data = await response.json();
+
+                // Récupère le vrai ID de la base de données et on le formate pour faire pro
+                // Ex: Si l'ID est 1005, ça donnera "CFT-1005"
+                const vraiNumeroCommande = "CFT-" + data.orderId;
+
+                // ON REDIRIGE en envoyant les vraies infos à la page de confirmation
+                navigate("/confirmation", {
+                    state: {
+                        orderNumber: vraiNumeroCommande,
+                        email: emailConfirmation,
+                    }
+                });
+
+                //  ON VIDE LE PANIER ENSUITE, avec le micro-délai pour la sécurité
+                setTimeout(() => {
+                    clearCart();
+                }, 100);
+
+
             } else {
                 alert("Erreur lors de la commande.");
             }
@@ -118,7 +160,7 @@ const LivraisonPaiement = () => {
                     {/* 1. MODE DE LIVRAISON */}
                     <section className="checkout-section">
                         <header className="section-header">
-                            <img src={Package} alt="" className="section-icon" aria-hidden="true"/>
+                            <img src={Package} alt="Icone d'un colis" className="section-icon" aria-hidden="true"/>
                             <h2>MODE DE LIVRAISON</h2>
                         </header>
 
@@ -136,11 +178,13 @@ const LivraisonPaiement = () => {
                                 />
                                 <div className="option-icon-wrapper">
                                     {/* Le CSS force ce SVG en blanc */}
-                                    <img src={Location} alt="" />
+                                    <img src={Location} alt="Icone de localisation" />
                                 </div>
                                 <div className="option-info">
                                     <p className="option-title">LIVRAISON À DOMICILE</p>
-                                    <p className="option-desc">Colissimo - 48h</p>
+                                    <p className="option-desc">
+                                        {carrier === 'ups' ? "UPS (Express) - 24h" : "Colissimo (Standard)- 72h"}
+                                    </p>
                                     <span className="option-price">
                                         {/* Affiche le prix dynamique selon le sous-choix */}
                                         {carrier === 'ups' ? "9.90 €" : (cartTotal > 50 ? "Gratuit" : "4.90 €")}
@@ -159,7 +203,7 @@ const LivraisonPaiement = () => {
                                 />
                                 <div className="option-icon-wrapper">
                                     {/* Le CSS force ce SVG en blanc */}
-                                    <img src={Store} alt="" />
+                                    <img src={Store} alt="Icone d'une boutique" />
                                 </div>
                                 <div className="option-info">
                                     <p className="option-title">RETRAIT EN BOUTIQUE</p>
@@ -193,42 +237,48 @@ const LivraisonPaiement = () => {
                                 <div className="form-row">
                                     <div className="form-group">
                                         <label htmlFor="prenom">Prénom *</label>
-                                        <input type="text" id="prenom" name="prenom" required onChange={handleChange} placeholder="Jean" />
                                         {/*Required => Champs obligatoire*/}
+                                        <input type="text" id="prenom" name="prenom" required value={formData.prenom} onChange={handleChange} placeholder="Jean" />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="nom">Nom *</label>
-                                        <input type="text" id="nom" name="nom" required onChange={handleChange} placeholder="Dupont" />
+                                        {/*Required => Champs obligatoire*/}
+                                        <input type="text" id="nom" name="nom" required value={formData.nom} onChange={handleChange} placeholder="Dupont" />
                                     </div>
                                 </div>
 
                                 <div className="form-row">
                                     <div className="form-group">
                                         <label htmlFor="email">Email *</label>
-                                        <input type="email" id="email" name="email" required onChange={handleChange} placeholder="jean.dupont@email.com" />
+                                        {/*Required => Champs obligatoire*/}
+                                        <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} placeholder="jean.dupont@email.com" />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="telephone">Téléphone *</label>
-                                        <input type="tel" id="telephone" name="telephone" required onChange={handleChange} placeholder="06 12 34 56 78" />
+                                        {/*Required => Champs obligatoire*/}
+                                        <input type="tel" id="telephone" name="telephone" required value={formData.telephone} onChange={handleChange} placeholder="06 12 34 56 78" />
                                     </div>
                                 </div>
 
                                 <div className="form-group full-width">
                                     <label htmlFor="adresse">Adresse *</label>
-                                    <input type="text" id="adresse" name="adresse" required onChange={handleChange} placeholder="123 Rue de la Paix" />
+                                    {/*Required => Champs obligatoire*/}
+                                    <input type="text" id="adresse" name="adresse" required value={formData.adresse} onChange={handleChange} placeholder="123 Rue de la Paix" />
                                 </div>
 
                                 <div className="form-row three-cols">
                                     <div className="form-group">
                                         <label htmlFor="codePostal">Code postal *</label>
-                                        <input type="text" id="codePostal" name="codePostal" required onChange={handleChange} placeholder="75001" />
+                                        {/*Required => Champs obligatoire*/}
+                                        <input type="text" id="codePostal" name="codePostal" required value={formData.codePostal} onChange={handleChange} placeholder="75001" />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="ville">Ville *</label>
-                                        <input type="text" id="ville" name="ville" required onChange={handleChange} placeholder="Paris" />
+                                        {/*Required => Champs obligatoire*/}
+                                        <input type="text" id="ville" name="ville" required value={formData.ville} onChange={handleChange} placeholder="Paris" />
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="pays">Pays *</label>
+                                        <label htmlFor="pays">Pays</label>
                                         <input type="text" id="pays" name="pays" value="France" readOnly />
                                     </div>
                                 </div>

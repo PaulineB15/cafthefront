@@ -155,7 +155,7 @@
 
 .info-detail {
     font-size: 0.8rem;
-    color: #777;
+    color: var(--text-light);
     margin-top: 3px;
 }
 

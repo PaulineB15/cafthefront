@@ -22,12 +22,10 @@ const Login = () => {
 
     // Gestion pour l'inscription
     const [registerData, setRegisterData] = useState({
-        prenom: "",
-        nom: "",
         email: "",
-        telephone: "",
         motDePasse: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        rgpd: false // La case RGPD est décochée par défaut obtenir le consentement de l'utilisateur'
     });
 
     // Pour indiquer si l'inscription a réussi ( message)
@@ -88,9 +86,14 @@ const Login = () => {
         }
     };
 
-    // --- FONCTION POUR L'INSCRIPTION ---
+    // --- FONCTION POUR L'INSCRIPTION POUR RECUPERER A LA FOIS LES DONNEES EMAIL / MOT DE PASSE + CASE A COCHER RGPD  ---
     const handleRegisterChange = (e) => {
-        setRegisterData({...registerData, [e.target.name]: e.target.value});
+        const { name, value, type, checked } = e.target;
+        setRegisterData({
+            ...registerData,
+            // Si c'est une checkbox, on prend 'checked' (vrai/faux), sinon on prend 'value' (le texte)
+            [name]: type === 'checkbox' ? checked : value
+        });
     };
 
     const handleRegisterSubmit = async (e) => {
@@ -114,10 +117,7 @@ const Login = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    prenom: registerData.prenom,
-                    nom: registerData.nom,
                     email: registerData.email,
-                    tel: registerData.telephone,
                     mot_de_passe: registerData.motDePasse
                 }),
             });
@@ -182,7 +182,7 @@ const Login = () => {
                         {activeTab === 'login' && (
                             <div className="form-wrapper fade-in">
                                 <h2>BIENVENUE</h2>
-                                <p className="subtitle">Connectez-vous pour accéder à votre compte et retrouver vos commandes</p>
+                                <p className="subtitle">Connectez-vous pour accéder à votre compte et retrouver vos commandes.</p>
 
                                 <form onSubmit={handleSubmit}>
                                     <div className="form-group">
@@ -204,15 +204,12 @@ const Login = () => {
                                             type="password"
                                             value={motDePasse}
                                             required
-                                            placeholder="......."
+                                            placeholder="............."
                                             onChange={(e) => setMotDePasse(e.target.value)}
                                         />
                                     </div>
 
                                     <div className="form-footer">
-                                        <label className="checkbox-label">
-                                            <input type="checkbox" /> Se souvenir de moi
-                                        </label>
                                         <Link to="/forgot-password" style={{ color: 'var(--gold-detail)', fontSize: '0.85rem' }}>
                                             Mot de passe oublié ?
                                         </Link>
@@ -225,27 +222,13 @@ const Login = () => {
                             </div>
                         )}
 
-                        {/* --- PARTIE 2 : FORMULAIRE D'INSCRIPTION --- */}
+                        {/* --- PARTIE 2 : CREER UN COMPTE --- */}
                         {activeTab === 'register' && (
                             <div className="form-wrapper fade-in">
                                 <h2>CRÉER UN COMPTE</h2>
-                                <p className="subtitle">Rejoignez-nous et profitez d'une expérience personnalisée</p>
+                                <p className="subtitle">Rejoignez-nous et profitez d'une expérience personnalisée.</p>
 
                                 <form onSubmit={handleRegisterSubmit}>
-                                    <div className="form-row">
-                                        <div className="form-group">
-                                            <label>Prénom</label>
-                                            <input type="text" name="prenom" required
-                                                   placeholder="Jean"
-                                                   value={registerData.prenom} onChange={handleRegisterChange} />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Nom</label>
-                                            <input type="text" name="nom" required
-                                                   placeholder="Dupont"
-                                                   value={registerData.nom} onChange={handleRegisterChange} />
-                                        </div>
-                                    </div>
 
                                     <div className="form-group">
                                         <label>Adresse Email</label>
@@ -254,12 +237,6 @@ const Login = () => {
                                                value={registerData.email} onChange={handleRegisterChange} />
                                     </div>
 
-                                    <div className="form-group">
-                                        <label>Téléphone</label>
-                                        <input type="tel" name="telephone" required
-                                               placeholder="+33 6 12 34 56 78"
-                                               value={registerData.telephone} onChange={handleRegisterChange} />
-                                    </div>
 
                                     <div className="form-group">
                                         <label>Mot de passe</label>
@@ -270,14 +247,25 @@ const Login = () => {
 
                                     <div className="form-group">
                                         <label>Confirmer le mot de passe</label>
-                                        <input type="password" name="confirmPassword" required
-                                               placeholder="......."
+                                        <input type="password" name="confirmPassword" required // Mot de passe à retaper obligatoirement
+                                               placeholder="............."
                                                value={registerData.confirmPassword} onChange={handleRegisterChange} />
                                     </div>
 
-                                    <p className="legal-text">
-                                        J'accepte les conditions générales de vente et la politique de confidentialité
-                                    </p>
+                                    <div className="form-checkbox" style={{ marginBottom: '20px', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                                        <input
+                                            type="checkbox"
+                                            id="rgpd"
+                                            name="rgpd"
+                                            checked={registerData.rgpd}
+                                            onChange={handleRegisterChange}
+                                            required //Case à coché obligatoire
+                                            style={{ width: 'auto', marginTop: '4px' }}
+                                        />
+                                        <label htmlFor="rgpd" style={{ color: '#aaa', fontSize: '0.85rem', textTransform: 'none', letterSpacing: 'normal' }}>
+                                            J'accepte que mes données soient utilisées pour la création et la gestion de mon compte.
+                                        </label>
+                                    </div>
 
                                     <button type="submit" className="btn btn-primary w-100">
                                         CRÉER MON COMPTE

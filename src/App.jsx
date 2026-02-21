@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import Contact from "./pages/Contact.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import Panier from "./pages/Panier.jsx";
+import MonCompte from "./pages/MonCompte.jsx";
 
 
 // 1. IMPORT DU CONTEXTE AUTH ET CART
@@ -47,6 +48,7 @@ function App() {
                             <Route path="cgv" element={<CVG />} />
                             <Route path="*" element={<Page404 />} /> // * Page 404 si aucune route ne correspond
                             <Route path="plan-du-site" element={<PlanSite />} />
+                            <Route path="mon-compte" element={<MonCompte />} />
 
                         </Route>
                     </Routes>

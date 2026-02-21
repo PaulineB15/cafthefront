@@ -15,7 +15,7 @@ const Contact = () => {
         nom: '',
         email: '',
         message: '',
-        rgpd: false
+        rgpd: false  // La case RGPD est décochée par défaut pour obtenir le consentement de l'utilisateur'
     });
 
     const handleSubmit = (e) => {
@@ -62,7 +62,7 @@ const Contact = () => {
                             {/* Adresse */}
                             <div className="info-item">
                                 <div className="icon-circle">
-                                    <img src={IconMap} alt="" aria-hidden="true"/>
+                                    <img src={IconMap} alt="Icone localisation" aria-hidden="true"/>
                                 </div>
                                 <div className="info-content">
                                     <span className="info-label">ADRESSE</span>
@@ -73,11 +73,11 @@ const Contact = () => {
                             {/* Téléphone */}
                             <div className="info-item">
                                 <div className="icon-circle">
-                                    <img src={IconPhone} alt="" aria-hidden="true"/>
+                                    <img src={IconPhone} alt="Icone téléphone" aria-hidden="true"/>
                                 </div>
                                 <div className="info-content">
                                     <span className="info-label">TÉLÉPHONE</span>
-                                    <p><a href="tel:+33123456789">+33 1 23 45 67 89</a></p>
+                                    <p>+33 1 23 45 67 89</p>
                                     <span className="info-detail">Du lundi au vendredi, 9h - 18h</span>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@ const Contact = () => {
                             {/* Email */}
                             <div className="info-item">
                                 <div className="icon-circle">
-                                    <img src={IconMail} alt="" aria-hidden="true"/>
+                                    <img src={IconMail} alt="Icone email" aria-hidden="true"/>
                                 </div>
                                 <div className="info-content">
                                     <span className="info-label">EMAIL</span>
@@ -97,7 +97,7 @@ const Contact = () => {
                             {/* Horaires */}
                             <div className="info-item">
                                 <div className="icon-circle">
-                                    <img src={IconClock} alt="" aria-hidden="true"/>
+                                    <img src={IconClock} alt="Icone horloge" aria-hidden="true"/>
                                 </div>
                                 <div className="info-content">
                                     <span className="info-label">HORAIRES D'OUVERTURE</span>
@@ -168,9 +168,9 @@ const Contact = () => {
                                     name="rgpd"
                                     checked={formData.rgpd}
                                     onChange={handleChange}
-                                    required
+                                    required // Case à coché obligatoire
                                 />
-                                <label htmlFor="rgpd">
+                                <label htmlFor="rgpd" style={{ color: '#aaa', fontSize: '0.85rem', textTransform: 'none', letterSpacing: 'normal' }}>
                                     J'accepte que mes données soient utilisées pour traiter ma demande.
                                 </label>
                             </div>

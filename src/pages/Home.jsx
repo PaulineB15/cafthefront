@@ -194,10 +194,10 @@ function Home() {
                         nous garantissons une rémunération juste, stable et transparente aux producteurs, assurant ainsi des conditions de travail dignes.
                     </p>
 
-                    <p>
+                    {/*<p>
                         Nous réinvestissons une partie de nos bénéfices dans les communautés qui nous nourrissent. Nos actions financent des projets concrets
                         de développement local, comme l'accès à l'eau potable et des programmes de reforestation dans les pays producteurs.
-                    </p>
+                    </p> */}
 
                     {/* Liste des Valeurs (Pictos) */}
                     <div className="valeurs-list">

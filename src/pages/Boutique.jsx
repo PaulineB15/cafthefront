@@ -215,7 +215,7 @@ const Boutique = () => {
                     <p className="results-count">{filteredProduits.length} produits trouvés</p>
 
                     {filteredProduits.length > 0 ? (
-                        /* J'ai gardé ta classe "product-list" ici pour la grille */
+                        /* J'ai gardé la classe "product-list" ici pour la grille */
                         <div className="product-list">
                             {filteredProduits.map((produit) => (
                                 <ProductCard key={produit.ID_PRODUIT} produit={produit}/>
