@@ -146,7 +146,7 @@
 }
 
 
-/* --- PRODUCT LIST (Droite) --- */
+/* -- PRODUCT LIST (Droite) -- */
 .product-list-section {
     flex-grow: 1; /* Prend tout l'espace restant */
     width: 100%; /* Sécurité */
