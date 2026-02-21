@@ -66,7 +66,7 @@ function Home() {
                     <h1>L'excellence <br/> du café et du thé</h1>
                     <p>
                         Découvrez une sélection raffinée de cafés et thés d'exception,
-                        <br className="desktop-only" /> cultivés avec passion et respect de l'environnement.
+                         cultivés avec passion et respect de l'environnement.
                     </p>
                     {/* Bouton utilisant les nouvelles classes globales */}
                     <Link to="/boutique" className="btn btn-primary">

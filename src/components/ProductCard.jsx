@@ -38,11 +38,19 @@ const ProductCard = ({ produit }) => {
             <div className="card-info">
                 <h3>{produit.NOM_PRODUIT}</h3>
 
+                {/* Affichage de la catégorie, du type, et du type de vente */}
                 <p className="card-details">
                     {produit.CATEGORIE} {produit.TYPE ? `- ${produit.TYPE}` : ''}
+                    <br />
+                    <span className="type-vente">
+                        {produit.TYPE_VENTE === 'Vrac' ? 'En vrac' : 'A l\'unité'}
+                    </span>
                 </p>
 
-                <p className="card-price">{formattedPrice}</p>
+                {/* Affichage du prix avec la mention " / kg" UNIQUEMENT pour le vrac */}
+                <p className="card-price">
+                    {formattedPrice} {produit.TYPE_VENTE === 'Vrac' ? <span style={{fontSize: "0.8rem", color: "#888"}}> / kg</span> : ""}
+                </p>
 
                 <Link to={`/produit/${produit.ID_PRODUIT}`} className="btn-detail">
                     Voir détail
