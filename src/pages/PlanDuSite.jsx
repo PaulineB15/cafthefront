@@ -23,7 +23,6 @@ const PlanSite = () => {
                         <li><Link to="/" className="legal-link">Accueil</Link></li>
                         <li><Link to="/boutique" className="legal-link">Boutique (Cafés & Thés)</Link></li>
                         <li><Link to="/contact" className="legal-link">Contact</Link></li>
-                        <li><Link to="/faq" className="legal-link">Foire Aux Questions (FAQ)</Link></li>
                     </ul>
                 </section>
 
@@ -40,16 +39,13 @@ const PlanSite = () => {
                 <section className="legal-section">
                     <h2>Informations Légales</h2>
                     <ul className="legal-list">
-                        <li><Link to="/mentions-legales" className="legal-link">Mentions Légales</Link></li>
+                        <li><Link to="/faq" className="legal-link">Foire Aux Questions (FAQ)</Link></li>
+                        <li><Link to="/MentionsLegales" className="legal-link">Mentions Légales</Link></li>
                         <li><Link to="/cgv" className="legal-link">Conditions Générales de Vente (CGV)</Link></li>
                         <li><Link to="/confidentialite" className="legal-link">Politique de Confidentialité</Link></li>
-                        <li><Link to="/accessibilite" className="legal-link">Accessibilité</Link></li>
                     </ul>
                 </section>
 
-                <div className="legal-footer">
-                    <p>© {new Date().getFullYear()} CafThé - Tous droits réservés</p>
-                </div>
             </div>
         </main>
     );

@@ -224,19 +224,19 @@
 }
 
 /* Code Promo */
-.promo-code label {
+.promo-code-panier label {
     font-size: 0.75rem;
     color: #AAA;
     display: block;
     margin-bottom: 8px;
     letter-spacing: 1px;
 }
-.promo-input-group {
+.promo-panier-group {
     display: flex;
     gap: 0;
     margin-bottom: 10px;
 }
-.promo-input-group input {
+.promo-panier-group input {
     background: #1A1A1A;
     border: 1px solid #444;
     border-right: none;
@@ -246,7 +246,7 @@
     border-radius: 2px 0 0 2px;
     outline: none;
 }
-.promo-input-group button {
+.promo-panier-group button {
     background: #444;
     border: 1px solid #444;
     color: #FFF;
@@ -257,7 +257,7 @@
     border-radius: 0 2px 2px 0;
     transition: 0.3s;
 }
-.promo-input-group button:hover {
+.promo-panier-group button:hover {
     background-color: var(--gold-detail);
     border-color: var(--gold-detail);
     color: #1A1A1A;

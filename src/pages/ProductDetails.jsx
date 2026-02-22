@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "./ProductDetails.css";
 import { CartContext } from "../context/CartContext.jsx";
+import toast from "react-hot-toast";
 
 // Icône Panier (SVG Inline pour éviter les erreurs d'import)
 const CartIcon = () => (
@@ -89,7 +90,17 @@ const ProductDetails = () => {
             ? ` (${(poidsSelectionne * 1000)}g)`
             : '';
 
-        alert(`${quantite} x ${produit.NOM_PRODUIT}${messagePoids} ajouté au panier !`);
+        toast.success(`${quantite} x ${produit.NOM_PRODUIT}${messagePoids} ajouté !`, {
+            style: {
+                background: '#222',
+                color: '#fff',
+                border: '1px solid #C5A059',
+            },
+            iconTheme: {
+                primary: '#C5A059',
+                secondary: '#222',
+            },
+        });
     };
 
     if (isLoading) return <div style={{padding: "100px"}}><Skeleton height={500} /></div>;

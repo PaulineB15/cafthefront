@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext.jsx";
+import toast from "react-hot-toast";
+
 
 const ProductCard = ({ produit }) => {
+
+    // Import du useContext pour faire un quick ajout au panier
+    const { addToCart } = useContext(CartContext);
 
     // 1. GESTION DE L'IMAGE
     // Assure-toi que VITE_API_URL est bien défini dans ton fichier .env
@@ -18,6 +24,24 @@ const ProductCard = ({ produit }) => {
         style: 'currency',
         currency: 'EUR'
     }).format(produit.PRIX_TTC);
+
+    // Fonction déclenchée au clic sur le "+"
+    const handleQuickAdd = () => {
+        // On ajoute 1 quantité, et null pour le poids car ce bouton ne s'affiche que pour l'unité
+        addToCart(produit, 1, null);
+        // toast = design de la pop-up d'ajout du produit au panier
+        toast.success(`${produit.NOM_PRODUIT} ajouté au panier !`, {
+            style: {
+                background: '#222', // Fond gris foncé comme tes cartes
+                color: '#fff',      // Texte blanc
+                border: '1px solid #C5A059', // Bordure dorée
+            },
+            iconTheme: {
+                primary: '#C5A059', // Icône de validation dorée
+                secondary: '#222',  // Fond de l'icône
+            },
+        });
+    };
 
     return (
         <article className="product-card">
@@ -49,12 +73,21 @@ const ProductCard = ({ produit }) => {
 
                 {/* Affichage du prix avec la mention " / kg" UNIQUEMENT pour le vrac */}
                 <p className="card-price">
-                    {formattedPrice} {produit.TYPE_VENTE === 'Vrac' ? <span style={{fontSize: "0.8rem", color: "#888"}}> / kg</span> : ""}
+                    {formattedPrice} {produit.TYPE_VENTE === 'Vrac' ? <span style={{fontSize: "0.8rem", color: "#fff"}}> / kg</span> : ""}
                 </p>
 
-                <Link to={`/produit/${produit.ID_PRODUIT}`} className="btn-detail">
-                    Voir détail
-                </Link>
+                <div className="card-actions">
+                    <Link to={`/produit/${produit.ID_PRODUIT}`} className="btn-detail">
+                        Voir détail
+                    </Link>
+
+                    {/* Le bouton "+" ne s'affiche QUE si ce n'est pas du vrac */}
+                    {produit.TYPE_VENTE !== 'Vrac' && (
+                        <button onClick={handleQuickAdd} className="btn-quick-add" title="Ajouter rapidement au panier">
+                            +
+                        </button>
+                    )}
+                </div>
             </div>
         </article>
     );

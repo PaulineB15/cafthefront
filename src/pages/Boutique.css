@@ -258,7 +258,15 @@
     margin-top: auto; /* Pousse le prix vers le bas si le titre est court */
 }
 
+/* --- NOUVEAUX STYLES BOUTONS --- */
+.card-actions {
+    display: flex;
+    gap: 10px; /* Espace entre les deux boutons */
+    width: 100%;
+}
+
 .btn-detail {
+    flex: 1; /* Permet au bouton de prendre tout l'espace disponible */
     display: inline-block;
     padding: 12px 20px;
     background-color: transparent;
@@ -269,10 +277,30 @@
     font-size: 0.8rem;
     font-weight: 600;
     transition: all 0.3s;
-    width: 100%; /* Bouton pleine largeur */
+    text-align: center;
 }
 
 .btn-detail:hover {
+    background-color: var(--gold-detail);
+    border-color: var(--gold-detail);
+    color: var(--bg-dark);
+}
+
+.btn-quick-add {
+    background-color: transparent;
+    border: 1px solid var(--text-light);
+    color: var(--text-light);
+    width: 45px; /* Largeur fixe pour faire un carré/rectangle parfait */
+    font-size: 1.5rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-quick-add:hover {
     background-color: var(--gold-detail);
     border-color: var(--gold-detail);
     color: var(--bg-dark);

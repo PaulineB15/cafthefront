@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import HeroContact from '../assets/photo/Hero-Contact.webp';
+import toast from 'react-hot-toast';
 
 // IMPORT DES ICONES (Assure-toi que les fichiers existent bien dans src/assets/picto/)
 import IconMap from '../assets/picto/contact1.svg';
@@ -18,12 +19,34 @@ const Contact = () => {
         rgpd: false  // La case RGPD est décochée par défaut pour obtenir le consentement de l'utilisateur'
     });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Simulation d'envoi
-        alert(`Merci ${formData.nom} ! Votre message a bien été envoyé.`);
-        // Reset du formulaire
-        setFormData({ nom: '', email: '', message: '', rgpd: false });
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Empêche le rechargement de la page
+            // Envoi le message vers une vrai adresse email
+        const response = await fetch("https://formspree.io/f/xnjbgzao", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            toast.success(`Merci ${formData.nom} ! Votre message a bien été envoyé.`, {
+                style: {
+                    background: '#222',
+                    color: '#fff',
+                    border: '1px solid #C5A059',
+                },
+                iconTheme: {
+                    primary: '#C5A059',
+                    secondary: '#222',
+                },
+            });
+            // Reset du formulaire après succès
+            setFormData({ nom: '', email: '', message: '', rgpd: false });
+        } else {
+            toast.error("Oups ! Un problème est survenu lors de l'envoi.");
+        }
     };
 
     const handleChange = (e) => {
@@ -112,7 +135,7 @@ const Contact = () => {
                         <div className="help-box">
                             <p>BESOIN D'AIDE ?</p>
                             <p>Consultez notre FAQ pour trouver rapidement des réponses à vos questions.</p>
-                            <Link to="/faq" className="btn-outline">VOIR LA FAQ</Link>
+                            <Link to="/faq" className="btn btn-secondary">VOIR LA FAQ</Link>
                         </div>
                     </section>
 
@@ -121,7 +144,11 @@ const Contact = () => {
                         <h2>ENVOYEZ-NOUS UN MESSAGE</h2>
                         <p className="form-intro">Remplissez le formulaire ci-dessous, nous vous répondrons dans les plus brefs délais.</p>
 
-                        <form className="contact-form" onSubmit={handleSubmit}>
+                        <form className="contact-form"
+                              action="https://formspree.io/f/xnjbgzao"   // Lien pour envoyer le formulaire vers une vrai email
+                              method="POST"
+                              onSubmit={handleSubmit}>
+
                             <div className="form-group">
                                 <label htmlFor="nom">NOM COMPLET</label>
                                 <input

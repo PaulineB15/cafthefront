@@ -10,8 +10,10 @@ import FAQ from "./pages/FAQ.jsx";
 import Panier from "./pages/Panier.jsx";
 import MonCompte from "./pages/MonCompte.jsx";
 
+// IMPORT DU TOASTER (pour la pop-up qui s'affiche lors de l'ajout dans le panier)
+import {Toaster} from "react-hot-toast";
 
-// 1. IMPORT DU CONTEXTE AUTH ET CART
+ //IMPORT DU CONTEXTE AUTH ET CART
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 
@@ -30,6 +32,9 @@ function App() {
         <AuthProvider>
             {/* CartProvider : La gestion du panier (AJOUT ICI) */}
             <CartProvider>
+
+                {/* Toaster : Placer juste avant le router*/}
+                <Toaster position="bottom-right" reverseOrder={false} />
 
                 <BrowserRouter>
                     <Routes>

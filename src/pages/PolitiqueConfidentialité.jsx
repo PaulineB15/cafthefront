@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroInformations from '../assets/photo/HeroInformations.webp';
-import './MentionsLegales.css';
+import './PageLegales.css';
 
 const Confidentialite = () => {
     return (
@@ -18,6 +18,19 @@ const Confidentialite = () => {
                 <section className="legal-section">
                     <h2>Collecte des données</h2>
                     <p>Nous collectons vos informations lors de la création de votre compte et du passage de commande (nom, adresse, email, téléphone).</p>
+                </section>
+
+                <section className="legal-section">
+                    <h2>Formulaire de contact et Sous-traitance</h2>
+                    <p>
+                        Pour la gestion de vos demandes de contact, nous utilisons le service tiers <strong>Formspree</strong>.
+                        En soumettant notre formulaire de contact, vous acceptez que les informations saisies (nom, adresse email, message)
+                        soient transmises à Formspree pour traitement conformément à leur
+                        <a href="https://formspree.io/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="legal-link"> politique de confidentialité</a>.
+                    </p>
+                    <p>
+                        Ces données sont utilisées exclusivement pour nous permettre de vous répondre et ne sont jamais revendues à des tiers.
+                    </p>
                 </section>
 
                 <section className="legal-section">

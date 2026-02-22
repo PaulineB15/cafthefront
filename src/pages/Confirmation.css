@@ -1,13 +1,13 @@
 /* --- GLOBAL --- */
 .confirmation-page {
-    background-color: #0F0F0F; /* Fond très sombre global */
+    background-color: #0F0F0F;
     color: #F5F5F5;
     min-height: 100vh;
 }
 
 /* --- HERO SPECIFIQUE --- */
 .hero-confirmation {
-    height: 50vh; /* Assez haut comme sur l'image */
+    height: 50vh;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -16,7 +16,7 @@
 
 .hero-overlay-conf {
     width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6); /* Assombrissement */
+    background-color: rgba(0,0,0,0.6);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,11 +30,9 @@
     gap: 15px;
 }
 
-/* L'icône au dessus du titre */
 .conf-icon-wrapper img {
     width: 60px;
     height: 60px;
-    /* PAS DE FILTRE ICI, comme demandé. L'image originale s'affiche. */
     display: block;
     margin-bottom: 10px;
 }
@@ -54,7 +52,6 @@
     margin-bottom: 20px;
 }
 
-/* Encart Numéro de commande dans le Hero */
 .hero-order-badge {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid #444;
@@ -67,14 +64,13 @@
 .hero-order-badge span { font-size: 0.7rem; color: #AAA; letter-spacing: 1px; text-transform: uppercase; }
 .hero-order-badge strong { font-size: 1.2rem; color: var(--gold-detail, #C5A059); letter-spacing: 1px; }
 
-
 /* --- LAYOUT GRID --- */
 .conf-container {
     max-width: 1200px;
-    margin: -50px auto 50px auto; /* Remonte un peu sur le hero */
+    margin: -50px auto 50px auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: 2fr 1fr; /* 2/3 Main, 1/3 Sidebar */
+    grid-template-columns: 2fr 1fr;
     gap: 30px;
     position: relative;
     z-index: 10;
@@ -82,7 +78,7 @@
 
 /* --- CARDS GENERAL STYLE --- */
 .conf-card, .sidebar-card {
-    background-color: #1A1A1A; /* Gris foncé carte */
+    background-color: #1A1A1A;
     border: 1px solid #2A2A2A;
     padding: 30px;
     margin-bottom: 30px;
@@ -106,15 +102,15 @@
     letter-spacing: 1px;
 }
 
-.icon-gold { font-size: 1.2rem; color: var(--gold-detail, #C5A059); }
+/* Filtre pour rendre les icones SVG dorées */
 .icon-gold-img { width: 20px; height: 20px; filter: invert(81%) sepia(21%) saturate(735%) hue-rotate(357deg) brightness(91%) contrast(89%); }
 .gold-text { color: var(--gold-detail, #C5A059); }
 
 
 /* --- EMAIL BOX --- */
 .email-box { border-left: 3px solid var(--gold-detail, #C5A059); }
+.email-box p { color: #DDD; margin: 0 0 5px 0;}
 .small-text { font-size: 0.8rem; color: #777; margin-top: 5px; font-style: italic; }
-
 
 /* --- RECAP BOX --- */
 .conf-item {
@@ -129,7 +125,7 @@
     font-size: 0.7rem; color: #555; border: 1px solid #333;
 }
 .conf-item-info { flex: 1; }
-.item-type { font-size: 0.7rem; color: #777; text-transform: uppercase; display: block;}
+.item-type { font-size: 0.7rem; color: #999; text-transform: uppercase; display: block;}
 .conf-item-info h4 { margin: 3px 0; font-size: 1rem; color: #FFF; font-family: var(--font-title); }
 .item-detail { font-size: 0.8rem; color: #999; }
 .conf-item-price { font-weight: bold; color: var(--gold-detail, #C5A059); }
@@ -140,34 +136,15 @@
     font-size: 1.2rem; font-weight: bold; border-top: 1px solid #333; padding-top: 15px; margin-top: 15px; color: #FFF;
 }
 
-
-/* --- ADDRESS BOX --- */
-.address-content { margin-bottom: 20px; color: #DDD; line-height: 1.6; font-size: 0.95rem; }
-.delivery-date {
-    background: #222; padding: 15px; border-radius: 4px; font-size: 0.9rem; border: 1px solid #333;
-}
-.tiny-text { font-size: 0.75rem; color: #666; margin-top: 5px; }
-
-
-/* --- PAYMENT BOX --- */
-.payment-details { display: flex; align-items: center; gap: 15px; }
-.card-icon-placeholder { font-size: 1.5rem; color: #AAA; }
-.card-text { display: flex; flex-direction: column; }
-.card-text span:first-child { font-weight: bold; font-size: 0.9rem; }
-.card-hidden { color: #777; font-size: 0.85rem; }
-.payment-badge { margin-left: auto; background: #2A2A2A; color: #27ae60; padding: 5px 10px; font-size: 0.75rem; border-radius: 2px; }
-
-
-/* --- SIDEBAR (DROITE) --- */
+/* --- SIDEBAR & BOUTONS --- */
 .sidebar-card h3 { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+.sidebar-card p { font-size: 0.9rem; color: #999; line-height: 1.5; margin-bottom: 15px; }
 
-.detail-row { margin-bottom: 15px; }
-.detail-row label { display: block; font-size: 0.75rem; color: #777; text-transform: uppercase; margin-bottom: 3px; }
-.detail-row span, .detail-row strong { font-size: 0.95rem; color: #DDD; }
-.status-dot { color: var(--gold-detail, #C5A059); font-size: 0.9rem; }
-
-/* Bouton Sidebar */
+/* Le bouton a été déplacé dans main, mais on garde le style */
 .btn-gold-full {
+    display: block; /* Nécessaire pour un Link (balise a) */
+    text-align: center;
+    text-decoration: none;
     width: 100%;
     background-color: var(--gold-detail, #C5A059);
     color: #121212;
@@ -177,15 +154,12 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.3s;
+    border-radius: 2px;
 }
-.btn-gold-full:hover { background-color: #e0b86b; }
+.btn-gold-full:hover { background-color: #e0b86b; transform: translateY(-2px); }
 
-.link-gold { color: var(--gold-detail, #C5A059); text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.link-gold { color: var(--gold-detail, #C5A059); text-decoration: none; font-size: 0.9rem; transition: 0.3s; font-weight: bold;}
 .link-gold:hover { color: #FFF; padding-left: 5px; }
-
-.help-card a { text-decoration: none; font-size: 0.9rem; display: block; margin-top: 5px; transition: 0.3s; }
-.help-card a:hover { color: #FFF; }
-
 
 /* --- FOOTER THANKS --- */
 .footer-thanks { text-align: center; margin: 60px 0; padding: 0 20px; }
@@ -202,7 +176,6 @@
     .hero-confirmation h1 { font-size: 2rem; }
     .hero-order-badge { padding: 10px 15px; }
 
-    /* On inverse l'ordre sur mobile ? Sidebar en bas */
     .conf-sidebar { order: 2; }
     .conf-main { order: 1; }
 }

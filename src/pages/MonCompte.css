@@ -388,6 +388,7 @@
     align-items: center;
 }
 
+
 .promo-code {
     background-color: var(--bg-dark);
     border: 1px dashed var(--gold-detail);

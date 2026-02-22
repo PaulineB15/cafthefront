@@ -204,7 +204,7 @@ function Home() {
 
                         <article className="valeur-item">
                             <div className="valeur-icon">
-                                <img src={Agriculture} alt="" aria-hidden="true" />
+                                <img src={Agriculture} alt="Pictogramme d'une feuille" aria-hidden="true" />
                             </div>
                             <div className="valeur-content">
                                 <strong>AGRICULTURE DURABLE</strong>
@@ -214,7 +214,7 @@ function Home() {
 
                         <article className="valeur-item">
                             <div className="valeur-icon">
-                                <img src={Commerce} alt="" aria-hidden="true" />
+                                <img src={Commerce} alt="Pictogramme d'un coeur" aria-hidden="true" />
                             </div>
                             <div className="valeur-content">
                                 <strong>COMMERCE ÉQUITABLE</strong>
@@ -224,7 +224,7 @@ function Home() {
 
                         <article className="valeur-item">
                             <div className="valeur-icon">
-                                <img src={Impact} alt="" aria-hidden="true" />
+                                <img src={Impact} alt="Pictogramme du globe terrestre" aria-hidden="true" />
                             </div>
                             <div className="valeur-content">
                                 <strong>IMPACT POSITIF</strong>

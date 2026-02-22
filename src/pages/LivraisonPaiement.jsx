@@ -124,8 +124,12 @@ const LivraisonPaiement = () => {
                 // ON REDIRIGE en envoyant les vraies infos à la page de confirmation
                 navigate("/confirmation", {
                     state: {
-                        orderNumber: vraiNumeroCommande,
-                        email: emailConfirmation,
+                        numeroCommande: vraiNumeroCommande, // Le numéro généré par ta BDD
+                        email: emailConfirmation,           // L'email du client
+                        prenom: formData.prenom || (user ? user.prenom : "Cher client"),
+                        items: cart,                        // Tout le contenu du panier
+                        totalTTC: totalFinal,               // Le prix total calculé
+                        fraisLivraison: fraisLivraison      // Les frais de port (0, 4.90 ou 9.90)
                     }
                 });
 

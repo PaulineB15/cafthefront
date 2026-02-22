@@ -147,9 +147,9 @@ const Panier = () => {
                             <h2>Récapitulatif</h2>
 
                             {/* Code Promo */}
-                            <div className="promo-code">
+                            <div className="promo-code-panier">
                                 <label>CODE PROMO</label>
-                                <div className="promo-input-group">
+                                <div className="promo-panier-group">
                                     <input
                                         type="text"
                                         placeholder="Code"
