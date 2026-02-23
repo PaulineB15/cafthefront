@@ -10,6 +10,7 @@ import IconMail from '../assets/picto/contact3.svg';
 import IconClock from '../assets/picto/contact4.svg';
 
 import './Contact.css';
+import {Helmet} from "react-helmet-async";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -58,6 +59,12 @@ const Contact = () => {
     };
 
     return (
+        <>
+                <title>Contact - CafThé</title>
+                <meta name="description" content="Page contact d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+                <meta name="keywords"
+                      content="CafThé, contact, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
         <main className="contact-page">
 
             {/* SECTION HERO */}
@@ -212,6 +219,7 @@ const Contact = () => {
                 </div>
             </div>
         </main>
+        </>
     );
 };
 

@@ -119,12 +119,12 @@ a {
 }
 
 /* Style primaire (Vert) */
-.btn-primary {
+.btn-primaire {
   background-color: var(--green-cta);
   color: var(--text-light);
 }
 
-.btn-primary:hover {
+.btn-primaire:hover {
   background-color: var(--green-hover);
   border-color: var(--gold-detail); /* Petit détail chic */
   transform: translateY(-2px); /* Petit effet de levée */

@@ -28,7 +28,8 @@ const LivraisonPaiement = () => {
     // State pour le formulaire
     const [formData, setFormData] = useState({
         prenom: '', nom: '', email: '', telephone: '',
-        adresse: '', complement: '', codePostal: '', ville: '', pays: 'France'
+        adresse: '', complement: '', codePostal: '', ville: '', pays: 'France', cvg: false
+
     });
 
     // Pré-remplir si l'utilisateur charge une fraction de seconde plus tard (API)
@@ -87,6 +88,7 @@ const LivraisonPaiement = () => {
     // GERER LE PAYMENT
     const handlePayment = async (e) => {
         e.preventDefault();
+
 
         // Préparation des données de l'API
         const orderData = {
@@ -382,18 +384,30 @@ const LivraisonPaiement = () => {
                             <span>{totalFinal.toFixed(2)} €</span>
                         </div>
 
-                        <button
-                            type={deliveryMode === 'domicile' ? "submit" : "button"}
-                            form={deliveryMode === 'domicile' ? "checkout-form" : undefined}
-                            onClick={deliveryMode === 'boutique' ? handlePayment : undefined}
-                            className="btn-pay"
-                        >
-                            PAYER {totalFinal.toFixed(2)} €
-                        </button>
+                        <form onSubmit={handlePayment}>
+                            <button
+                                type="submit" /* Obligatoire pour déclencher la bulle orange */
+                                className="btn-pay"
+                                /* On enlève les conditions 'form=' et 'onClick=' compliquées ici */
+                            >
+                                PAYER {totalFinal.toFixed(2)} €
+                            </button>
 
-                        <p className="legal-text">
-                            En validant votre commande, vous acceptez nos <Link to="/cgv">CGV</Link>.
-                        </p>
+                            <div className="form-checkbox">
+                                <input
+                                    type="checkbox"
+                                    id="cvg"
+                                    name="cvg"
+                                    checked={formData.cvg}
+                                    onChange={handleChange}
+                                    required /* Active la bulle native */
+                                />
+                                <label htmlFor="cvg" style={{ color: '#aaa', fontSize: '0.85rem', textTransform: 'none', letterSpacing: 'normal' }}>
+                                    En validant votre commande, vous acceptez nos <Link to="/cgv">CGV</Link>.
+                                </label>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
 

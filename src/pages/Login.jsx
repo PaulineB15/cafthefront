@@ -20,6 +20,9 @@ const Login = () => {
     const [motDePasse, setMotDePasse] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
+    // Mot de passe oublié
+    const [forgotEmail, setForgotEmail] = useState("");
+
     // Gestion pour l'inscription
     const [registerData, setRegisterData] = useState({
         email: "",
@@ -37,6 +40,8 @@ const Login = () => {
     // ?. dit à React : "Essaye de lire from seulement si state existe. Sinon, ne plante pas et renvoie undefined
     const from = location.state?.from || "/"; // || --> OU la page d'accueil "/"
     // Cette variable from contient maintenant soit "/commande" (si on vient du panier), soit "/" (par défaut
+
+    // const [forgotPassword, setForgotPassword] = useState("");
 
 
     // FONCTION DE CONNEXION
@@ -139,6 +144,13 @@ const Login = () => {
     };
 
     return (
+
+        <>
+            <title>Login - CafThé</title>
+            <meta name="description" content="Page login d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, login, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
         <main className="auth-page">
             <section className="auth-hero" style={{backgroundImage: `url(${HeroCompte})`}}>
                 <div className="hero-overlay">
@@ -158,7 +170,7 @@ const Login = () => {
             <section className="auth-section">
                 <div className="auth-container">
                     {/* --- ONGLETS (TABS) --- */}
-                    <div className="auth-tabs">
+                    <nav className="auth-tabs">
                         <button
                             className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
                             onClick={() => setActiveTab('login')}
@@ -171,7 +183,7 @@ const Login = () => {
                         >
                             CRÉER UN COMPTE
                         </button>
-                    </div>
+                    </nav>
 
                     <div className="auth-content">
                         {/* Affichage des messages globaux */}
@@ -180,7 +192,7 @@ const Login = () => {
 
                         {/* --- PARTIE 1 : FORMULAIRE DE CONNEXION --- */}
                         {activeTab === 'login' && (
-                            <div className="form-wrapper fade-in">
+                            <section className="form-wrapper fade-in">
                                 <h2>BIENVENUE</h2>
                                 <p className="subtitle">Connectez-vous pour accéder à votre compte et retrouver vos commandes.</p>
 
@@ -210,21 +222,21 @@ const Login = () => {
                                     </div>
 
                                     <div className="form-footer">
-                                        <Link to="/forgot-password" style={{ color: 'var(--gold-detail)', fontSize: '0.85rem' }}>
+                                        <button type="button" onClick={() => {setActiveTab('forgot'); setErrorMsg(""); setSuccessMsg("");}} style={{ background: 'none', border: 'none', color: 'var(--gold-detail)', fontSize: '0.85rem', cursor: 'pointer', fontFamily: 'inherit' }}>
                                             Mot de passe oublié ?
-                                        </Link>
+                                        </button>
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary w-100">
+                                    <button type="submit" className="btn btn-primaire w-100">
                                         SE CONNECTER
                                     </button>
                                 </form>
-                            </div>
+                            </section>
                         )}
 
                         {/* --- PARTIE 2 : CREER UN COMPTE --- */}
                         {activeTab === 'register' && (
-                            <div className="form-wrapper fade-in">
+                            <section className="form-wrapper fade-in">
                                 <h2>CRÉER UN COMPTE</h2>
                                 <p className="subtitle">Rejoignez-nous et profitez d'une expérience personnalisée.</p>
 
@@ -271,12 +283,46 @@ const Login = () => {
                                         CRÉER MON COMPTE
                                     </button>
                                 </form>
-                            </div>
+                            </section>
                         )}
+
+                        {/* --- PARTIE 3 : MOT DE PASSE OUBLIÉ --- */}
+                        {activeTab === 'forgot' && (
+                            <section className="form-wrapper fade-in">
+                                <h2>MOT DE PASSE OUBLIÉ</h2>
+                                <p className="subtitle">Entrez votre email. Si un compte y est associé, nous vous enverrons un lien de réinitialisation.</p>
+
+                                <form onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    setErrorMsg(""); setSuccessMsg("");
+                                    try {
+                                        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/forgot-password`, {
+                                            method: "POST", headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify({ email: forgotEmail })
+                                        });
+                                        const data = await res.json();
+                                        setSuccessMsg(data.message);
+                                    } catch (err) { setErrorMsg("Erreur de connexion au serveur."); }
+                                }}>
+                                    <div className="form-group">
+                                        <label>Adresse Email</label>
+                                        <input type="email" required placeholder="votre@email.com" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} />
+                                    </div>
+                                    <button type="submit" className="btn btn-primary w-100" style={{marginBottom: "15px"}}>
+                                        ENVOYER LE LIEN
+                                    </button>
+                                    <button type="button" className="btn btn-secondary w-100" onClick={() => { setActiveTab('login'); setErrorMsg(""); setSuccessMsg(""); }}>
+                                        RETOUR À LA CONNEXION
+                                    </button>
+                                </form>
+                            </section>
+                        )}
+
                     </div>
                 </div>
             </section>
         </main>
+        </>
     );
 };
 

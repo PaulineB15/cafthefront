@@ -1,5 +1,5 @@
 /* =========================================
-      PAGE ACCUEIL (SPÉCIFIQUE)
+      PAGE HOME
    ========================================= */
 
 /* --- LAYOUT & ESPACEMENTS --- */
@@ -26,7 +26,7 @@
 }
 
 /* Overlay sombre pour lisibilité du texte */
-.hero-home-overlay {
+.home-filtre {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -34,7 +34,7 @@
     z-index: 1;
 }
 
-.hero-home-content {
+.home-entete {
     position: relative;
     z-index: 2;
     max-width: 650px;
@@ -42,11 +42,11 @@
 }
 
 /* On surcharge le H1 global juste pour le hero si besoin d'espacement spécifique */
-.hero-home-content h1 {
+.home-entete h1 {
     margin-bottom: 25px;
 }
 
-.hero-home-content p {
+.home-entete p {
     color: #eee;
     font-size: 1.125rem; /* 18px un peu plus grand pour l'intro */
     margin-bottom: 40px;

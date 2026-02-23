@@ -124,10 +124,16 @@ const ProductDetails = () => {
     const uniteStock = produit.TYPE_VENTE === 'Vrac' ? 'kg' : 'unités';
 
     return (
-        <div className="product-details-page">
+        <>
+            <title>Fiche Produit - CafThé</title>
+            <meta name="description" content="Fiche produit d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, fiche produit, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
+        <main className="product-details-page">
             <div className="product-details-container">
 
-                {/* 1. LIEN RETOUR SIMPLE */}
+                {/* Retour à la boutique */}
                 <div className="top-nav">
                     <Link to="/boutique" className="back-link-simple">
                         <ArrowLeft /> Retour aux produits
@@ -135,7 +141,7 @@ const ProductDetails = () => {
                 </div>
 
                 <div className="product-layout">
-                    {/* COLONNE IMAGE */}
+                    {/* Image produit */}
                     <div className="product-image-block">
                         <img
                             src={imageUrl}
@@ -144,7 +150,7 @@ const ProductDetails = () => {
                         />
                     </div>
 
-                    {/* COLONNE INFO */}
+                    {/* Informations sur le produit */}
                     <div className="product-info-block">
                         <h4 className="category-tag">
                             {produit.CATEGORIE} {produit.TYPE ? `- ${produit.TYPE}` : ''}
@@ -160,7 +166,7 @@ const ProductDetails = () => {
                             )}
                         </div>
 
-                        {/* 3. ORIGINE */}
+
                         {produit.ORIGINE_PRODUIT && (
                             <p className="origin-text">
                                 <strong>Origine :</strong> {produit.ORIGINE_PRODUIT}
@@ -169,7 +175,7 @@ const ProductDetails = () => {
 
                         <p className="description">{produit.DESCRIPTION}</p>
 
-                        {/* 4. STOCK */}
+
                         <p className="stock-indicator">
                             <span className={`status-dot ${produit.STOCK > 0 ? 'green' : 'red'}`}></span>
                             {produit.STOCK > 0
@@ -177,7 +183,7 @@ const ProductDetails = () => {
                                 : "Rupture de stock"}
                         </p>
 
-                        {/* SÉLECTEUR DE POIDS (Vrac uniquement) */}
+                        {/* Sélection du poids (Vrac uniquement) */}
                         {produit.TYPE_VENTE === 'Vrac' && (
                             <div className="options-vrac">
                                 <label>POIDS :</label>
@@ -190,7 +196,7 @@ const ProductDetails = () => {
                             </div>
                         )}
 
-                        {/* 5. ACTIONS (Quantité + Ajouter Panier) */}
+                        {/* ACTIONS (Quantité + Ajouter Panier) */}
                         <div className="actions-row">
                             <div className="quantity-selector">
                                 <button onClick={() => setQuantite(q => Math.max(1, q - 1))}>-</button>
@@ -204,7 +210,6 @@ const ProductDetails = () => {
                             </button>
                         </div>
 
-                        {/* Lien secondaire vers le panier */}
                         <div className="view-cart-link">
                             <Link to="/panier">Voir mon panier</Link>
                         </div>
@@ -212,7 +217,8 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
+        </>
     );
 };
 

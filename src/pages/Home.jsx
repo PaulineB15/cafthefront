@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
+import "./Home.css";
 
-// --- IMPORT DES IMAGES ---
+// --- Import photos et pictos ---
 import PhotoHero from "../assets/photo/HeroAccueil.webp";
 import HistoireImg from "../assets/photo/HistoireImg.webp";
-
-// Pictos
 import Agriculture from "../assets/picto/agriculturedurable.svg";
 import Commerce from "../assets/picto/commerceequitable.svg";
 import Impact from "../assets/picto/impact-positif.svg";
 import Etiquette from "../assets/picto/Etiquettepromo.svg";
 import Offre from "../assets/picto/Offrespromo.svg";
 
-// CSS
-import "./Home.css";
 
-// --- CONFIGURATION ---
-// On définit les ID des produits à afficher en vedette ici
-// (Sorti du composant pour la performance)
+
+
+
+// DECLARATION DE LA LISTE DES PRODUITS PHARES ID_PRODUITS (sélection sur la page d'accueil)
 const FEATURED_PRODUCT_IDS = [4, 21, 15, 27];
+
 
 function Home() {
     const [selectionProduits, setSelectionProduits] = useState([]);
@@ -53,31 +52,37 @@ function Home() {
     }, []);
 
     return (
-        <main className="home-page">
+        <>
+            <title>Accueil - CafThé</title>
+            <meta name="description" content="Accueil d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, accueil, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
 
-            {/* =========================================
-               1. SECTION HERO (Bannière Principale)
-               ========================================= */}
-            <section className="hero-home" style={{backgroundImage: `url(${PhotoHero})`}} alt="Photo d'une tasse de café" aria-label="Bannière d'accueil">
-                {/* Overlay sombre pour la lisibilité du texte */}
-                <div className="hero-home-overlay"></div>
+    <main className="home-page">
 
-                <div className="hero-home-content">
+
+        {/* ==================
+               1. SECTION HERO
+               =================== */}
+        <section className="hero-home" style={{backgroundImage: `url(${PhotoHero})`}} alt="Photo d'une tasse de café" aria-label="Bannière d'accueil">
+                {/* Filtre plus sombre pour la lisibilté */}
+                <div className="home-filtre"></div>
+                <div className="home-entete">
                     <h1>L'excellence <br/> du café et du thé</h1>
                     <p>
                         Découvrez une sélection raffinée de cafés et thés d'exception,
                          cultivés avec passion et respect de l'environnement.
                     </p>
-                    {/* Bouton utilisant les nouvelles classes globales */}
-                    <Link to="/boutique" className="btn btn-primary">
+
+                    <Link to="/boutique" className="btn btn-primaire">
                         Voir la boutique
                     </Link>
                 </div>
             </section>
 
-            {/* =========================================
-               2. SECTION SÉLECTION (Produits Phares)
-               ========================================= */}
+            {/* =====================
+               2. SECTION SÉLECTION
+               ======================*/}
             <section className="section-padding selection">
                 <h2>Notre sélection</h2>
                 <p style={{ maxWidth: '600px', margin: '0 auto 40px auto' }}>
@@ -107,11 +112,10 @@ function Home() {
                 </div>
             </section>
 
-            {/* =========================================
-               3. SECTION OFFRES (Promo & Fidélité)
-               ========================================= */}
+            {/* =====================
+               3. SECTION PROMO ET FIDELITE (Promo & Fidélité)
+               ====================== */}
             <section className="section-padding offre-section">
-                {/* Titre invisible pour l'accessibilité (Screen Readers) */}
                 <h2>Nos Offres et Programmes Fidélité</h2>
 
                 {/* CARTE 1 : OFFRE DU MOMENT */}
@@ -127,13 +131,13 @@ function Home() {
                                 Profitez de notre offre exceptionnelle sur l'ensemble de nos cafés et thés premium
                                 avec le code promo "BIENVENUE20".
                             </p>
-                            <Link to="/boutique" className="btn btn-primary">
+                            <Link to="/boutique" className="btn btn-primaire">
                                 J'en profite
                             </Link>
                     </article>
 
 
-                    {/* CARTE 2 : FIDÉLITÉ (Avec bordure dorée via classe gold-border) */}
+                    {/* CARTE 2 : FIDÉLITÉ */}
                     <article className="card-offre gold-border">
                         <div className="card-header">
                             <h3>Programme fidélité</h3>
@@ -145,19 +149,16 @@ function Home() {
                             d'un accès prioritaire à nos nouvelles collections.
 
                         </p>
-                        <Link to="/login" className="btn btn-primary">
+                        <Link to="/login" className="btn btn-primaire">
                             Découvrir
                         </Link>
                     </article>
                 </div>
             </section>
 
-            {/* =========================================
-               4. SECTION HISTOIRE & VALEURS
-               ========================================= */
-                /* Note: J'ai retiré la classe 'histoire' du CSS global index.css pour
-                   éviter les conflits, tout est géré via Home.css maintenant */
-            }
+            {/* ====================
+               4. SECTION HISTOIRE
+               ===================== */}
 
             <section className="section-padding histoire">
 
@@ -237,6 +238,7 @@ function Home() {
             </section>
 
         </main>
+        </>
     );
 }
 

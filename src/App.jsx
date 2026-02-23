@@ -9,6 +9,7 @@ import Contact from "./pages/Contact.jsx";
 import FAQ from "./pages/FAQ.jsx";
 import Panier from "./pages/Panier.jsx";
 import MonCompte from "./pages/MonCompte.jsx";
+import ResetPassword from "./pages/OublieMotDePasse.jsx";
 
 // IMPORT DU TOASTER (pour la pop-up qui s'affiche lors de l'ajout dans le panier)
 import {Toaster} from "react-hot-toast";
@@ -33,7 +34,7 @@ function App() {
             {/* CartProvider : La gestion du panier (AJOUT ICI) */}
             <CartProvider>
 
-                {/* Toaster : Placer juste avant le router*/}
+                {/* Toaster : juste avant le router*/}
                 <Toaster position="bottom-right" reverseOrder={false} />
 
                 <BrowserRouter>
@@ -54,12 +55,12 @@ function App() {
                             <Route path="*" element={<Page404 />} /> // * Page 404 si aucune route ne correspond
                             <Route path="plan-du-site" element={<PlanSite />} />
                             <Route path="mon-compte" element={<MonCompte />} />
+                            <Route path="reset-password" element={<ResetPassword />} />
 
                         </Route>
                     </Routes>
                 </BrowserRouter>
             </CartProvider>
-            {/* Fin CartProvider */}
         </AuthProvider>
     )
 }

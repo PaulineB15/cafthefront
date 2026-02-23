@@ -154,6 +154,13 @@ const Boutique = () => {
 
     // --- 9. AFFICHAGE PRINCIPAL ---
     return (
+
+        <>
+            <title>Boutique - CafThé</title>
+            <meta name="description" content="Boutique d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, boutique, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
         <main className="boutique-page">
 
             {/* SECTION HERO */}
@@ -230,6 +237,7 @@ const Boutique = () => {
 
             </div>
         </main>
+        </>
     );
 };
 

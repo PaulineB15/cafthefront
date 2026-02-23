@@ -123,9 +123,15 @@ const Confirmation = () => {
                             </div>
                         </div>
 
-                        {/* LE BOUTON DÉPLACÉ SOUS LE RÉCAPITULATIF */}
+                        {/* BOUTON "SUIVRE MA COMMANDE" REDIRIGEANT VERS "SUIVI" /MONCOMPTE.JSX */}
                         <div style={{marginTop: "30px"}}>
-                            <Link to="/mon-compte" className="btn-gold-full">SUIVRE MA COMMANDE</Link>
+                            <Link
+                                to="/mon-compte"
+                                state={{ activeTab: 'suivi' }}
+                                className="btn-gold-full"
+                            >
+                                SUIVRE MA COMMANDE
+                            </Link>
                         </div>
                     </article>
 
@@ -134,7 +140,7 @@ const Confirmation = () => {
                 {/* COLONNE DROITE (SIDEBAR) */}
                 <aside className="conf-sidebar">
 
-                    {/* Carte Découvrez aussi */}
+                    {/* RETOUR A LA BOUTIQUE */}
                     <article className="sidebar-card discover-card">
                         <h3>DÉCOUVREZ AUSSI</h3>
                         <p>Continuez vos achats et découvrez notre sélection de cafés et thés d'exception.</p>
@@ -143,11 +149,11 @@ const Confirmation = () => {
                         </Link>
                     </article>
 
-                    {/* Carte Besoin d'aide modifiée */}
+                    {/* BESOIN D'AIDE */}
                     <article className="sidebar-card help-card">
                         <h3>BESOIN D'AIDE ?</h3>
                         <p>Une question concernant votre commande ? Notre équipe est à votre écoute pour vous aider.</p>
-                        <Link to="/contact" className="btn btn-primary">Nous contacter →</Link>
+                        <Link to="/contact" className="btn btn-primaire">Nous contacter →</Link>
                     </article>
                 </aside>
 

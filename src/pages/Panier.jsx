@@ -65,6 +65,12 @@ const Panier = () => {
     const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
     return (
+        <>
+            <title>Panier - CafThé</title>
+            <meta name="description" content="Page panier d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, panier, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
         <main className="panier-page">
             <section className="hero-panier" style={{backgroundImage: `url(${HeroPanier})`}}>
                 <div className="hero-overlay">
@@ -95,6 +101,7 @@ const Panier = () => {
                                     : "https://via.placeholder.com/100";
 
                                 return (
+
                                     <div key={item.cartId} className="cart-item">
                                         {/* Image */}
                                         <div className="item-image">
@@ -211,6 +218,9 @@ const Panier = () => {
                 )}
             </div>
         </main>
+                                </>
+
+
     );
 }
 
