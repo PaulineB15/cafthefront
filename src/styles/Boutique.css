@@ -1,11 +1,11 @@
-/* =========================================
-   PAGE BOUTIQUE
-   ========================================= */
+/* ===============
+      PAGE BOUTIQUE
+   =============== */
+
 
 /* --- HERO SECTION --- */
 .hero-boutique {
     position: relative;
-    /* Hauteur un peu réduite sur mobile, ajustée sur desktop */
     height: 60vh;
     min-height: 400px;
     background-size: cover;
@@ -15,8 +15,8 @@
     align-items: center;
 }
 
-.hero-boutique-overlay {
-    background-color: rgba(0, 0, 0, 0.6); /* Un peu plus sombre pour lisibilité texte */
+.hero-boutique-filtre {
+    background-color: rgba(0, 0, 0, 0.6);
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -27,25 +27,27 @@
     padding: 0 20px;
 }
 
-.hero-boutique-content {
+.hero-boutique-entete {
     position: relative;
     z-index: 2;
     max-width: 800px;
 }
 
-/* Le titre H1 est déjà géré globalement dans index.css,
-   on peut juste ajuster la marge ici si besoin */
-.hero-boutique-content h1 {
+.hero-boutique-entete h1 {
     margin-bottom: 20px;
 }
 
-.hero-boutique-content p {
-    font-size: 1.125rem; /* 18px */
+.hero-boutique-entete p {
+    font-size: 1.125rem;
     color: #eee;
 }
 
-/* --- WRAPPER GLOBAL (Sidebar + Liste) --- */
-.boutique-content-wrapper {
+
+/* --- CONTAINER GLOBAL (Sidebar + Liste produits) --- */
+
+/* FILTRAGE */
+
+.boutique-container {
     display: flex;
     max-width: 1400px;
     margin: 0 auto;
@@ -54,8 +56,8 @@
     align-items: flex-start; /* Important pour que la sidebar ne s'étire pas */
 }
 
-/* --- SIDEBAR (Filtres - Gauche) --- */
-.filters-sidebar {
+/* --- COLONNE FILTRE --- */
+.filtrage-container {
     width: 250px;
     flex-shrink: 0; /* Empêche la sidebar de rétrécir */
     background-color: rgba(255, 255, 255, 0.02); /* Très léger fond pour délimiter */
@@ -64,7 +66,7 @@
     border: 1px solid #333;
 }
 
-.filter-header {
+.filtrage-entete {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,7 +75,7 @@
     padding-bottom: 10px;
 }
 
-.filter-header p {
+.filtrage-entete p {
     font-family: var(--font-title);
     color: var(--gold-detail);
     font-size: 1.2rem;
@@ -94,11 +96,11 @@
     color: var(--text-light);
 }
 
-.filter-group {
+.filtrage {
     margin-bottom: 30px;
 }
 
-.filter-group h2 {
+.filtrage h2 {
     /* Surcharge du H2 global pour qu'il soit plus petit dans la sidebar */
     font-size: 1rem;
     color: var(--text-light);
@@ -107,14 +109,14 @@
     padding-left: 10px;
 }
 
-.filter-section {
+.filtrage-section {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.filter-subtitle {
+.filtrage-nom {
     font-weight: 600;
     color: var(--sand-text);
     margin-bottom: 5px;
@@ -123,8 +125,8 @@
     text-transform: uppercase;
 }
 
-/* Style des Inputs Radio customisés */
-.filters-sidebar label {
+
+.filtrage label {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -134,40 +136,45 @@
     transition: color 0.2s;
 }
 
-.filters-sidebar label:hover {
+.filtrage label:hover {
     color: var(--gold-detail);
 }
 
-.filters-sidebar input[type="radio"] {
-    accent-color: var(--gold-detail); /* Couleur native du navigateur pour le bouton */
+.filtrage-container input[type="radio"] {
+    accent-color: var(--gold-detail);
     width: 16px;
     height: 16px;
     cursor: pointer;
 }
 
 
-/* -- PRODUCT LIST (Droite) -- */
-.product-list-section {
+
+/* -- LISTE DES PRODUITS -- */
+.liste-de-produits {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1; /* Prend tout l'espace restant */
     width: 100%; /* Sécurité */
 }
 
-.results-count {
+.resultat-produits {
     color: #888;
     margin-bottom: 20px;
     font-size: 0.9rem;
-    text-align: right; /* Alignement propre à droite */
+    text-align: right;
 }
 
 /* GRILLE DES PRODUITS */
-.product-list {
+
+.carte-produit-liste {
     display: grid;
-    /* Grid responsive magique : crée autant de colonnes que possible de min 260px */
+    /* Grid responsive créant autant de colonnes que possible de min 260px */
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 30px;
 }
 
-.no-results {
+.pas-resultat {
     text-align: center;
     padding: 80px 0;
     font-size: 1.2rem;
@@ -179,7 +186,7 @@
 
 /* --- CARTE PRODUIT (ProductCard.jsx) --- */
 
-.product-card {
+.carte-produit {
     background-color: #222;
     border: 1px solid #333;
     border-radius: 2px;
@@ -192,13 +199,13 @@
     height: 100%; /* Important pour que toutes les cartes aient la même hauteur */
 }
 
-.product-card:hover {
+.carte-produit:hover {
     border-color: var(--gold-detail);
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.card-image-wrapper {
+.cadre-photo {
     background-color: #fff;
     padding: 15px;
     border-radius: 2px;
@@ -211,24 +218,24 @@
     overflow: hidden;
 }
 
-.product-card img {
+.carte-produit img {
     width: 100%;
     height: 100%;
     object-fit: contain; /* L'image ne sera pas coupée */
     transition: transform 0.5s ease;
 }
 
-.product-card:hover img {
+.carte-produit:hover img {
     transform: scale(1.05); /* Petit zoom au survol */
 }
 
-.card-info {
+.carte-info {
     display: flex;
     flex-direction: column;
     flex-grow: 1; /* Remplit l'espace pour pousser le bouton en bas */
 }
 
-.card-info h3 {
+.carte-info h3 {
     color: var(--text-light);
     font-family: var(--font-title);
     font-size: 1.1rem;
@@ -242,7 +249,7 @@
     height: 2.8em;
 }
 
-.card-details {
+.carte-details {
     color: var(--text-light);
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -250,7 +257,7 @@
     letter-spacing: 1px;
 }
 
-.card-price {
+.prix-vrac {
     color: var(--gold-detail);
     font-weight: 700; /* Bold */
     font-size: 1.25rem;
@@ -319,30 +326,30 @@
 
 /* Tablette (max 1024px) */
 @media (max-width: 1024px) {
-    .boutique-content-wrapper {
+    .boutique-container {
         padding: 40px 20px;
         gap: 30px;
     }
 
-    .filters-sidebar {
+    .filtrage-container {
         width: 220px;
     }
 }
 
 /* Mobile (max 900px) -> On passe en colonne */
 @media (max-width: 900px) {
-    .boutique-content-wrapper {
+    .boutique-container {
         flex-direction: column;
     }
 
-    .filters-sidebar {
+    .filtrage-container {
         width: 100%; /* Prend toute la largeur */
         margin-bottom: 40px;
         padding-bottom: 20px;
     }
 
     /* On peut mettre les filtres en Grid sur mobile pour gagner de la place */
-    .filter-group {
+    .filtrage {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
@@ -350,7 +357,7 @@
         padding-bottom: 20px;
     }
 
-    .filter-group h2 {
+    .filtrage h2 {
         width: 100%; /* Le titre prend toute la ligne */
         border: none;
         padding: 0;
@@ -360,7 +367,7 @@
 
     }
 
-    .filter-section {
+    .filtrage-section {
         flex: 1;
         min-width: 140px; /* Taille min pour chaque bloc de filtre */
     }
@@ -370,23 +377,23 @@
         min-height: 300px;
     }
 
-    .product-list {
+    .carte-produit-liste {
         /* Sur mobile, on force parfois 1 ou 2 colonnes selon la largeur */
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Cartes plus petites */
         gap: 15px;
     }
 
     /* Ajustement des cartes pour petit écran */
-    .product-card {
+    .carte-produit {
         padding: 10px;
     }
 
-    .card-image-wrapper {
+    .cadre-photo {
         padding: 5px;
         margin-bottom: 10px;
     }
 
-    .card-info h3 {
+    .carte-info h3 {
         font-size: 0.9rem;
         height: auto; /* Hauteur auto sur mobile */
     }

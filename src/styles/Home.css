@@ -1,95 +1,93 @@
-/* =========================================
+/* ===============
       PAGE HOME
-   ========================================= */
+   =============== */
 
-/* --- LAYOUT & ESPACEMENTS --- */
-.home-page {
-    overflow-x: hidden;
-}
-
-/* Classe utilitaire pour uniformiser les paddings des sections */
-.section-padding {
+/* Container global */
+.section-container {
     padding: 80px 10%;
     width: 100%;
 }
 
-/* --- HERO SECTION --- */
+/* --- HERO --- */
 .hero-home {
     position: relative;
     height: 85vh;
     min-height: 400px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    overflow: hidden; /* Empêche l'image de dépasser */
     display: flex;
-    align-items: center; /* Centre verticalement */
+    align-items: center;
 }
 
-/* Overlay sombre pour lisibilité du texte */
-.home-filtre {
+.hero-home-image {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
-    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* L'image remplit tout l'espace sans se déformer */
+}
+
+.hero-home-content {
+    position: relative;
+    z-index: 1; /* Permet de s'assurer que le texte est au dessus de l'image */
 }
 
 .home-entete {
-    position: relative;
+    position: relative; /* Indispensable pour que le z-index soit pris en compte */
     z-index: 2;
-    max-width: 650px;
-    padding-left: 10%; /* S'aligne avec le padding global */
+    width: 100%; /* Prend toute la largeur pour permettre l'alignement interne */
+    max-width: 700px; /* Empêche le texte de s'étaler sur toute la largeur de l'écran */
+    padding-left: 10%;
+    padding-right: 20px;
 }
 
-/* On surcharge le H1 global juste pour le hero si besoin d'espacement spécifique */
 .home-entete h1 {
     margin-bottom: 25px;
 }
 
 .home-entete p {
-    color: #eee;
-    font-size: 1.125rem; /* 18px un peu plus grand pour l'intro */
+    font-size: 1.25rem;
     margin-bottom: 40px;
 }
 
 
-/* --- SECTION SÉLECTION --- */
+
+/* --- SÉLECTION --- */
+
 .selection {
     text-align: center;
-    background-color: #222; /* Légère nuance par rapport au fond noir */
+    background-color: #222;
 }
 
-/* Grille responsive automatique */
-.selection-grid {
+.selection-card {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     justify-items: center;
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 
-/* --- SECTION OFFRES --- */
+/* --- OFFRES & PROGRAMMES --- */
 
-/* --- SECTION OFFRES --- */
-.offre-section {
+
+.offre {
     background-color: var(--bg-dark);
-    text-align: center; /* Centre le titre H2 */
+    text-align: center;
 }
 
-/* On ajoute un peu d'espace sous le titre pour qu'il ne colle pas aux cartes */
 .offre-section h2 {
     margin-bottom: 50px;
-    color: var(--gold-detail); /* S'assure qu'il est bien doré */
 }
 
-/* Nouveau conteneur pour les cartes uniquement */
-.offres-grid {
+
+/* Container pour les cards offre du moment + programmes */
+.offres-programme {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
-    justify-content: center; /* Centre les cartes au milieu de l'écran */
+    justify-content: center;
 }
+
 
 /* Style des cartes */
 
@@ -97,21 +95,19 @@
     flex: 1;
     min-width: 300px; /* Sur mobile, la carte ne sera pas écrasée */
     max-width: 450px; /* Sur grand écran, elle ne sera pas géante */
-
     padding: 50px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     border-radius: 2px;
-
     background-color: #222;
     border: 1px solid #333;
     transition: transform 0.3s ease;
 }
 
-/* Variante dorée */
-.card-offre.gold-border {
+
+.card-offre.bordure {
     background-color: var(--bg-dark);
     border: 1px solid var(--gold-detail);
 }
@@ -121,22 +117,22 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.card-header {
+.card-entete {
     display: flex;
     align-items: center;
-    justify-content: center; /* Important pour centrer le contenu header */
+    justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
     width: 100%;
 }
 
-.card-header img {
+.card-entete img {
     width: 24px;
     height: auto;
 }
 
-.card-header h3 {
-    color: #fff;
+.card-entete h3 {
+    color: var(--text-light);
     margin: 0;
     font-size: 1.1rem;
     border-bottom: 1px solid var(--gold-detail);
@@ -160,22 +156,15 @@
     flex-grow: 1;
 }
 
+
 /* --- SECTION HISTOIRE --- */
+
 .histoire {
     display: flex;
     align-items: center;
     gap: 80px;
-    /* Fond blanc pour casser le rythme sombre (optionnel, sinon retirer) */
     background-color: #222;
-    color: #1A1A1A; /* Texte sombre sur fond clair */
-}
-
-/* Si fond clair, on adapte les titres */
-.histoire h2 {
-    color: var(--gold-detail);
-}
-.histoire p {
-    color: var(--text-light);
+    color: #1A1A1A;
 }
 
 .histoire-image {
@@ -192,38 +181,41 @@
     flex: 1;
 }
 
-/* LISTE VALEURS */
-.valeurs-list {
+
+/* LISTE ENGAGEMENTS */
+.engagements {
     margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.valeur-item {
+.engagements-article {
     display: flex;
     gap: 20px;
     align-items: flex-start;
 }
 
-.valeur-icon {
+.engagements-icone {
     width: 50px;
     flex-shrink: 0;
 }
 
-.valeur-content strong {
+.engagements-text strong {
     display: block;
     font-family: var(--font-title);
-    color: #C5A059; /* On force le doré ici */
+    color: #C5A059;
     font-size: 1.1rem;
     margin-bottom: 5px;
     text-transform: uppercase;
 }
 
 
-/* --- RESPONSIVE MOBILE --- */
+
+/* --- MEDIA QUERIES --- */
+
 @media (max-width: 900px) {
-    .section-padding {
+    .section-container {
         padding: 60px 5%; /* Moins de marge sur les côtés */
     }
 
@@ -242,14 +234,14 @@
         text-align: center;
     }
 
-    /* On remet l'image au dessus du texte */
+    /* Image au dessus du texte */
     .histoire-image {
         order: -1;
         width: 100%;
         max-width: 400px;
     }
 
-    .valeur-item {
-        text-align: left; /* Garde les valeurs alignées à gauche pour lisibilité */
+    .engagements-text {
+        text-align: left;
     }
 }

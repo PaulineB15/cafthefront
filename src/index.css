@@ -1,15 +1,76 @@
 /* =========================================
-   1. IMPORTS & RESET
+    IMPORTS & RESET
    ========================================= */
-/* Un seul import pour toutes les graisses de Montserrat et Tenor Sans */
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap');
 
-/* Reset de base */
+
+/*RESET*/
+
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+
+
+
+/* Reset de base
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+}*/
 
 /* Images fluides par défaut (évite qu'elles dépassent) */
 img {
@@ -18,8 +79,17 @@ img {
   display: block;
 }
 
+/* Paramètres généraux pour les images du Héro */
+
+.hero-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* L'image remplit tout l'espace sans se déformer */
+}
+
 /* =========================================
-   2. VARIABLES GLOBALES (:ROOT)
+    VARIABLES GLOBALES (:ROOT)
    ========================================= */
 :root {
   /* Couleurs de ta charte */
@@ -36,7 +106,7 @@ img {
 }
 
 /* =========================================
-   3. STYLE GÉNÉRAL (BODY & HTML)
+    STYLE GÉNÉRAL (BODY & HTML)
    ========================================= */
 html {
   scroll-behavior: smooth; /* Défilement fluide */
@@ -52,7 +122,7 @@ body {
 }
 
 /* =========================================
-   4. TYPOGRAPHIE GLOBALE
+   TYPOGRAPHIE
    ========================================= */
 h1, h2, h3, h4 {
   font-family: var(--font-title);
@@ -100,9 +170,9 @@ a {
 }
 
 /* =========================================
-   5. COMPOSANTS GLOBAUX (BOUTONS)
+   COMPOSANTS (BOUTONS)
    ========================================= */
-/* On crée une classe générique .btn que tu pourras utiliser partout */
+
 .btn {
   display: inline-block;
   padding: 15px 35px;
@@ -131,13 +201,13 @@ a {
 }
 
 /* Style secondaire (Contour doré - optionnel, utile pour la home) */
-.btn-secondary {
+.btn-secondaire {
   background-color: transparent;
   border: 1px solid var(--gold-detail);
   color: var(--gold-detail);
 }
 
-.btn-secondary:hover {
+.btn-secondaire:hover {
   background-color: var(--gold-detail);
   color: var(--bg-dark);
 }

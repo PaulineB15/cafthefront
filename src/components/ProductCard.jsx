@@ -43,10 +43,12 @@ const ProductCard = ({ produit }) => {
         });
     };
 
+
+
     return (
-        <article className="product-card">
+        <article className="carte-produit">
             {/* Conteneur de l'image */}
-            <div className="card-image-wrapper">
+            <div className="cadre-photo">
                 <img
                     src={imageUrl}
                     alt={produit.NOM_PRODUIT}
@@ -59,11 +61,11 @@ const ProductCard = ({ produit }) => {
             </div>
 
             {/* Informations du produit */}
-            <div className="card-info">
+            <div className="carte-info">
                 <h3>{produit.NOM_PRODUIT}</h3>
 
                 {/* Affichage de la catégorie, du type, et du type de vente */}
-                <p className="card-details">
+                <p className="carte-details">
                     {produit.CATEGORIE} {produit.TYPE ? `- ${produit.TYPE}` : ''}
                     <br />
                     <span className="type-vente">
@@ -72,7 +74,7 @@ const ProductCard = ({ produit }) => {
                 </p>
 
                 {/* Affichage du prix avec la mention " / kg" UNIQUEMENT pour le vrac */}
-                <p className="card-price">
+                <p className="prix-vrac">
                     {formattedPrice} {produit.TYPE_VENTE === 'Vrac' ? <span style={{fontSize: "0.8rem", color: "#fff"}}> / kg</span> : ""}
                 </p>
 
