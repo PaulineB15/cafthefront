@@ -80,7 +80,7 @@ const Login = () => {
 
             // Au lieu de navigate("/"), on va vers la variable "from"
             // Si on vient du panier, on ira vers "/commande"
-            navigate(from, { replace: true });
+            navigate(from, { replace: true, state: location.state });
             // replace: true pour éviter que l'utilisateur ne
             // retombe sur la page de connexion s'il clique sur le bouton 'Retour'.
             // Cela remplace la page Login par la page Commande dans l'historique du navigateur.

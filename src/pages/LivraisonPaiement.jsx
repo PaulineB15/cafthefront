@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation} from "react-router-dom";
 import { CartContext } from "../context/CartContext.jsx";
 import { AuthContext} from "../context/AuthContext.jsx";
 import "./LivraisonPaiement.css";
@@ -19,6 +19,14 @@ const LivraisonPaiement = () => {
     const { user } = useContext(AuthContext);
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+
+    // 1. On récupère les infos de promo du state de navigation
+    const promoInfo = location.state || {};
+    // On extrait la remise (si elle n'existe pas dans promoInfo, on met 0 par défaut
+    const remiseMontant = promoInfo.remiseMontant || 0;
+
 
     // State pour le mode de livraison et paiement
     const [deliveryMode, setDeliveryMode] = useState('domicile'); // 'domicile' ou 'boutique'
@@ -60,20 +68,21 @@ const LivraisonPaiement = () => {
 
 
     // --- LOGIQUE DE CALCUL DES FRAIS ---
-    let fraisLivraison = 0
-
+    // 2. Mise à jour de la logique de calcul des frais et du total
+    let fraisLivraison = 0;
     if (deliveryMode === 'boutique') {
         fraisLivraison = 0;
     } else {
-        // Mode " Domicile"
         if (carrier === 'ups') {
-        fraisLivraison = 9.90; // Frais de port UPS
+            fraisLivraison = 9.90;
         } else {
-            // Colissimo: Gratuit si > 50euros, sinon 4.90euros
-         fraisLivraison = cartTotal > 50 ? 0 : 4.90;}
+            // On calcule souvent la gratuité sur le total AVANT remise
+            fraisLivraison = cartTotal > 50 ? 0 : 4.90;
+        }
     }
 
-    const totalFinal = cartTotal + fraisLivraison;
+    // Le total final prend maintenant en compte la remise reçue
+    const totalFinal = cartTotal + fraisLivraison - remiseMontant;
 
     // --- HANDLERS ---
     const handleChange = (e) => {
@@ -372,6 +381,14 @@ const LivraisonPaiement = () => {
                             <span>Sous-total</span>
                             <span>{cartTotal.toFixed(2)} €</span>
                         </div>
+
+                        {remiseMontant > 0 && (
+                            <div className="summary-line" style={{ color: '#27ae60' }}>
+                                <span>Remise Code Promo</span>
+                                <span>-{remiseMontant.toFixed(2)} €</span>
+                            </div>
+                        )}
+
                         <div className="summary-line">
                             <span>Livraison</span>
                             <span style={{color: fraisLivraison === 0 ? '#27ae60' : 'inherit'}}>

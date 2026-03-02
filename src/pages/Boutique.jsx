@@ -7,13 +7,12 @@ import { useSearchParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 // ProductCard : Composant de la card du produit
 import ProductCard from "../components/ProductCard.jsx";
-import "../styles/Boutique.css";
 import HeroBoutique from "../assets/photo/HeroBoutique.webp";
+import "../styles/Boutique.css";
 
 
 const Boutique = () => {
     // --- CRÉATION DE LA MÉMOIRE (STATES)---
-
 
     const [produits, setProduits] = useState([]); // Stockage des produits venant de la BDD
     const [isLoading, setIsLoading] = useState(true); // Gestion du chargement
@@ -26,9 +25,9 @@ const Boutique = () => {
     const [priceRange, setPriceRange] = useState("Tous"); // Prix
 
     // --- BARRE DE RECHERCHE (NavBar) ---
-
     const [searchParams] = useSearchParams();  // Récupère le paramètre "search" de l'URL (ex: ?search=cafe)"
     const searchItems = searchParams.get("search") || "";   // Si pas de recherche, chaîne vide
+
 
     // --- ACTION AUTOMATIQUE (USE EFFECT) ---
 
@@ -129,11 +128,11 @@ const Boutique = () => {
     // 1. SCENARIO 1: EN TRAIN DE CHARGER (Affichage conditionnel)
     if (isLoading) {
         return (
-            <div className="product-list-skeleton-container">
-                <div className="product-list">
+            <main className="skeleton-container">
+                <ul>
                     {/* Génère 6 fausses cards (Skeleton) de chargement */}
                     {Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="product-skeleton">
+                        <li key={i} className="carte-produit" >
                             <Skeleton height={200} width={300} />
                             <div style={{ marginTop: "0.5rem" }}>
                                 <Skeleton height={20} width="70%" />
@@ -141,28 +140,27 @@ const Boutique = () => {
                             <div style={{ marginTop: "0.3rem" }}>
                                 <Skeleton height={20} width="40%" />
                             </div>
-                        </div>
+                        </li>
                     ))}
-                </div>
-            </div>
+                </ul>
+            </main>
         );
     }
 
     // 2. SCENARIO 2: LE SERVEUR A PLANTé
     if (error) {
         return (
-            <div className="product-list-error">
-                <div className="error-container">
+            <main>
+                <div>
                     <p>Une erreur est survenue</p>
                     <p>{error}</p>
                     {/* Bouton pour forcer le rechargement de la page */}
                     <button
-                        onClick={() => window.location.reload()}
-                        className="retry-button">
+                        onClick={() => window.location.reload()}>
                         Réessayer
                     </button>
                 </div>
-            </div>
+            </main>
         );
     }
 

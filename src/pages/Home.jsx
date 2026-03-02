@@ -36,8 +36,8 @@ function Home() {
     // isLoading : "interrupteur" (vrai/faux) pour dire à la page si elle est en train de chercher les données. Vrai au départ.
     const [isLoading, setIsLoading] = useState(true);
 
-    // --- ACTION AUTOMATIQUE (USE EFFECT) ---
-    // Le code à l'intérieur s'exécutera au moment où la page s'affiche à l'écran
+    // --- RÉCUPÉRATION DES DONNÉES (FETCH) ---
+    // Action auto: Le code à l'intérieur s'exécutera au moment où la page s'affiche à l'écran
     useEffect(() => {
 
         //Fonction asynchrone (async) car demander des données au serveur prend un peu de temps.
@@ -54,7 +54,7 @@ function Home() {
                 // 3. Traduit la réponse du serveur en JSON (un format que Javascript comprend).
                 const data = await response.json();
 
-                // 4. Filtrage: Si on a des produits, on filtre pour ne garder que ceux de la liste FEATURED_PRODUCT_IDS
+                // 4. Filtrage: Si on a des produits, on filtre pour ne garder que ceux de la liste ProductsSelection.
                 if (data.produit) {
                     // On prend la liste de tous les produits, et on la filtre (.filter) :
                     // Garde que les produits dont l'ID est présent dans "ProductsSelection" [4, 21, 15, 27].

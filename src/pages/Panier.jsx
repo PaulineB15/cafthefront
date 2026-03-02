@@ -1,40 +1,52 @@
+
+// IMPORT DES OUTILS REACT
+
 import React, { useContext, useState } from 'react';
+// useNavigate : Force le navigateur à changer de page (ex: aller au paiement)
 import { Link, useNavigate } from "react-router-dom";
-import { CartContext } from "../context/CartContext.jsx";
-import { AuthContext } from "../context/AuthContext.jsx"; // Pour vérifier si connecté
+import { CartContext } from "../context/CartContext.jsx"; // Panier pour les produits
+import { AuthContext } from "../context/AuthContext.jsx"; // Pour vérifier si le client est connecté
+
+// IMPORT PHOTOS + PICTO
 import HeroPanier from "../assets/photo/HeroPanier.webp";
 import Corbeille from "../assets/picto/Corbeille.svg";
-import "./Panier.css";
 import Lock from "../assets/picto/lock.svg";
+import "../styles/Panier.css";
 
 
 const Panier = () => {
-    // 1. On récupère les données du Panier
-    const { cart, updateQuantite, removeFromCart, cartTotal } = useContext(CartContext);
+    // -- CARTCONTEXT + AUTHCONTEXT --
 
-    // 2. On récupère l'utilisateur pour le bouton "Passer la commande"
+    // 1. Récupèrer les données du Panier (la liste, les fonctions pour modifier/supprimer, et le total)
+    const { cart, updateQuantite, removeFromCart, cartTotal } = useContext(CartContext);
+    // 2. Récupèrer le statut de connexion (Vrai/Faux) de l'utilisateur
     const { isAuthenticated } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
-    // 3. Gestion du Code Promo (Local à cette page)
-    const [promoCode, setPromoCode] = useState("");
-    const [isPromoValid, setIsPromoValid] = useState(false); // On stocke si le code est valide ou non
-    const [messagePromo, setMessagePromo] = useState("");
+    // --- CRÉATION DE LA MÉMOIRE (STATES) POUR LE CODE PROMO---
+    // Ces données ne concernent QUE cette page -> utilise useState locaux.
+    const [promoCode, setPromoCode] = useState(""); // Ce que le client tape dans le champ
+    const [isPromoValid, setIsPromoValid] = useState(false); // // Est-ce que le code est bon ?
+    const [messagePromo, setMessagePromo] = useState(""); //Le texte vert ou rouge à afficher
 
 
-    // --- LOGIQUE DES CALCULS (Automatique) ---
-    // 1. Calcul de la remise (Si code valide : 20% du total, sinon 0)
+    // --- CALCULS POUR LA REMISE PROMO ---
+
+    // 1. Calcul de la remise (Si code valide -> 20% du total, sinon (:) 0€)
     const montantRemise = isPromoValid ? (cartTotal * 0.20) : 0;
-
     // 2. Frais de port (Gratuit si > 50€ APRES remise ou AVANT remise ? Souvent avant)
     // Ici : Gratuit si le sous-total dépasse 50€
     const fraisLivraison = cartTotal > 50 ? 0 : 4.90;
-
-    // 3. Total final
+    // 3. Total final : total brut + livraison - la réduction
     const totalFinal = cartTotal + fraisLivraison - montantRemise;
 
-    // Fonction pour vérifier le code
+
+
+    // Fonction pour vérifier si le code est correct
     const handleApplyPromo = () => {
+        // .trim() enlève les espaces inutiles tapés par erreur.
+        // .toUpperCase() met en majuscules pour éviter les erreurs minuscules/majuscules
         if (promoCode.trim().toUpperCase() === "BIENVENUE20") {
             setIsPromoValid(true);
             setMessagePromo("Code promo appliqué : -20%");
@@ -44,25 +56,38 @@ const Panier = () => {
         }
     };
 
-    // Fonction pour passer la commande
-    const handleCheckout = () => {
-        if (cart.length === 0) return;
+    // Fonction pour passer la commande (Bouton = "passer commande")
+    const Checkout = () => {
+        if (cart.length === 0) return; // Si le panier est vide = pas de commande
+
+        // Transmet les données de la remise promo vers la page de commande
+        const checkoutState = {
+            from: "/commande",
+            promoApplied: isPromoValid, // // Est-ce qu'il y a une promo ?
+            remiseMontant: montantRemise, // Le montant exact de la promo calculée ici
+            codePromo: promoCode // Le nom du code ("BIENVENUE20")
+        };
+
 
         // Est-ce que l'utilisateur est identifié ?
         if (isAuthenticated) {
             // Situation 1: OUI, il est déjà connecté - Direct sur commande
-            navigate("/commande");
+            navigate("/commande", {state: checkoutState});
             // Situation 2: NON, il n'est pas connecté. Login
         } else {
             // Diriger l'utilisateur pour se connecter sur son compte avant de passer commande
             // Ajout d'un "state" pour dire qu'on voulait aller à la page LivraisonPaiement.jsx
             // Le but ici est de dire "Va te connecter mais souviens-toi que tu voulais aller sur l'url cafthe/commande (Route dans APP.JSX)
-            navigate("/login", {state: {from:"/commande"}});
+            navigate("/login", {state: checkoutState});
         }
     };
 
     // --- GESTION IMAGE ---
     const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
+
+    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
         <>
@@ -204,7 +229,7 @@ const Panier = () => {
                                 <span className="total-price">{totalFinal.toFixed(2)} € TTC</span>
                             </div>
 
-                            <button className="btn-checkout" onClick={handleCheckout}>
+                            <button className="btn-checkout" onClick={Checkout}>
                                 PASSER LA COMMANDE →
                             </button>
 
