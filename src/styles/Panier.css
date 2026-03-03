@@ -1,7 +1,13 @@
-/* --- 1. CONFIGURATION GÉNÉRALE --- */
+/* ===============
+      PAGE PANIER
+   =============== */
+
+
+/* --- CONFIGURATION GÉNÉRALE --- */
+
 .panier-page {
-    background-color: var(--bg-dark); /* #1A1A1A */
-    color: var(--text-light);         /* #F5F5F0 */
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     min-height: 100vh;
 }
 
@@ -11,43 +17,92 @@
     padding: 60px 20px;
 }
 
-/* --- 2. HÉRO PANIER --- */
+
+/* --- HÉRO PANIER --- */
 .hero-panier {
     height: 60vh;
-    background-size: cover;
-    background-position: center;
-    position: relative;
+    position: relative; /* Indispensable pour garder l'image et le filtre à l'intérieur */
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden; /* Empêche l'image de déborder si elle est trop grande */
 }
 
-.hero-overlay {
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5); /* Filtre sombre */
+    object-fit: cover; /* Magique : recadre l'image pour qu'elle remplisse l'espace sans se déformer */
+    z-index: 1; /* Couche n°1 : tout au fond */
+}
+
+
+.hero-panier-filtre {
+    position: absolute; /* Se superpose à l'image */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* Filtre noir à 50% d'opacité */
+    z-index: 2; /* Couche n°2 : au-dessus de l'image */
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.hero-panier h1 {
-    font-family: var(--font-title);   /* Tenor Sans */
+
+.hero-panier-entete {
+    position: relative;
+    z-index: 3; /* Couche n°3 : tout devant ! */
+    text-align: center;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-panier-entete h1 {
+    font-family: var(--font-title);
     font-size: 3rem;
     letter-spacing: 3px;
     color: #FFF;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    margin-bottom: 10px; /* Petit espace sous le titre s'il y a un paragraphe */
 }
 
-/* --- 3. MISE EN PAGE (GRID) --- */
-.panier-content {
+.hero-panier-entete p {
+    font-size: 1.125rem;
+    color: #eee;
+}
+
+
+/* --- MISE EN PAGE (GRID) --- */
+.panier-contenu {
     display: grid;
     grid-template-columns: 2fr 1fr; /* 2 tiers produits, 1 tiers résumé */
     gap: 40px;
     align-items: start;
 }
 
-/* --- 4. LISTE DES ARTICLES --- */
+
+/* --- PANIER VIDE --- */
+.panier-vide {
+    text-align: center;
+    padding: 80px 20px;
+    background-color: #222;
+    border-radius: 4px;
+}
+.panier-vide p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+
+/* --- LISTE DES PRODUITS --- */
+
 .cart-item {
     display: flex;
     align-items: center;
@@ -65,7 +120,7 @@
 }
 
 /* Image */
-.item-image img {
+.produit-image img {
     width: 90px;
     height: 90px;
     object-fit: cover;
@@ -79,10 +134,10 @@
     flex: 2; /* Prend l'espace disponible */
 }
 
-.item-type {
+.produit-categorie {
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: #888;
+    color: var(--gold-detail);
     display: block;
     margin-bottom: 5px;
     letter-spacing: 1px;
@@ -96,32 +151,32 @@
     font-weight: 600;
 }
 
-.item-weight {
+.poids-produit {
     font-size: 0.85rem;
     color: var(--gold-detail);
 }
 
 /* Quantité */
-.item-quantity {
+.produit-quantite {
     margin-right: 40px;
     text-align: center;
 }
-.item-quantity label {
+.produit-quantite label {
     font-size: 0.7rem;
-    color: #888;
+    color: #fff;
     display: block;
     margin-bottom: 5px;
     text-transform: uppercase;
 }
 
-.qty-selector {
+.quantite-compteur {
     display: flex;
     align-items: center;
     background: #252525;
     border: 1px solid #444;
     border-radius: 4px;
 }
-.qty-selector button {
+.quantite-compteur button {
     background: none;
     border: none;
     color: #FFF;
@@ -130,38 +185,35 @@
     font-size: 1.1rem;
     transition: 0.2s;
 }
-.qty-selector button:hover {
+.quantite-compteur button:hover {
     background-color: #333;
     color: var(--gold-detail);
 }
-.qty-selector span {
+.quantite-compteur span {
     padding: 0 10px;
     font-weight: bold;
     min-width: 30px;
     text-align: center;
 }
 
+
 /* Prix */
-.item-price {
+.produit-prix {
     text-align: right;
     margin-right: 25px;
     min-width: 110px;
 }
-.unit-price {
-    display: block;
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 3px;
-}
-.total-row-price {
+
+.total-prix {
     display: block;
     font-size: 1.2rem;
     color: var(--gold-detail);
     font-weight: bold;
 }
 
+
 /* Bouton Supprimer */
-.btn-delete {
+.btn-supprimer {
     background: none;
     border: none;
     cursor: pointer;
@@ -169,44 +221,35 @@
     opacity: 0.7;
     transition: 0.3s;
 }
-.btn-delete:hover {
+.btn-supprimer:hover {
     opacity: 1;
     transform: scale(1.1);
 }
-.trash-icon-img {
+.poubelle-picto {
     width: 30px;
     height: 30px;
     display: block;
 }
 
+
 /* Lien retour */
-.continue-shopping {
+.continue-achat {
     margin-top: 20px;
 }
-.continue-shopping a {
+.continue-achat a {
     color: #888;
     font-size: 0.9rem;
     transition: 0.3s;
 }
-.continue-shopping a:hover {
+.continue-achat a:hover {
     color: var(--gold-detail);
 }
 
-/* --- 5. PANIER VIDE --- */
-.empty-cart {
-    text-align: center;
-    padding: 80px 20px;
-    background-color: #222;
-    border-radius: 4px;
-}
-.empty-cart p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #ccc;
-}
 
-/* --- 6. RÉCAPITULATIF (DROITE) --- */
-.cart-summary {
+
+/* --- RÉCAPITULATIF (DROITE) --- */
+
+.panier-summary {
     background-color: #222;
     padding: 30px;
     border-radius: 4px;
@@ -214,7 +257,7 @@
     top: 20px;
 }
 
-.cart-summary h2 {
+.panier-summary h2 {
     font-family: var(--font-title);
     font-size: 1.4rem;
     margin-bottom: 25px;
@@ -222,6 +265,7 @@
     letter-spacing: 2px;
     color: var(--gold-detail);
 }
+
 
 /* Code Promo */
 .promo-code-panier label {
@@ -263,10 +307,10 @@
     color: #1A1A1A;
 }
 
+
 /* Message dynamique promo */
 .promo-msg { font-size: 0.8rem; margin-top: 5px; }
-.promo-msg.valid { color: #27ae60; }
-.promo-msg.invalid { color: #e74c3c; }
+
 
 /* Lignes de calcul */
 .separator {
@@ -274,23 +318,27 @@
     border-top: 1px solid #333;
     margin: 25px 0;
 }
-.summary-row {
+
+.panier-total {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
     font-size: 0.95rem;
     color: #DDD;
 }
-.summary-row.promo {
+
+.panier-total.promo {
     color: #27ae60;
 }
-.free-shipping-hint {
+
+.livraison-gratuite {
     font-size: 0.8rem;
-    color: #888;
+    color: #AAA;
     text-align: right;
     margin-top: -10px;
     margin-bottom: 15px;
 }
+
 
 /* Total */
 .summary-total {
@@ -308,7 +356,9 @@
     font-size: 1.6rem;
 }
 
+
 /* Bouton Commander */
+
 .btn-checkout {
     display: block;
     width: 100%;
@@ -330,21 +380,24 @@
     transform: translateY(-2px);
 }
 
-/* --- 7. RESPONSIVE --- */
+
+
+/* --- MEDIA QUERIES --- */
 
 @media (max-width: 900px) {
-    /* On passe sur une seule colonne */
-    .panier-content {
+    /* Une seule colonne */
+    .panier-contenu {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
     /* Le résumé n'est plus sticky sur mobile */
-    .cart-summary {
+    .panier-summary {
         position: static;
         margin-bottom: 40px;
     }
 }
+
 
 @media (max-width: 600px) {
     .panier-container {
@@ -373,18 +426,18 @@
     }
 
     /* Alignement quantité et prix en bas */
-    .item-quantity {
+    .produit-quantite {
         margin-right: auto; /* Pousse le prix à droite */
         margin-bottom: 0;
     }
 
-    .item-price {
+    .produit-prix {
         margin-right: 0;
         text-align: right;
     }
 
     /* Bouton supprimer en haut à droite (Position absolue) */
-    .btn-delete {
+    .btn-supprimer {
         position: absolute;
         top: 15px;
         right: 15px;

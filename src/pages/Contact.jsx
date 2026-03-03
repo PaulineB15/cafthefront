@@ -142,7 +142,7 @@ const Contact = () => {
                         <div className="help-box">
                             <p>BESOIN D'AIDE ?</p>
                             <p>Consultez notre FAQ pour trouver rapidement des réponses à vos questions.</p>
-                            <Link to="/faq" className="btn btn-secondary">VOIR LA FAQ</Link>
+                            <Link to="/faq" className="btn btn-secondaire">VOIR LA FAQ</Link>
                         </div>
                     </section>
 

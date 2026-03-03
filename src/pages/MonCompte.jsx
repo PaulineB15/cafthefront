@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import HeroCompte from "../assets/photo/HeroCompte.webp";
 import "./MonCompte.css";
 
@@ -9,8 +9,19 @@ const MonCompte = () => {
     //const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
+    const location = useLocation();
 
-    const [activeTab, setActiveTab] = useState("personnel");
+    // 1. On donne la valeur initiale (comme tu l'avais bien fait)
+    const [activeTab, setActiveTab] = useState(location.state?.activeTab || "personnel");
+
+    // 2. LA SOLUTION EST ICI : On force React à changer l'onglet si un post-it est détecté !
+    useEffect(() => {
+        if (location.state && location.state.activeTab) {
+            setActiveTab(location.state.activeTab);
+        }
+    }, [location.state]);
+    // ^ Le tableau de dépendance indique à React de surveiller la "location"
+
 
     useEffect(() => {
         if (!loading && !isAuthenticated) navigate("/login");

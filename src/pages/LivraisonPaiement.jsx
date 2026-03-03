@@ -1,51 +1,62 @@
+
+// IMPORT DES OUTILS REACT
+
 import React, { useContext, useState, useEffect } from 'react';
+// useLocation : l'outil  -> Lire le state envoyé par le Panier/Login
 import { Link, useNavigate, useLocation} from "react-router-dom";
 import { CartContext } from "../context/CartContext.jsx";
 import { AuthContext} from "../context/AuthContext.jsx";
-import "./LivraisonPaiement.css";
 
-// Import des assets
+
+// IMPORT PHOTOS + PICTO
 import Package from "../assets/picto/package.svg";
 import Location from "../assets/picto/location.svg";
 import Creditcard from "../assets/picto/creditcard.svg";
 import Store from "../assets/picto/store.svg";
 import Lock from "../assets/picto/lock.svg";
 import HeroPanier from "../assets/photo/HeroPanier.webp";
+import "../styles/LivraisonPaiement.css";
+
+
+// -- CARTCONTEXT + AUTHCONTEXT --
 
 const LivraisonPaiement = () => {
     // Récupération les données du panier, du total et de la fonction de vider le panier après paiement(clearCart)
     const { cart, cartTotal, clearCart } = useContext(CartContext);
-    // Récupérer les infos de l'utilisateur connecté (adresse) pour passer la commande
+    // Récupérer les infos de l'utilisateur connecté (nom, adresse...) pour passer la commande
     const { user } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
 
+// --- RÉCUPÉRATION DE LA REMISE-PROMO ---
 
-    // 1. On récupère les infos de promo du state de navigation
+    // Récupèrer les infos de promo transmis par le login. S'il n'y a rien -> objet vide {}
     const promoInfo = location.state || {};
-    // On extrait la remise (si elle n'existe pas dans promoInfo, on met 0 par défaut
+    // // On extrait le montant de la remise. Si pas de remise, c'est 0
     const remiseMontant = promoInfo.remiseMontant || 0;
 
 
-    // State pour le mode de livraison et paiement
+    // --- CRÉATION DE LA MÉMOIRE (STATES) POUR LIVRAISON/PAIEMENT/TRANSPORTEUR/ FORMULAIRE ADRESSE ---
+
     const [deliveryMode, setDeliveryMode] = useState('domicile'); // 'domicile' ou 'boutique'
     const [paymentMode, setPaymentMode] = useState('cb'); // 'cb' ou 'paypal'
     const [carrier, setCarrier] = useState('colissimo'); // Colissimo (par défaut) ou UPS
-
-    // State pour le formulaire
+    // Ce State stocke toutes les informations tapées dans le formulaire d'adresse
     const [formData, setFormData] = useState({
         prenom: '', nom: '', email: '', telephone: '',
         adresse: '', complement: '', codePostal: '', ville: '', pays: 'France', cvg: false
 
     });
 
-    // Pré-remplir si l'utilisateur charge une fraction de seconde plus tard (API)
+    // --- PRE-REMPLISSAGE DU FORMULAIRE ADRESSE ---
+    // Si l'utilisateur est connect2 -> éviter de retaper son adresse.
     useEffect(() => {
-        // On ajoute la condition formData.email === '' pour éviter la boucle ESLint !
+        // Condition : on vérifie (formData.email === '') pour être sûr de ne le remplir qu'UNE SEULE FOIS.
+        // Sinon, React va le re-remplir en boucle à l'infini (Boucle infernale).
         if (user && formData.email === '') {
             setFormData(prevData => ({
-                ...prevData,
+                ...prevData, // Garder les données existantes (pays, cvg)
                 prenom: user.prenom || '',
                 nom: user.nom || '',
                 email: user.email || '',
@@ -55,53 +66,63 @@ const LivraisonPaiement = () => {
                 ville: user.ville_livraison || ''
             }));
         }
-    }, [user, formData.email]); // On prévient React des variables observées
+    }, [user, formData.email]); // On dit à React de surveiller ces deux variables
 
-    // SECURITE: Redirection si panier vide
+
+
+    // --- SECURITE: REDIRECTION SI PANIER VIDE ---
     useEffect(() => {
         if (!cart || cart.length === 0) {
             navigate("/boutique");
         }
     }, [cart, navigate]);
+
     // Si pas de panier, on ne rend rien (le useEffect redirigea)
     if (!cart || cart.length === 0) return null;
 
 
-    // --- LOGIQUE DE CALCUL DES FRAIS ---
-    // 2. Mise à jour de la logique de calcul des frais et du total
+
+    // --- CALCUL DES FRAIS ---
+
     let fraisLivraison = 0;
     if (deliveryMode === 'boutique') {
-        fraisLivraison = 0;
+        fraisLivraison = 0; // Retrait = gratuit
     } else {
         if (carrier === 'ups') {
-            fraisLivraison = 9.90;
+            fraisLivraison = 9.90; // UPS = toujours payant
         } else {
-            // On calcule souvent la gratuité sur le total AVANT remise
+            // // Colissimo = gratuit SI le total du panier dépasse 50€
             fraisLivraison = cartTotal > 50 ? 0 : 4.90;
         }
     }
 
-    // Le total final prend maintenant en compte la remise reçue
+    // Le total final prend en compte la remise reçue
     const totalFinal = cartTotal + fraisLivraison - remiseMontant;
 
-    // --- HANDLERS ---
+
+    // --- GERER LE CHANGEMENT DE L'ADRESSE DE LIVRAISON  ---
+    // Met à jour la mémoire du formulaire à chaque fois que le client tape une lettre
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        // CORRECTION ICI AUSSI : Permet de gérer la case à cocher CGV correctement
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        setFormData({ ...formData, [e.target.name]: value });
+        // [e.target.name] est dynamique (si on tape dans le champ 'ville', ça met à jour la case 'ville' du state)
     };
 
-    // GERER LE CHANGEMENT DE TRANSPORTEUR
+    // --- GéRER LE CHANGEMENT DE TRANSPORTEUR ---
     const handleCarrierChange = (e) => {
         setCarrier(e.target.value);
     }
 
-    // GERER LE PAYMENT
+    // --- GERER LE PAYMENT - VALIDATION DE LA COMMANDE ---
+
     const handlePayment = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Empêche la page de se recharger (comportement par défaut des formulaires)
 
-
-        // Préparation des données de l'API
+        // Préparation des données vers l'API
         const orderData = {
             montant_total: parseFloat(totalFinal.toFixed(2)),
+            // Transformer le panier complet en une petite liste simple : {id, quantite}
             produits: cart.map(item => ({ id_produit: item.id, quantite: item.quantite })),
         };
 
@@ -112,13 +133,10 @@ const LivraisonPaiement = () => {
         try {
             const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-            // 2. Envoi à l'API
+            // Appel le serveur (Fetch POST) pour sauvegarder la commande dans la base de données
             const response = await fetch(`${apiUrl}/api/orders`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // pas de Header d'authorization (les cookies s'en chargent)
-                },
+                headers: {"Content-Type": "application/json"},
                 credentials: "include", // <--- Envoi le cookie de session
                 body: JSON.stringify(orderData)
             });
@@ -128,23 +146,27 @@ const LivraisonPaiement = () => {
                 // On lit la réponse JSON envoyée par ton API (OrderController)
                 const data = await response.json();
 
-                // Récupère le vrai ID de la base de données et on le formate pour faire pro
+                // Récupère le vrai ID de la base de données pour faire un numéro de commande
                 // Ex: Si l'ID est 1005, ça donnera "CFT-1005"
                 const vraiNumeroCommande = "CFT-" + data.orderId;
 
-                // ON REDIRIGE en envoyant les vraies infos à la page de confirmation
+                // REDIRIGE LE CLIENT VERS LA PAGE CONFIRMATION
                 navigate("/confirmation", {
                     state: {
-                        numeroCommande: vraiNumeroCommande, // Le numéro généré par ta BDD
+                        numeroCommande: vraiNumeroCommande,
                         email: emailConfirmation,           // L'email du client
                         prenom: formData.prenom || (user ? user.prenom : "Cher client"),
-                        items: cart,                        // Tout le contenu du panier
-                        totalTTC: totalFinal,               // Le prix total calculé
-                        fraisLivraison: fraisLivraison      // Les frais de port (0, 4.90 ou 9.90)
+                        items: cart,                        // Contenu du panier
+                        totalTTC: totalFinal,               // Prix total calculé
+                        fraisLivraison: fraisLivraison,      // Les frais de livraison (0, 4.90 ou 9.90)
+                        remiseMontant: remiseMontant // Remise 20%
                     }
                 });
 
-                //  ON VIDE LE PANIER ENSUITE, avec le micro-délai pour la sécurité
+
+                // VIDER LE PANIER
+                // Le setTimeout retarde l'action d'1/10ème de seconde.
+                // Ça évite que l'affichage de la page actuelle ne "saute" pendant qu'on est redirigé
                 setTimeout(() => {
                     clearCart();
                 }, 100);
@@ -159,30 +181,55 @@ const LivraisonPaiement = () => {
         }
     };
 
+
+    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
+
     return (
+
+        <>
+            {/*REFERENCEMENT SEO */}
+            <title>Commande - CafThé</title>
+            <meta name="description" content="Page commande et paiement d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, site e-commerce, commande, haut de gamme, café, thé, produits de qualité"/>
+
         <main className="commande-page">
-            <section className="hero-panier" style={{backgroundImage: `url(${HeroPanier})`}}>
-                <div className="hero-overlay">
-                    <h1>LIVRAISON ET PAIEMENT</h1>
+
+            <section className="hero-commande">
+                <img
+                    src={HeroPanier}
+                    alt="Photo d'ambiance du panier"
+                    fetchpriority="high"
+                    loading="eager"
+                    className="hero-image"
+                />
+
+                <div className="hero-commande-filtre">
+                    <div className="hero-commande-entete">
+                        <h1>LIVRAISON ET PAIEMENT</h1>
+                    </div>
                 </div>
             </section>
 
-            <div className="commande-container">
 
-                {/* --- COLONNE GAUCHE --- */}
-                <div className="commande-left">
+            <form className="commande-container" onSubmit={handlePayment}>
+                {/* --- COLONNE GAUCHE / FORMULAIRE--- */}
+                <div>
 
                     {/* 1. MODE DE LIVRAISON */}
-                    <section className="checkout-section">
+                    <section className="livraison-section">
                         <header className="section-header">
-                            <img src={Package} alt="Icone d'un colis" className="section-icon" aria-hidden="true"/>
+                            <img src={Package} alt="Icone d'un colis" className="livraison-icone" aria-hidden="true"/>
                             <h2>MODE DE LIVRAISON</h2>
                         </header>
 
                         <fieldset className="options-grid">
                             <legend className="sr-only">Choisissez votre mode de livraison</legend>
 
+
                             {/* OPTION 1 : DOMICILE */}
+                            {/* La classe CSS 'active' s'ajoute dynamiquement si ce mode est sélectionné */}
                             <label className={`option-card ${deliveryMode === 'domicile' ? 'active' : ''}`}>
                                 <input
                                     type="radio"
@@ -192,7 +239,6 @@ const LivraisonPaiement = () => {
                                     onChange={() => setDeliveryMode('domicile')}
                                 />
                                 <div className="option-icon-wrapper">
-                                    {/* Le CSS force ce SVG en blanc */}
                                     <img src={Location} alt="Icone de localisation" />
                                 </div>
                                 <div className="option-info">
@@ -217,7 +263,6 @@ const LivraisonPaiement = () => {
                                     onChange={() => setDeliveryMode('boutique')}
                                 />
                                 <div className="option-icon-wrapper">
-                                    {/* Le CSS force ce SVG en blanc */}
                                     <img src={Store} alt="Icone d'une boutique" />
                                 </div>
                                 <div className="option-info">
@@ -228,7 +273,8 @@ const LivraisonPaiement = () => {
                             </label>
                         </fieldset>
 
-                        {/* Choix Transporteur (Affiché seulement si Domicile) */}
+
+                        {/* MENU DÉROULANT : Choix Transporteur (N'apparaît QUE si Domicile est coché) */}
                         {deliveryMode === 'domicile' && (
                             <div className="carrier-choice">
                                 <label htmlFor="carrier">Choix du transporteur :</label>
@@ -241,14 +287,17 @@ const LivraisonPaiement = () => {
                     </section>
 
                     {/* 2. ADRESSE DE LIVRAISON (CONDITION SI DOMICILE) */}
+                    {/* Le formulaire entier disparaît si le client a choisi 'Retrait en boutique' */}
                     {deliveryMode === 'domicile' && (
-                        <section className="checkout-section fade-in">
+                        <section className="livraison-section fade-in">
                             <header className="section-header">
-                                <img src={Location} alt="" className="section-icon" aria-hidden="true"/>
+                                <img src={Location} alt="" className="livraison-icone" aria-hidden="true"/>
                                 <h2>ADRESSE DE LIVRAISON</h2>
                             </header>
 
-                            <form id="checkout-form" onSubmit={handlePayment}>
+                            {/* Formulaire d'adresse.
+                                Note : onSubmit={handlePayment} permet de valider la commande si on tape "Entrée" au clavier */}
+
                                 <div className="form-row">
                                     <div className="form-group">
                                         <label htmlFor="prenom">Prénom *</label>
@@ -297,14 +346,13 @@ const LivraisonPaiement = () => {
                                         <input type="text" id="pays" name="pays" value="France" readOnly />
                                     </div>
                                 </div>
-                            </form>
                         </section>
                     )}
 
-                    {/* 3. PAIEMENT */}
-                    <section className="checkout-section">
+                    {/* 3. METHODE DE PAIEMENT */}
+                    <section className="livraison-section">
                         <header className="section-header">
-                            <img src={Creditcard} alt="" className="section-icon" aria-hidden="true"/>
+                            <img src={Creditcard} alt="" className="livraison-icone" aria-hidden="true"/>
                             <h2>MÉTHODE DE PAIEMENT</h2>
                         </header>
 
@@ -321,10 +369,8 @@ const LivraisonPaiement = () => {
                                     checked={paymentMode === 'cb'}
                                     onChange={() => setPaymentMode('cb')}
                                 />
-                                <div className="option-info full-center">
-                                    <div className="payment-label">
-                                        <p className="option-title">CARTE BANCAIRE</p>
-                                    </div>
+                                <div className="option-info">
+                                    <p className="option-title">CARTE BANCAIRE</p>
                                     <p className="option-desc">Visa, Mastercard</p>
                                 </div>
                             </label>
@@ -338,10 +384,8 @@ const LivraisonPaiement = () => {
                                     checked={paymentMode === 'paypal'}
                                     onChange={() => setPaymentMode('paypal')}
                                 />
-                                <div className="option-info full-center">
-                                    <div className="payment-label">
-                                        <p className="option-title">PAYPAL</p>
-                                    </div>
+                                <div className="option-info">
+                                    <p className="option-title">PAYPAL</p>
                                     <p className="option-desc">Paiement sécurisé</p>
                                 </div>
                             </label>
@@ -360,15 +404,15 @@ const LivraisonPaiement = () => {
 
 
                 {/* --- COLONNE DROITE : RÉCAPITULATIF --- */}
-                <div className="commande-right">
+                <aside>
                     <div className="order-summary-box">
                         <h3>Récapitulatif</h3>
-
+                        {/* LISTE DES PRODUITS EN PETIT FORMAT */}
                         <div className="summary-items-list">
                             {cart.map(item => (
                                 <div key={item.cartId} className="mini-item">
-                                    <p className="item-name">{item.quantite}x {item.nom}</p>
-                                    <span className="item-price">
+                                    <p>{item.quantite}x {item.nom}</p>
+                                    <span>
                                         {((item.isVrac ? item.prix * item.poids : item.prix) * item.quantite).toFixed(2)} €
                                     </span>
                                 </div>
@@ -382,6 +426,7 @@ const LivraisonPaiement = () => {
                             <span>{cartTotal.toFixed(2)} €</span>
                         </div>
 
+                        {/* AFFICHAGE CONDITIONNEL : La ligne Code Promo apparaît uniquement s'il y en a un */}
                         {remiseMontant > 0 && (
                             <div className="summary-line" style={{ color: '#27ae60' }}>
                                 <span>Remise Code Promo</span>
@@ -401,12 +446,9 @@ const LivraisonPaiement = () => {
                             <span>{totalFinal.toFixed(2)} €</span>
                         </div>
 
-                        <form onSubmit={handlePayment}>
                             <button
                                 type="submit" /* Obligatoire pour déclencher la bulle orange */
-                                className="btn-pay"
-                                /* On enlève les conditions 'form=' et 'onClick=' compliquées ici */
-                            >
+                                className="btn-pay">
                                 PAYER {totalFinal.toFixed(2)} €
                             </button>
 
@@ -423,13 +465,11 @@ const LivraisonPaiement = () => {
                                     En validant votre commande, vous acceptez nos <Link to="/cgv">CGV</Link>.
                                 </label>
                             </div>
-                        </form>
-
                     </div>
-                </div>
-
-            </div>
+                </aside>
+            </form>
         </main>
+            </>
     );
 }
 

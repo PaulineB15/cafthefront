@@ -1,20 +1,29 @@
-import React, { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import "./Confirmation.css";
 
-// Assets
+// IMPORT DES OUTILS REACT
+
+import React, { useEffect } from 'react';
+// useLocation : l'outil magique pour lire les données invisibles (le "post-it") passées par la page précédente
+// useNavigate : l'outil pour forcer le client à changer de page (redirection de sécurité)
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "../styles/Confirmation.css";
+
+// IMPORT PHOTOS + PICTO
 import HeroPanier from "../assets/photo/HeroPanier.webp";
 import ConfirmationIcon from "../assets/picto/comande-confirmer.svg";
 import Package from "../assets/picto/package.svg";
 import Mail from "../assets/picto/mail1.svg";
 
+
 const Confirmation = () => {
-    // 1. ON RÉCUPÈRE LES DONNÉES ENVOYÉES PAR LA PAGE DE PAIEMENT
+    // -- RÉCUPÈRER LES DONNÉES ENVOYÉES PAR LA PAGE DE PAIEMENT --
     const location = useLocation();
     const navigate = useNavigate();
+    // orderData contient TOUTES les infos envoyées par LivraisonPaiement (Nom, Email, Total, Produits...)
     const orderData = location.state;
 
+    // -- GESTION DE LA SÉCURITÉ ET DE L'AFFICHAGE --
     useEffect(() => {
+        // Force la page à s'afficher tout en haut (parfois React garde le scroll en bas)
         window.scrollTo(0, 0);
 
         // Sécurité : Redirection si pas de commande
@@ -23,7 +32,7 @@ const Confirmation = () => {
         }
     }, [orderData, navigate]);
 
-    // ANTI-ÉCRAN NOIR : Message de chargement au lieu d'un plantage
+    // Si pas de données, on affiche ce message le temps d'être redirigé par le useEffect
     if (!orderData) {
         return (
             <div style={{ minHeight: "100vh", backgroundColor: "#0F0F0F", color: "white", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -32,25 +41,44 @@ const Confirmation = () => {
         );
     }
 
-    // Sécurisation des calculs mathématiques
+    // --- CALCULS DES PRIX ---
+
+    // Extrait les valeurs avec une sécurité (|| 0) au cas où il y aurait un bug
     const safeTotalTTC = orderData.totalTTC || 0;
     const safeFrais = orderData.fraisLivraison || 0;
-    const sousTotal = safeTotalTTC - safeFrais;
+    const remiseMontant = orderData.remiseMontant || 0; // Récupération de la promo
+
+    // Sous-total = Total Final - frais de port + remise (20%)
+    const sousTotal = safeTotalTTC - safeFrais + remiseMontant;
+
+
+    // ---- CE QUI S'AFFICHE A L'ECRAN ----
 
     return (
+
         <main className="confirmation-page">
+
             {/* --- HERO SECTION --- */}
-            <section className="hero-confirmation" style={{backgroundImage: `url(${HeroPanier})`}}>
-                <div className="hero-overlay-conf">
-                    <div className="hero-content">
-                        <div className="conf-icon-wrapper">
-                            <img src={ConfirmationIcon} alt="Icône de confirmation" />
-                        </div>
 
+            <section className="hero-conf">
+                {/* Image de fond (Couche 1) */}
+                <img
+                    src={HeroPanier}
+                    alt="Photo d'ambiance du panier"
+                    fetchpriority="high"
+                    loading="eager"
+                    className="hero-image"
+                />
+
+                {/* Filtre sombre (Couche 2) */}
+                <div className="hero-conf-filtre">
+                    {/* Contenu textuel et Icone (Couche 3) */}
+                    <div className="hero-conf-entete">
+                        <img src={ConfirmationIcon} alt="Icône de confirmation" className="conf-icone" />
                         <h1>COMMANDE CONFIRMÉE !</h1>
-                        <p className="hero-subtitle">Merci {orderData.prenom || "Client"}. Votre commande a été enregistrée avec succès.</p>
+                        <p className="conf-texte">Merci {orderData.prenom || "Client"}. Votre commande a été enregistrée avec succès.</p>
 
-                        <div className="hero-order-badge">
+                        <div className="conf-badge">
                             <span>NUMÉRO DE COMMANDE</span>
                             <strong>{orderData.numeroCommande || "CFT-XXXX"}</strong>
                         </div>
@@ -58,18 +86,17 @@ const Confirmation = () => {
                 </div>
             </section>
 
+
             {/* --- GRID (2 Colonnes) --- */}
-            <section className="conf-container">
+            <section className="confirmation-container">
 
                 {/* COLONNE GAUCHE (principal) */}
                 <div className="conf-main">
-
                     {/* 1. CONFIRMATION EMAIL */}
                     <article className="conf-card email-box">
                         <div className="card-header">
-                            {/* Ajout de la classe icon-gold-img pour les dorer */}
                             <img src={Mail} alt="Icône mail" aria-hidden="true"/>
-                            <h3>CONFIRMATION PAR EMAIL</h3>
+                            <h2>CONFIRMATION PAR EMAIL</h2>
                         </div>
                         <p>Un email de confirmation a été envoyé à <span className="gold-text">{orderData.email || "votre adresse"}</span></p>
                     </article>
@@ -78,11 +105,11 @@ const Confirmation = () => {
                     <article className="conf-card recap-box">
                         <div className="card-header">
                             <img src={Package} alt="Icône colis" aria-hidden="true" className="icon-gold-img" />
-                            <h3>RÉCAPITULATIF DE LA COMMANDE</h3>
+                            <h2>RÉCAPITULATIF DE LA COMMANDE</h2>
                         </div>
 
                         <div className="conf-items-list">
-                            {/* ANTI-PLANTAGE : Vérification que items existe */}
+                            {/* Boucle sur les produits achetés pour les afficher */}
                             {orderData.items && orderData.items.map((item, index) => {
                                 const prixItem = item.prix || 0;
                                 const quantite = item.quantite || 1;
@@ -101,6 +128,7 @@ const Confirmation = () => {
                                             </span>
                                         </div>
                                         <div className="conf-item-price">
+                                            {/* Prix de la ligne */}
                                             {(prixItem * quantite * poidsMultiplicateur).toFixed(2)} €
                                         </div>
                                     </div>
@@ -108,11 +136,19 @@ const Confirmation = () => {
                             })}
                         </div>
 
+                        {/* 3. TOTAUX + PROMO */}
                         <div className="conf-totals">
                             <div className="row">
                                 <span>Sous-total</span>
                                 <span>{sousTotal.toFixed(2)} €</span>
                             </div>
+                            {/* AFFICHAGE DE LA PROMO : Ne s'affiche que si la remise est supérieure à 0 */}
+                            {remiseMontant > 0 && (
+                                <div className="row" style={{ color: '#27ae60' }}>
+                                    <span>Remise Code Promo</span>
+                                    <span>-{remiseMontant.toFixed(2)} €</span>
+                                </div>
+                            )}
                             <div className="row">
                                 <span>Frais de livraison</span>
                                 <span>{safeFrais === 0 ? "Gratuit" : `${safeFrais.toFixed(2)} €`}</span>
@@ -137,14 +173,14 @@ const Confirmation = () => {
 
                 </div>
 
-                {/* COLONNE DROITE (SIDEBAR) */}
+                {/* COLONNE DROITE */}
                 <aside className="conf-sidebar">
 
                     {/* RETOUR A LA BOUTIQUE */}
                     <article className="sidebar-card discover-card">
                         <h3>DÉCOUVREZ AUSSI</h3>
                         <p>Continuez vos achats et découvrez notre sélection de cafés et thés d'exception.</p>
-                        <Link to="/boutique" className="btn btn-secondary">
+                        <Link to="/boutique" className="btn btn-secondaire">
                             Retour à la boutique →
                         </Link>
                     </article>

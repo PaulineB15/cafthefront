@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import HeroCompte from "../assets/photo/HeroCompte.webp";
-import "./Login.css"; // On réutilise le design du Login !
+import "../styles/Login.css"; // On réutilise le design du Login !
 
 const ResetPassword = () => {
     // Permet de lire "?token=xyz" dans l'URL

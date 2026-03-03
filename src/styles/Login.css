@@ -2,33 +2,60 @@
    LOGIN PAGE
    ========================================= */
 
-/* HERO SECTION */
-.auth-hero {
+
+/* GLOBALE */
+
+.login-page {
+    background-color: var(--bg-dark);
+    min-height: 100vh;
+}
+
+
+/* HERO LOGIN */
+.login-hero {
     height: 50vh;
-    background-size: cover;
-    background-position: center;
+    min-height: 400px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    overflow: hidden;
 }
 
-.hero-overlay {
-    background: rgba(0, 0, 0, 0.6);
+.hero-image {
     position: absolute;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-login-filtre {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-login-entete {
+    position: relative;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
+    text-align: center;
+    padding: 0 20px;
 }
 
-/* Style de l'icône (similaire à Contact) */
-.user-icon-circle {
+.login-icone {
     width: 60px;
     height: 60px;
     border: 1px solid var(--gold-detail);
@@ -36,48 +63,52 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
 }
 
-.user-icon-circle svg {
+.login-icone svg {
     stroke: var(--gold-detail);
     width: 28px;
     height: 28px;
 }
 
-.hero-overlay h1 {
-    margin-bottom: 15px;
-    font-size: clamp(2rem, 5vw, 3rem);
+.hero-login-entete h1 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: #FFF;
+    letter-spacing: 3px;
+    margin: 0 0 15px 0;
 }
 
-.hero-overlay p {
+.hero-login-entete p {
     font-size: 1.1rem;
     color: #eee;
     max-width: 500px;
-    margin: 0 auto;
+    margin: 0;
 }
 
-/* SECTION CONTENU (Pour espacer du héros, comme sur Contact) */
-.auth-section {
+
+/* SECTION CONTENU */
+.login-section {
     padding: 60px 20px;
     background-color: var(--bg-dark);
 }
 
-/* CONTENEUR PRINCIPAL DU FORMULAIRE */
-.auth-container {
+.login-container {
     max-width: 600px;
     margin: 0 auto; /* Centré, plus de marge négative */
     background: #161616;
     border: 1px solid #2a2a2a;
 }
 
+
 /* ONGLETS */
-.auth-tabs {
+.login-onglet {
     display: flex;
     border-bottom: 1px solid #2a2a2a;
 }
 
-.tab-btn {
+.onglet-btn {
     flex: 1;
     padding: 20px;
     background: transparent;
@@ -93,20 +124,21 @@
     opacity: 0.6;
 }
 
-.tab-btn:hover {
+.onglet-btn:hover {
     opacity: 1;
 }
 
-.tab-btn.active {
+.onglet-btn.active {
     color: var(--gold-detail);
     border-bottom: 2px solid var(--gold-detail);
     opacity: 1;
     background: rgba(197, 160, 89, 0.05);
 }
 
-.auth-content {
+.login-content {
     padding: 40px;
 }
+
 
 /* FORMULAIRES */
 .subtitle {
@@ -119,13 +151,6 @@
     margin-bottom: 20px;
 }
 
-.form-row {
-    display: flex;
-    gap: 20px;
-}
-.form-row .form-group {
-    flex: 1;
-}
 
 label {
     display: block;
@@ -136,11 +161,11 @@ label {
     letter-spacing: 1px;
 }
 
-/* INPUTS */
-.auth-container input[type="text"],
-.auth-container input[type="email"],
-.auth-container input[type="password"],
-.auth-container input[type="tel"] {
+
+.login-container input[type="text"],
+.login-container input[type="email"],
+.login-container input[type="password"],
+.login-container input[type="tel"] {
     width: 100%;
     padding: 12px 15px;
     background-color: var(--bg-dark);
@@ -152,63 +177,61 @@ label {
     transition: border 0.3s;
 }
 
-.auth-container input:focus {
+.login-container input:focus {
     border-color: var(--gold-detail);
 }
 
-.auth-container input::placeholder {
-    color: #555;
-}
 
-/* FOOTER DU FORMULAIRE */
-.form-footer {
+/* --- CHECKBOX RGPD --- */
+.form-checkbox {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    font-size: 0.85rem;
-    color: var(--sand-text);
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
+    margin-top: 10px;
+}
+
+.form-checkbox input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--gold-detail);
+}
+
+.form-checkbox label {
+    color: #aaa;
+    font-size: 0.85rem;
+    text-transform: none;
+    letter-spacing: normal;
     cursor: pointer;
-    color: var(--sand-text);
 }
 
-.legal-text {
-    font-size: 0.8rem;
-    color: #666;
-    margin-top: 15px;
-    margin-bottom: 30px;
-}
-
-/* BOUTONS VERTS (Force le style vert comme sur Contact) */
-.auth-container .btn-primary {
-    background-color: var(--green-cta);
-    border: none;
-    color: #fff;
-    padding: 15px 30px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-family: var(--font-title);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.auth-container .btn-primary:hover {
-    background-color: var(--green-hover);
-}
-
-/* UTILITAIRE */
+/* --- BOUTONS UTILITAIRES --- */
 .w-100 {
     width: 100%;
 }
 
+/* Bouton texte simple (Mot de passe oublié) */
+.btn-link {
+    background: none;
+    border: none;
+    color: #888;
+    text-decoration: underline;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-link:hover {
+    color: var(--gold-detail);
+}
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end; /* Pousse le bouton à droite */
+    margin-bottom: 30px;
+}
+
+
 /* ALERTS */
+
 .alert {
     padding: 15px;
     margin-bottom: 20px;
@@ -227,7 +250,9 @@ label {
     color: #9fe2a9;
 }
 
+
 /* ANIMATION */
+
 .fade-in {
     animation: fadeIn 0.4s ease-in;
 }
@@ -237,17 +262,19 @@ label {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* RESPONSIVE */
+
+
+/* --- RESPONSIVE MOBILE --- */
+
 @media (max-width: 600px) {
-    .auth-container {
+    .login-section { padding: 40px 15px; }
+
+    .login-container {
         border: none;
         background: transparent;
     }
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-    .auth-content {
-        padding: 20px 0;
-    }
+
+    .login-content { padding: 20px 0; }
+
+    .hero-login-entete h1 { font-size: 2rem; }
 }

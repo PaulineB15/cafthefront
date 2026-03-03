@@ -1,61 +1,74 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "../context/AuthContext.jsx";
-import {useLocation, useNavigate, Link} from "react-router-dom";
-import HeroCompte from "../assets/photo/HeroCompte.webp";
-import Moncompte from "../assets/picto/Moncompte.svg";
-import "./Login.css";
+// IMPORT DES OUTILS REACT ET ROUTER
 
+import React, { useState, useContext } from "react";
+// useLocation : Pour lire les données invisibles envoyées par la page précédente (ex: le Panier)
+// useNavigate : Pour forcer le changement de page
+import {useLocation, useNavigate} from "react-router-dom";
+
+
+// --- IMPORT AUTHCONTEXT ---
+// AuthContext permet de dire à TOUT le site : "Cet utilisateur est connecté !"
+import { AuthContext } from "../context/AuthContext.jsx"
+
+// --- IMPORT PHOTO / CSS ---
+import HeroCompte from "../assets/photo/HeroCompte.webp";
+import "../styles/Login.css";
 
 
 
 const Login = () => {
+    //  RÉCUPÉRATION DE L'OUTIL DE CONNEXION DEPUIS AUTHCONTEXT
+    // On extrait la fonction 'login' qui mettra à jour l'état global de l'application
     const {login} = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // Gestion des onglets (Connexion / Inscription)
+    // GESTION DES ONGLETS (CONNEXION / INSCRIPTION)
+    // activeTab détermine ce qui s'affiche : 'login' (par défaut), 'register', ou 'forgot'
     const [activeTab, setActiveTab] = useState("login");
 
+    // MÉMOIRE (STATE) POUR LE FORMULAIRE DE CONNEXION
     // Email et mot de passe pour l'identification
     const [email, setEmail] = useState("");
     const [motDePasse, setMotDePasse] = useState("");
-    const [errorMsg, setErrorMsg] = useState("");
+    const [errorMsg, setErrorMsg] = useState(""); // Stocke les messages d'erreur en rouge
 
-    // Mot de passe oublié
+    // (STATE) POUR LE MOT DE PASSE OUBLIÉ
     const [forgotEmail, setForgotEmail] = useState("");
 
-    // Gestion pour l'inscription
+    // GESTION DE L'INSCRIPTION
     const [registerData, setRegisterData] = useState({
         email: "",
         motDePasse: "",
         confirmPassword: "",
-        rgpd: false // La case RGPD est décochée par défaut obtenir le consentement de l'utilisateur'
+        rgpd: false // La case RGPD est décochée par défaut -> consentement de l'utilisateur
     });
 
     // Pour indiquer si l'inscription a réussi ( message)
-    const [successMsg, setSuccessMsg] = useState("");
+    const [successMsg, setSuccessMsg] = useState(""); // Stocke les messages de succès en vert
 
-    // C'est pour savoir d'où vient l'utilisateur
+    // D' OU VIENT L'UTILISATEUR ?
     const location = useLocation();
-    // Si "location.state.from" existe, c'est notre destination, sinon -> home.jsx (Accueil)
-    // ?. dit à React : "Essaye de lire from seulement si state existe. Sinon, ne plante pas et renvoie undefined
+    // On cherche à savoir d'où vient l'utilisateur.
+    // S'il vient du panier, location.state.from vaudra "/commande".
+    // Sinon (grâce au ||), il ira vers l'accueil "/" par défaut.
     const from = location.state?.from || "/"; // || --> OU la page d'accueil "/"
     // Cette variable from contient maintenant soit "/commande" (si on vient du panier), soit "/" (par défaut
 
-    // const [forgotPassword, setForgotPassword] = useState("");
 
 
     // FONCTION DE CONNEXION
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrorMsg("");
+        e.preventDefault(); // Empêche la page de se recharger
+        setErrorMsg(""); // Efface anciennes erreurs
 
         try {
+            // Appel à l'API (Backend) pour vérifier l'email et le mot de passe
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}/api/clients/login`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    credentials: "include",
+                    credentials: "include", // Très important : autorise la création du cookie de session sécurisé
                     body: JSON.stringify({
                         email,
                         mot_de_passe: motDePasse,
@@ -65,20 +78,17 @@ const Login = () => {
 
             const data = await response.json();
 
+            // Si le serveur répond que les identifiants sont faux (Erreur 400 ou 401)
             if (!response.ok) {
                 setErrorMsg(data.message || "Erreur de connexion");
-                return;
+                return; // Arrêt de la fonction ici
             }
 
-            // const {client} = data;
 
-            // Appel au login via le contexte
+            // Envoie les données du client au AuthContext pour l'enregistrer dans toute l'appli
             login(data.client);
 
-            // Puis retour à l'accueil
-            // navigate("/");
 
-            // Au lieu de navigate("/"), on va vers la variable "from"
             // Si on vient du panier, on ira vers "/commande"
             navigate(from, { replace: true, state: location.state });
             // replace: true pour éviter que l'utilisateur ne
@@ -101,23 +111,26 @@ const Login = () => {
         });
     };
 
+    // Déclenché quand on clique sur "CRÉER MON COMPTE"
     const handleRegisterSubmit = async (e) => {
         e.preventDefault();
         setErrorMsg("");
         setSuccessMsg("");
 
-        // Vérification 12 caractères
+        // Sécurité: Vérification 12 caractères
         if (registerData.motDePasse.length < 12) {
             setErrorMsg("Le mot de passe doit contenir au moins 12 caractères.");
             return;
         }
 
+        // Sécurité: Vérification que les mots de passe sont identiques
         if (registerData.motDePasse !== registerData.confirmPassword) {
             setErrorMsg("Les mots de passe ne correspondent pas.");
             return;
         }
 
         try {
+            // Envoi de la demande de création de compte à l'API
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -134,14 +147,18 @@ const Login = () => {
                 return;
             }
 
+            // Si c'est un succès --> message vert et on bascule l'onglet sur "Connexion"
             setSuccessMsg("Compte créé ! Veuillez vous connecter.");
-            setActiveTab("login"); // On bascule sur l'onglet connexion
+            setActiveTab("login");
 
         } catch (error) {
             console.error("Erreur inscription:", error);
             setErrorMsg("Erreur technique lors de l'inscription.");
         }
     };
+
+
+    // ---- CE QUI S'AFFICHE A L'ECRAN ----
 
     return (
 
@@ -151,46 +168,61 @@ const Login = () => {
             <meta name="keywords"
                   content="CafThé, login, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
 
-        <main className="auth-page">
-            <section className="auth-hero" style={{backgroundImage: `url(${HeroCompte})`}}>
-                <div className="hero-overlay">
-                    <div className="user-icon-circle">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                            <circle cx="12" cy="7" r="4"/>
-                        </svg>
+        <main className="login-page">
+
+            {/* --- HERO SECTION --- */}
+
+            <section className="login-hero">
+                <img
+                    src={HeroCompte}
+                    alt="Zoom d'une photo d'un homme d'affaire tenant une tasse de café"
+                    fetchpriority="high"
+                    loading="eager"
+                    className="hero-image"/>
+
+                <div className="hero-login-filtre">
+                    <div className="hero-login-entete">
+                        <div className="login-icone">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h1>MON COMPTE</h1>
+                        <p>Connectez-vous ou créez un compte pour accéder à votre espace personnel</p>
                     </div>
-                    <h1>MON COMPTE </h1>
-                    <p>Connectez-vous ou créez un compte pour accéder à votre espace personnel</p>
                 </div>
             </section>
 
-            {/* CONTAINER FENETRE CONNEXION / INSCRIPTION  */}
 
-            <section className="auth-section">
-                <div className="auth-container">
-                    {/* --- ONGLETS (TABS) --- */}
-                    <nav className="auth-tabs">
+            {/* CONTAINER GLOBAL CONNEXION / INSCRIPTION  */}
+            <section className="login-section">
+                <div className="login-container">
+
+                    {/* --- NAVIGATION ONGLETS (TABS) --- */}
+                    {/* Les boutons changent la valeur de activeTab ('login' ou 'register') au clic */}
+                    <nav className="login-onglet">
                         <button
-                            className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
+                            className={`onglet-btn ${activeTab === 'login' ? 'active' : ''}`}
                             onClick={() => setActiveTab('login')}
                         >
                             SE CONNECTER
                         </button>
                         <button
-                            className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
+                            className={`onglet-btn ${activeTab === 'register' ? 'active' : ''}`}
                             onClick={() => setActiveTab('register')}
                         >
                             CRÉER UN COMPTE
                         </button>
                     </nav>
 
-                    <div className="auth-content">
-                        {/* Affichage des messages globaux */}
+                    <div className="login-content">
+                        {/* Zone d'affichage des erreurs/succès (S'il y en a, on les affiche) */}
                         {errorMsg && <div className="alert error">{errorMsg}</div>}
                         {successMsg && <div className="alert success">{successMsg}</div>}
 
-                        {/* --- PARTIE 1 : FORMULAIRE DE CONNEXION --- */}
+                        {/* --- ONGLET 1 : FORMULAIRE DE CONNEXION --- */}
+                        {/* N'apparaît que si activeTab === 'login' */}
                         {activeTab === 'login' && (
                             <section className="form-wrapper fade-in">
                                 <h2>BIENVENUE</h2>
@@ -221,8 +253,9 @@ const Login = () => {
                                         />
                                     </div>
 
+                                    {/* Lien "Mot de passe oublié" : bascule sur le 3ème onglet " Mot de passe oublié" */}
                                     <div className="form-footer">
-                                        <button type="button" onClick={() => {setActiveTab('forgot'); setErrorMsg(""); setSuccessMsg("");}} style={{ background: 'none', border: 'none', color: 'var(--gold-detail)', fontSize: '0.85rem', cursor: 'pointer', fontFamily: 'inherit' }}>
+                                        <button type="button" className="btn-link" onClick={() => {setActiveTab('forgot'); setErrorMsg(""); setSuccessMsg("");}}>
                                             Mot de passe oublié ?
                                         </button>
                                     </div>
@@ -234,7 +267,8 @@ const Login = () => {
                             </section>
                         )}
 
-                        {/* --- PARTIE 2 : CREER UN COMPTE --- */}
+                        {/* --- ONGLET 2 : CREER UN COMPTE --- */}
+                        {/* N'apparaît que si activeTab === 'register'*/}
                         {activeTab === 'register' && (
                             <section className="form-wrapper fade-in">
                                 <h2>CRÉER UN COMPTE</h2>
@@ -279,19 +313,21 @@ const Login = () => {
                                         </label>
                                     </div>
 
-                                    <button type="submit" className="btn btn-primary w-100">
+                                    <button type="submit" className="btn btn-primaire w-100">
                                         CRÉER MON COMPTE
                                     </button>
                                 </form>
                             </section>
                         )}
 
-                        {/* --- PARTIE 3 : MOT DE PASSE OUBLIÉ --- */}
+                        {/* --- ONGLET 3 : MOT DE PASSE OUBLIÉ --- */}
+                        {/* N'apparaît que si activeTab === 'forgot'*/}
                         {activeTab === 'forgot' && (
                             <section className="form-wrapper fade-in">
                                 <h2>MOT DE PASSE OUBLIÉ</h2>
                                 <p className="subtitle">Entrez votre email. Si un compte y est associé, nous vous enverrons un lien de réinitialisation.</p>
 
+                                {/* Ici, l'envoi à l'API est écrit directement "en ligne" dans le onSubmit */}
                                 <form onSubmit={async (e) => {
                                     e.preventDefault();
                                     setErrorMsg(""); setSuccessMsg("");
@@ -308,10 +344,11 @@ const Login = () => {
                                         <label>Adresse Email</label>
                                         <input type="email" required placeholder="votre@email.com" value={forgotEmail} onChange={(e) => setForgotEmail(e.target.value)} />
                                     </div>
-                                    <button type="submit" className="btn btn-primary w-100" style={{marginBottom: "15px"}}>
+                                    <button type="submit" className="btn btn-primaire w-100" style={{marginBottom: "15px"}}>
                                         ENVOYER LE LIEN
                                     </button>
-                                    <button type="button" className="btn btn-secondary w-100" onClick={() => { setActiveTab('login'); setErrorMsg(""); setSuccessMsg(""); }}>
+                                    {/* Bouton pour revenir à la connexion */}
+                                    <button type="button" className="btn btn-secondaire w-100" onClick={() => { setActiveTab('login'); setErrorMsg(""); setSuccessMsg(""); }}>
                                         RETOUR À LA CONNEXION
                                     </button>
                                 </form>

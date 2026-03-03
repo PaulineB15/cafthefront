@@ -5,7 +5,6 @@ import React, { useEffect, useState, useContext } from "react";
 // useNavigate : Permet de forcer le changement de page (ex: rediriger vers le panier)
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import "./ProductDetails.css";
 // CartContext : "Coffre-fort" /espace stockage du panier
 import { CartContext } from "../context/CartContext.jsx";
 // Pour les pop-up

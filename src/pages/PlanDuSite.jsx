@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HeroInformations from '../assets/photo/HeroInformations.webp';
-import './PageLegales.css';
+import '../styles/PageLegales.css';
 
 const PlanSite = () => {
     return (

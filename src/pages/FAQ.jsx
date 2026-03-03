@@ -1,6 +1,6 @@
 import React from 'react';
 import HeroInformations from '../assets/photo/HeroInformations.webp';
-import './PageLegales.css';
+import '../styles/PageLegales.css';
 
 const FAQ = () => {
     return (
