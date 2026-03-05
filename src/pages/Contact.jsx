@@ -1,18 +1,24 @@
+
+// IMPORT DES OUTILS REACT ET ROUTER
+
 import React, { useState } from 'react';
+// Link : Pour naviguer vers la FAQ sans recharger la page
 import { Link } from 'react-router-dom';
-import HeroContact from '../assets/photo/Hero-Contact.webp';
 import toast from 'react-hot-toast';
 
-// IMPORT DES ICONES (Assure-toi que les fichiers existent bien dans src/assets/picto/)
+// IMPORT PHOTO + ICONES
+import HeroContact from '../assets/photo/Hero-Contact.webp';
 import IconMap from '../assets/picto/contact1.svg';
 import IconPhone from '../assets/picto/contact2.svg';
 import IconMail from '../assets/picto/contact3.svg';
 import IconClock from '../assets/picto/contact4.svg';
+import '../styles/Contact.css';
 
-import './Contact.css';
-import {Helmet} from "react-helmet-async";
+
 
 const Contact = () => {
+    //--- MÉMOIRE DU FORMULAIRE ("State")
+    // Regrouper toutes les données du formulaire qui sont necessaires.
     const [formData, setFormData] = useState({
         nom: '',
         email: '',
@@ -20,18 +26,38 @@ const Contact = () => {
         rgpd: false  // La case RGPD est décochée par défaut pour obtenir le consentement de l'utilisateur'
     });
 
+
+    // --- FONCTION DE MISE À JOUR (Quand l'utilisateur tape au clavier)
+
+    const handleChange = (e) => {
+        // e.target représente le champ HTML exact que l'utilisateur est en train de modifier.
+        // On extrait son nom (name), sa valeur (value), son type, et s'il est coché (checked).
+        const { name, value, type, checked } = e.target;
+        // Mise à jour l'objet formData en gardant les anciennes valeurs (...prev)
+        setFormData(prev => ({
+            ...prev,
+            // Astuce : Si c'est la case à cocher, on enregistre "checked" (Vrai/Faux). Sinon, on enregistre le texte tapé.
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+
+    // --- FONCTION D'ENVOI DU FORMULAIRE (Quand on clique sur "Envoyer")
+
     const handleSubmit = async (e) => {
         e.preventDefault(); // Empêche le rechargement de la page
-            // Envoi le message vers une vrai adresse email
+            // Envoi le message vers une vrai adresse email API "Formspree"
         const response = await fetch("https://formspree.io/f/xnjbgzao", {
-            method: "POST",
-            body: JSON.stringify(formData),
+            method: "POST", // Envoi les données
+            body: JSON.stringify(formData), // On transforme notre objet JS en texte lisible par le serveur
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json' // On dit au serveur : "Réponds-moi en format JSON s'il te plaît"
             }
         });
 
+        // --- REPONSE DU SERVEUR---
         if (response.ok) {
+            // Si l'envoi a réussi -> jolie notification via toast
             toast.success(`Merci ${formData.nom} ! Votre message a bien été envoyé.`, {
                 style: {
                     background: '#222',
@@ -46,20 +72,16 @@ const Contact = () => {
             // Reset du formulaire après succès
             setFormData({ nom: '', email: '', message: '', rgpd: false });
         } else {
+            // Si le serveur a planté --> affiche une alerte d'erreur
             toast.error("Oups ! Un problème est survenu lors de l'envoi.");
         }
     };
 
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
-    };
+    // ---- CE QUI S'AFFICHE A L'ECRAN ----
 
     return (
         <>
+                {/*REFERENCEMENT SEO */}
                 <title>Contact - CafThé</title>
                 <meta name="description" content="Page contact d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
                 <meta name="keywords"
@@ -68,11 +90,24 @@ const Contact = () => {
         <main className="contact-page">
 
             {/* SECTION HERO */}
-            <section className="contact-hero" style={{ backgroundImage: `url(${HeroContact})` }}>
-                <div className="hero-contact-overlay">
-                    <div className="hero-contact-content">
-                        <div className="hero-icon">
-                            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+
+            <section className="contact-hero">
+                {/* Couche 1 : Image de fond */}
+                <img
+                    src={HeroContact}
+                    alt="Ambiance boutique CafThé"
+                    fetchPriority="high"
+                    loading="eager"
+                    className="hero-image"/>
+
+                {/* Couche 2 : Filtre sombre */}
+                <div className="hero-contact-filtre">
+                    {/* Couche 3 : Contenu */}
+                    <div className="hero-contact-contenu">
+                        <div className="hero-icone">
+                            <svg aria-hidden="true" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
                         </div>
                         <h1>CONTACTEZ-NOUS</h1>
                         <p>Une question ? Un projet ? Notre équipe est à votre écoute.</p>
@@ -80,15 +115,15 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* CONTENU PRINCIPAL */}
-            <div className="contact-container">
-                <div className="contact-grid">
+            {/* CONTENU PRINCIPAL (2 colonnes) */}
+            <section className="contact-container">
+                <div className="contact-structure">
 
                     {/* COLONNE GAUCHE : COORDONNÉES */}
-                    <section className="contact-infos">
+                    <aside className="contact-infos">
                         <h2>NOS COORDONNÉES</h2>
 
-                        <div className="info-list">
+                        <aside className="info-list">
                             {/* Adresse */}
                             <div className="info-item">
                                 <div className="icon-circle">
@@ -136,25 +171,23 @@ const Contact = () => {
                                     <span className="info-detail">Dimanche : Fermé</span>
                                 </div>
                             </div>
-                        </div>
+                        </aside>
 
                         {/* Bloc Besoin d'aide */}
-                        <div className="help-box">
-                            <p>BESOIN D'AIDE ?</p>
+                        <article className="help-box">
+                            <h3>BESOIN D'AIDE ?</h3>
                             <p>Consultez notre FAQ pour trouver rapidement des réponses à vos questions.</p>
                             <Link to="/faq" className="btn btn-secondaire">VOIR LA FAQ</Link>
-                        </div>
-                    </section>
+                        </article>
+                    </aside>
+
 
                     {/* COLONNE DROITE : FORMULAIRE */}
                     <section className="contact-form-wrapper">
                         <h2>ENVOYEZ-NOUS UN MESSAGE</h2>
                         <p className="form-intro">Remplissez le formulaire ci-dessous, nous vous répondrons dans les plus brefs délais.</p>
 
-                        <form className="contact-form"
-                              action="https://formspree.io/f/xnjbgzao"   // Lien pour envoyer le formulaire vers une vrai email
-                              method="POST"
-                              onSubmit={handleSubmit}>
+                        <form className="contact-form" onSubmit={handleSubmit}>
 
                             <div className="form-group">
                                 <label htmlFor="nom">NOM COMPLET</label>
@@ -165,7 +198,7 @@ const Contact = () => {
                                     placeholder="Jean Dupont"
                                     value={formData.nom}
                                     onChange={handleChange}
-                                    required
+                                    required /* Le navigateur bloquera l'envoi si c'est vide */
                                 />
                             </div>
 
@@ -209,15 +242,15 @@ const Contact = () => {
                                 </label>
                             </div>
 
-                            <button type="submit" className="btn-submit">
+                            <button type="submit" className="btn btn-primaire w100 flex-center">
                                 <span>ENVOYER LE MESSAGE</span>
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                             </button>
                         </form>
                     </section>
 
                 </div>
-            </div>
+            </section>
         </main>
         </>
     );

@@ -2,11 +2,14 @@
 // IMPORT DES OUTILS REACT
 // useState : Permet de créer la "mémoire" de la page (les variables qui changent).
 // useEffect : Permet d'exécuter une action automatique quand la page s'affiche.
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 // IMPORT DU ROUTEUR
 //Remplace la balise HTML <a>. Il permet de changer de page sans recharger tout le site Web.
 import { Link } from "react-router-dom";
+
+// IMPORT DU CONTEXTE
+import { AuthContext } from "../context/AuthContext";
 
 // IMPORT DES COMPOSANTS + CSS
 import ProductCard from "../components/ProductCard.jsx"; // ProductCard : Composant "moule" créé pour afficher une belle carte produit.
@@ -28,6 +31,9 @@ const ProductsSelection = [4, 21, 15, 27];
 
 
 function Home() {
+    // --- CONNEXION AU CONTEXTE ---
+    const { isAuthenticated } = useContext(AuthContext);
+
     // --- CRÉATION DE LA MÉMOIRE (STATES) ---
 
     // selectionProduits : Va contenir les vraies données des 4 produits (titre, prix, image). Vide [] au départ
@@ -93,7 +99,7 @@ function Home() {
                  <img
                      src={PhotoHero}
                      alt="Photo d'une tasse de café"
-                     fetchpriority="high"
+                     fetchPriority="high"
                      loading="eager"
                      className="hero-image"
                  />
@@ -177,7 +183,10 @@ function Home() {
                             Bénéficiez d'avantages exclusifs, de réductions privilèges et
                             d'un accès prioritaire à nos nouvelles collections.
                         </p>
-                        <Link to="/login" className="btn btn-primaire">
+                        <Link
+                            to={isAuthenticated ? "/mon-compte" : "/login"}
+                            state={isAuthenticated ? { activeTab: 'offres' } : null}
+                            className="btn btn-primaire">
                             Découvrir
                         </Link>
                     </article>

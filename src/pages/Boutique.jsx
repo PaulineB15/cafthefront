@@ -183,7 +183,7 @@ const Boutique = () => {
                 <img
                     src={HeroBoutique}
                     alt="Photo d'une tasse de thé"
-                    fetchpriority="high" // Chargement prioritaire pour l'image du héro
+                    fetchPriority="high" // Chargement prioritaire pour l'image du héro
                     loading="eager"
                     className="hero-image"/>
                 <div className="hero-boutique-filtre">

@@ -1,5 +1,5 @@
 
-// IMPORT DES OUTILS
+// IMPORT DES OUTILS REACT
 
 import React, { useContext, useState } from 'react';
 // useNavigate : Force le navigateur à changer de page (ex: aller au paiement)
@@ -102,7 +102,7 @@ const Panier = () => {
                 <img
                     src={HeroPanier}
                     alt="Photo d'ambiance du panier"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     loading="eager"
                     className="hero-image"
                 />

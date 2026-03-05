@@ -176,7 +176,7 @@ const Login = () => {
                 <img
                     src={HeroCompte}
                     alt="Zoom d'une photo d'un homme d'affaire tenant une tasse de café"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     loading="eager"
                     className="hero-image"/>
 

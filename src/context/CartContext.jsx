@@ -77,6 +77,51 @@ const [cart, setCart] = useState(() => {
     };
 
 
+    // AJOUTER PLUSIEURS PRODUITS D'UN COUP (Pour "Commander à nouveau")
+    const addMultipleToCart = (listeProduits) => {
+        // prevCart pour s'assurer de travailler avec l'état le plus récent du panier
+        setCart(prevCart => {
+            // Créer une copie du panier actuel pour ne pas modifier l'original directement (Immuabilité)
+            let newCart = [...prevCart];
+
+            //Boucle sur chaque produit reçu de la commande passée
+            listeProduits.forEach(({ produit, quantite, poidsChoisi }) => {
+                const isVrac = produit.TYPE_VENTE === 'Vrac';
+                const poids = isVrac ? poidsChoisi : null;
+                // Génère le cartId unique (ID-poids) pour vérifier les doublons
+                const cartId = `${produit.ID_PRODUIT}-${isVrac ? poids : 'unit'}`;
+
+                // On cherche si ce produit (avec ce poids précis) est déjà dans le panier actuel
+                const existingItemIndex = newCart.findIndex(item => item.cartId === cartId);
+
+                if (existingItemIndex > -1) {
+                    // CAS A : Le produit est déjà là, on incrémente seulement sa quantité
+                    newCart[existingItemIndex] = {
+                        ...newCart[existingItemIndex],
+                        quantite: newCart[existingItemIndex].quantite + quantite
+                    };
+                } else {
+                    // CAS B : Le produit est nouveau, on l'ajoute à la liste
+                    newCart.push({
+                        cartId: cartId,
+                        id: produit.ID_PRODUIT,
+                        nom: produit.NOM_PRODUIT,
+                        image: produit.IMAGES,
+                        categorie: produit.CATEGORIE,
+                        type: produit.TYPE,
+                        prix: parseFloat(produit.PRIX_TTC),
+                        quantite: quantite,
+                        poids: poids,
+                        isVrac: isVrac
+                    });
+                }
+            });
+            // On remplace l'ancien panier par le nouveau panier complété
+            return newCart;
+        });
+    };
+
+
     // MODIFIER LA QUANTITE (delta "+1 ou -1")
     const updateQuantite = (cartId, delta) => {
         setCart(prevCart => {
@@ -130,6 +175,7 @@ const [cart, setCart] = useState(() => {
     const value = {
         cart,
         addToCart,
+        addMultipleToCart,
         updateQuantite,
         removeFromCart,
         clearCart, // Vide le panier et le localStorage

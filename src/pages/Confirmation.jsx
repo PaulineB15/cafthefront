@@ -65,7 +65,7 @@ const Confirmation = () => {
                 <img
                     src={HeroPanier}
                     alt="Photo d'ambiance du panier"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     loading="eager"
                     className="hero-image"
                 />
@@ -164,8 +164,7 @@ const Confirmation = () => {
                             <Link
                                 to="/mon-compte"
                                 state={{ activeTab: 'suivi' }}
-                                className="btn-gold-full"
-                            >
+                                className="btn-gold-full">
                                 SUIVRE MA COMMANDE
                             </Link>
                         </div>

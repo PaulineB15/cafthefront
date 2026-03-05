@@ -200,7 +200,7 @@ const LivraisonPaiement = () => {
                 <img
                     src={HeroPanier}
                     alt="Photo d'ambiance du panier"
-                    fetchpriority="high"
+                    fetchPriority="high"
                     loading="eager"
                     className="hero-image"
                 />
