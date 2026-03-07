@@ -3,20 +3,35 @@
    PAGE FAQ, MENTIONS LEGALES, CGV, POLITIQUE DE CONFIDENTIALITE, PLAN DU SITE
    ========================================= */
 
+
+
 /* --- HERO SECTION COMMUNE --- */
+
 .legal-hero {
     position: relative;
     height: 60vh;
-    background-size: cover;
-    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 60px;
+    overflow: hidden; /* Empêche l'image de déborder */
 }
 
-.hero-legal-overlay {
-    background-color: rgba(0, 0, 0, 0.65);
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-legal-filtre {
+    position: relative; /* Se place au-dessus de l'image grâce au z-index */
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.65); /* Filtre sombre */
     width: 100%;
     height: 100%;
     display: flex;
@@ -25,12 +40,17 @@
     padding: 0 20px;
 }
 
-.hero-legal-content {
+
+.hero-legal-contenu {
     text-align: center;
     max-width: 800px;
 }
 
+
+
+
 /* --- CONTENEURS --- */
+
 .legal-container {
     max-width: 850px; /* Étroit pour les CGV/Mentions */
     margin: 0 auto;
@@ -38,16 +58,19 @@
 }
 
 /* Conteneur spécifiquement pour la grille FAQ */
-.legal-container.faq-wide {
+.legal-container.faq {
     max-width: 1200px;
 }
 
+
+
 /* --- SECTIONS ET TITRES --- */
+
 .legal-section {
     margin-bottom: 60px;
 }
 
-/* H2 Doré avec bordure comme dans tes fichiers */
+
 .legal-section h2 {
     border-bottom: 1px solid #333;
     padding-bottom: 15px;
@@ -55,20 +78,21 @@
     color: var(--gold-detail);
 }
 
-/* Ajoute ou modifie ceci dans PageLegales.css */
-.legal-list {
+
+.legal-liste {
     list-style: none; /* Enlève les points noirs par défaut du navigateur */
-    padding-left: 25px; /* Crée l'espace nécessaire pour tes points dorés */
+    padding-left: 25px; /* Crée l'espace nécessaire entre les point dorés et titre */
     position: relative; /* Indispensable pour que le point absolu reste ici */
 }
 
-.legal-list li {
+.legal-liste li {
     position: relative; /* Pour que le point se place par rapport à la ligne */
     margin-bottom: 15px;
 }
 
 
 /* --- GRILLE FAQ --- */
+
 .faq-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -84,7 +108,7 @@
 }
 
 /* Puce dorée pour les questions et les listes légales */
-.faq-card h3::before, .legal-list li::before {
+.faq-card h3::before, .legal-liste li::before {
     content: "•";
     color: var(--gold-detail);
     position: absolute;
@@ -93,43 +117,39 @@
     line-height: 1.2rem;
 }
 
-/* --- FOOTER COMMUN --- */
-.legal-footer {
-    text-align: center;
-    margin-top: 80px;
-    padding-top: 40px;
-    border-top: 1px solid #333;
-}
 
 
 /* =========================================
-    RESPONSIVE
+    MEDIA QUERIES
    ========================================= */
 
-/* --- AJUSTEMENTS GLOBAUX --- */
+
 @media (max-width: 1024px) {
+
     .faq-grid {
         /* Passage à une colonne plus tôt pour éviter que les cartes soient trop étroites */
         grid-template-columns: 1fr;
         gap: 30px;
     }
 
-    .legal-container.faq-wide {
-        max-width: 900px; /* On réduit la largeur max sur tablette */
+    .legal-container.faq {
+        max-width: 900px; /* Réduit la largeur max sur tablette */
     }
 }
 
+
 @media (max-width: 768px) {
-    /* --- HERO SECTION --- */
+
     .legal-hero {
-        height: 45vh; /* On réduit la hauteur sur mobile pour voir le contenu plus vite */
+        height: 45vh; /* Réduit la hauteur sur mobile pour voir le contenu plus vite */
         margin-bottom: 40px;
     }
 
-    .hero-legal-content h1 {
+    .hero-legal-contenu h1 {
         /* Utilisation du clamp de index.css ou réduction manuelle */
         font-size: 2rem;
     }
+
 
     /* --- CONTENEURS --- */
     .legal-container {
@@ -152,16 +172,11 @@
     }
 
     /* --- TEXTES --- */
-    p, .legal-list li {
+    p, .legal-liste li {
         font-size: 0.95rem; /* Texte légèrement plus petit pour mobile */
         line-height: 1.5;
     }
 
-    /* --- FOOTER --- */
-    .legal-footer {
-        margin-top: 50px;
-        padding-top: 30px;
-    }
 }
 
 /* --- OPTIMISATION PETITS MOBILES (iPhone SE, etc.) --- */

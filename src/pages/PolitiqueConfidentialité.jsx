@@ -4,10 +4,27 @@ import '../styles/PageLegales.css';
 
 const Confidentialite = () => {
     return (
-        <main className="legal-page">
-            <section className="legal-hero" style={{ backgroundImage: `url(${HeroInformations})` }}>
-                <div className="hero-legal-overlay">
-                    <div className="hero-legal-content">
+
+        <>
+            {/*REFERENCEMENT SEO */}
+            <title>Politique de confidentialité - CafThé</title>
+            <meta name="description" content="Politique de confidentialité d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, Politique de confidentialité, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
+
+        <main>
+            {/*HERO */}
+            <section className="legal-hero">
+                <img
+                    src={HeroInformations}
+                    alt="Protection des données CafThé"
+                    fetchPriority="high"
+                    loading="eager"
+                    className="hero-image"
+                />
+                <div className="hero-legal-filtre">
+                    <div className="hero-legal-contenu">
                         <h1>Politique de Confidentialité</h1>
                         <p>Protection de vos données personnelles (RGPD).</p>
                     </div>
@@ -36,7 +53,7 @@ const Confidentialite = () => {
                 <section className="legal-section">
                     <h2>Utilisation des données</h2>
                     <p>Vos données servent exclusivement à :</p>
-                    <ul className="legal-list">
+                    <ul className="legal-liste">
                         <li>Traiter vos commandes et livraisons.</li>
                         <li>Vous envoyer notre newsletter (uniquement avec votre consentement).</li>
                         <li>Améliorer votre expérience sur notre boutique.</li>
@@ -49,6 +66,7 @@ const Confidentialite = () => {
                 </section>
             </div>
         </main>
+        </>
     );
 };
 

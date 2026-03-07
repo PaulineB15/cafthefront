@@ -4,21 +4,38 @@ import '../styles/PageLegales.css';
 
 const FAQ = () => {
     return (
-        <main className="legal-page">
-            {/* HERO SECTION : Même classe que MentionsLegales/CGV */}
-            <section className="legal-hero" style={{ backgroundImage: `url(${HeroInformations})` }}>
-                <div className="hero-legal-overlay">
-                    <div className="hero-legal-content">
+
+        <>
+            {/*REFERENCEMENT SEO */}
+            <title>FAQ - CafThé</title>
+            <meta name="description" content="FAQ d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, FAQ, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
+
+        <main>
+
+            {/*HERO */}
+            <section className="legal-hero">
+                <img
+                    src={HeroInformations}
+                    alt="Grains de café en fond"
+                    fetchPriority="high"
+                    loading="eager"
+                    className="hero-image"
+                />
+                <div className="hero-legal-filtre">
+                    <div className="hero-legal-contenu">
                         <h1>Foire Aux Questions</h1>
                         <p>Les réponses à vos questions les plus fréquentes.</p>
                     </div>
                 </div>
             </section>
 
-            {/* CONTAINER = classe wide pour la grille FAQ */}
-            <div className="legal-container faq-wide">
 
-                {/* --- Section Questions: Commandes & Paiement --- */}
+            <section className="legal-container faq">
+
+                {/* SECTION COMMANDES & PAIEMENT */}
                 <section className="legal-section">
                     <h2>Commandes & Paiement</h2>
                     <div className="faq-grid">
@@ -34,7 +51,7 @@ const FAQ = () => {
                     </div>
                 </section>
 
-                {/* --- Section Questions: Livraison --- */}
+                {/* --- SECTION LIVRAISON --- */}
                 <section className="legal-section">
                     <h2>Livraison</h2>
                     <div className="faq-grid">
@@ -50,7 +67,7 @@ const FAQ = () => {
                     </div>
                 </section>
 
-                {/* --- Section Questions: Produits --- */}
+                {/* --- SECTION PRODUITS --- */}
                 <section className="legal-section">
                     <h2>Nos produits</h2>
                     <div className="faq-grid">
@@ -68,8 +85,9 @@ const FAQ = () => {
                         </article>
                     </div>
                 </section>
-            </div>
+            </section>
         </main>
+        </>
     );
 };
 

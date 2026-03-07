@@ -4,10 +4,28 @@ import '../styles/PageLegales.css';
 
 const MentionsLegales = () => {
     return (
-        <main className="legal-page">
-            <section className="legal-hero" style={{ backgroundImage: `url(${HeroInformations})` }}>
-                <div className="hero-legal-overlay">
-                    <div className="hero-legal-content">
+
+        <>
+            {/*REFERENCEMENT SEO */}
+            <title>Mentions Légales - CafThé</title>
+            <meta name="description" content="Mentions légales d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, Mentions légales, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
+
+        <main>
+
+            {/*HERO */}
+            <section className="legal-hero">
+                <img
+                    src={HeroInformations}
+                    alt="Grains de café en fond"
+                    fetchPriority="high"
+                    loading="eager"
+                    className="hero-image"
+                />
+                <div className="hero-legal-filtre">
+                    <div className="hero-legal-contenu">
                         <h1>Mentions Légales</h1>
                         <p>Détails réglementaires et conditions générales d'utilisation.</p>
                     </div>
@@ -30,7 +48,7 @@ const MentionsLegales = () => {
                 <section className="legal-section">
                     <h2>1. Présentation du site internet.</h2>
                     <p>En vertu de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique, il est précisé aux utilisateurs du site internet <a href="https://www.Caftheluxe.fr" className="legal-link">https://www.Caftheluxe.fr</a> l'identité des différents intervenants dans le cadre de sa réalisation et de son suivi:</p>
-                    <ul className="legal-list">
+                    <ul className="legal-liste">
                         <li><strong>Propriétaire</strong> : SAS CafThé Capital social de n/a€ Numéro de TVA: n/a – 123 rue de la paix 75001 Paris</li>
                         <li><strong>Responsable publication</strong> : CafThé – contact@cafthe.fr</li>
                         <li><strong>Webmaster</strong> : Pauline Bennoin – contact@cafthe.fr</li>
@@ -75,7 +93,7 @@ const MentionsLegales = () => {
                     <p>Pour les Données Personnelles collectées, le responsable du traitement est : CafThé, représenté par Pauline Bennoin.</p>
 
                     <h3>7.2 Finalité des données collectées</h3>
-                    <ul className="legal-list">
+                    <ul className="legal-liste">
                         <li>Permettre la navigation et la traçabilité des prestations commandées.</li>
                         <li>Prévenir et lutter contre la fraude informatique.</li>
                         <li>Améliorer la navigation sur le Site.</li>
@@ -104,6 +122,7 @@ const MentionsLegales = () => {
 
             </div>
         </main>
+           </>
     );
 };
 

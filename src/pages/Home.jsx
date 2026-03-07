@@ -84,6 +84,7 @@ function Home() {
 
 
     // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
     return (
         <>
             {/*REFERENCEMENT SEO */}
