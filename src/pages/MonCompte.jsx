@@ -1,5 +1,11 @@
 // --- IMPORTS REACT ET ROUTER ---
+
+// UseState: mémoire locale
+// UseContext: accès aux données globales
+// UseEffect: déclencher des actions auto (synchronise le site avec api)
 import React, { useState, useContext, useEffect } from "react";
+// UseNavigate: redirection vers une autre page
+// UseLocation: récupérer l'URL actuelle
 import { useNavigate, useLocation } from "react-router-dom";
 
 // --- IMPORTS DES CONTEXTES ---
@@ -14,77 +20,85 @@ import HeroCompte from "../assets/photo/HeroCompte.webp";
 import "../styles/MonCompte.css";
 
 const MonCompte = () => {
-    // --- RÉCUPÉRATION DES OUTILS GLOBAUX
+    // --- 1. RÉCUPÉRATION DES OUTILS GLOBAUX
+    // Récupération des données utilisateur et authentification
     const { user, loading, isAuthenticated } = useContext(AuthContext);
     const { addMultipleToCart } = useContext(CartContext);
     const navigate = useNavigate();
     const location = useLocation();
 
-    // --- GESTION DES ONGLETS (TABS)
+    // --- 2. GESTION DES ONGLETS (TABS)
+    // 'activeTab' = l'interrupteur qui décide quel onglet afficher.
     const [activeTab, setActiveTab] = useState(location.state?.activeTab || "personnel");
 
+    // Si l'URL change (par exemple on clique sur un lien qui ramène ici avec un nouveau state), on met à jour l'onglet.
     useEffect(() => {
         if (location.state && location.state.activeTab) {
             setActiveTab(location.state.activeTab);
         }
     }, [location.state]);
 
+    // --- 3. SÉCURITÉ DE LA ROUTE PRIVÉE ---
+    // Si l'application a fini de charger (!loading) ET que l'utilisateur n'est pas connecté (!isAuthenticated), on l'expulse vers /login.
     useEffect(() => {
         if (!loading && !isAuthenticated) navigate("/login");
     }, [loading, isAuthenticated, navigate]);
 
-    // --- MEMOIRE (state) ---
 
-    // Toggle (Interrupteur) pour l'affichage du formulaire Infos
+    // --- 4. MEMOIRE LOCALE DE LA PAGE (state) ---
+
+    // Toggle (interrupteur Vrai/Faux) pour afficher soit le texte, soit le formulaire de modification des infos.
     const [isEditingInfo, setIsEditingInfo] = useState(false);
 
-    // Stockage des données du formulaire Infos Personnelles & Facturation
+    // Stockage des informations saisies dans le formulaire "Informations Personnelles"
     const [infoData, setInfoData] = useState({
         prenom: "", nom: "", email: "", telephone: "",
         adresse_facturation: "", cp_facturation: "", ville_facturation: ""
     });
 
-    // State dédié à la livraison
-    const [livraisonData, setLivraisonData] = useState({
-        adresse_livraison: "", cp_livraison: "", ville_livraison: ""
-    });
-
+    // Stockage du formulaire de changement de mot de passe.
     const [passwordData, setPasswordData] = useState({
         actuel: "", nouveau: "", confirmation: ""
     });
 
+
+    // Stockage des commandes reçues depuis l'API Back-end.
     const [commandesSuivi, setCommandesSuivi] = useState([]);
     const [historiqueCommandes, setHistoriqueCommandes] = useState([]);
-    const [isLoadingData, setIsLoadingData] = useState(true);
+    const [isLoadingData, setIsLoadingData] = useState(true); // Gère l'affichage du texte "Chargement..."
 
-    // STATES MESSAGES DE RETOUR (Une seule déclaration ici)
+
+    // Stockage des messages de retour (Succès ou Erreur) à afficher sous les formulaires.
     const [updateMsg, setUpdateMsg] = useState({ type: "", text: "" });
     const [passwordMsg, setPasswordMsg] = useState({ type: "", text: "" });
 
     // PRE-REMPLISSAGE DES CHAMPS AU CHARGEMENT
+    // Dès que l'objet 'user' est disponible, je remplis les cases de mes formulaires avec ses données pour lui éviter de tout retaper
     useEffect(() => {
         if (user) {
             setInfoData({
                 prenom: user.prenom || "", nom: user.nom || "", email: user.email || "", telephone: user.tel || "",
                 adresse_facturation: user.adresse_facturation || "", cp_facturation: user.cp_facturation || "", ville_facturation: user.ville_facturation || ""
             });
-            setLivraisonData({
-                adresse_livraison: user.adresse_livraison || "", cp_livraison: user.cp_livraison || "", ville_livraison: user.ville_livraison || ""
-            });
         }
     }, [user]);
 
-    // --- (FETCH) RECUPRER LES COMMANDES ---
+
+    // --- 6. APPEL API (FETCH) RECUPERER LES COMMANDES ---
     useEffect(() => {
+        // Fonction asynchrone pour aller chercher les commandes dans la base de données.
         const fetchDonneesCompte = async () => {
             try {
+                // Requête HTTP GET vers ma route sécurisée. 'credentials: include' envoie le cookie (le Token) au serveur.
                 const ordersResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/me`, {
                     method: 'GET', credentials: 'include'
                 });
                 if (ordersResponse.ok) {
                     const ordersData = await ordersResponse.json();
                     const toutesLesCommandes = ordersData.orders;
+                    // .filter() pour séparer les commandes en deux catégories :
 
+                    // Celles qui ne sont pas "Livrées" vont dans le tableau de Suivi
                     setCommandesSuivi(toutesLesCommandes.filter(cmd => cmd.STATUT_COMMANDE !== 'Livrée').map(cmd => ({
                         id: `CMD-${cmd.ID_COMMANDE}`,
                         date: new Date(cmd.DATE_COMMANDE).toLocaleDateString('fr-FR'),
@@ -94,32 +108,38 @@ const MonCompte = () => {
                         statut: cmd.STATUT_COMMANDE
                     })));
 
+                    // Celles qui sont "Livrées" vont dans l'Historique
                     setHistoriqueCommandes(toutesLesCommandes.filter(cmd => cmd.STATUT_COMMANDE === 'Livrée').map(cmd => ({
                         id: `CMD-${cmd.ID_COMMANDE}`,
                         date: new Date(cmd.DATE_COMMANDE).toLocaleDateString('fr-FR'),
                         articles: cmd.total_articles ? `${cmd.total_articles} article(s)` : "1 article",
                         total: parseFloat(cmd.MONTANT_TOTAL),
                         statut: cmd.STATUT_COMMANDE,
-                        produits: cmd.produits || []
+                        produits: cmd.produits || [] // On garde les produits pour la fonction "Commander à nouveau"
                     })));
                 }
             } catch (error) {
                 console.error(error);
             } finally {
+                // Quoi qu'il arrive, on arrête l'état de chargement.
                 setIsLoadingData(false);
             }
         };
+        // Déclenche la recherche uniquement si le client est bien connecté.
         if (isAuthenticated) fetchDonneesCompte();
     }, [isAuthenticated]);
 
+    // Met à jour la mémoire du formulaire (le State) à chaque lettre tapée par l'utilisateur.
     const handleInfoChange = (e) => setInfoData({ ...infoData, [e.target.name]: e.target.value });
     const handlePasswordChange = (e) => setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
 
-    // 1. UPDATE INFOS PERSO & FACTURATION
+
+    // --- 7. SOUMISSION: MODIFIER LES INFOS PERSONNELLES ---
     const handleUpdateInfo = async (e) => {
-        e.preventDefault();
-        setUpdateMsg({ type: "", text: "" });
+        e.preventDefault(); // Empêche la page de se recharger brusquement au clic sur le bouton submit.
+        setUpdateMsg({ type: "", text: "" }); // Vider les anciens messages d'erreur.
         try {
+            // PUT = standard pour la "Mise à jour" (Update) d'une donnée existante en API
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/moi`, {
                 method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
                 body: JSON.stringify({
@@ -129,15 +149,13 @@ const MonCompte = () => {
                     tel: infoData.telephone,
                     adresse_facturation: infoData.adresse_facturation,
                     cp_facturation: infoData.cp_facturation,
-                    ville_facturation: infoData.ville_facturation,
-                    adresse_livraison: livraisonData.adresse_livraison,
-                    cp_livraison: livraisonData.cp_livraison,
-                    ville_livraison: livraisonData.ville_livraison
+                    ville_facturation: infoData.ville_facturation
                 })
             });
             const data = await response.json();
             if (response.ok) {
                 setUpdateMsg({ type: "success", text: "Modifications enregistrées avec succès !" });
+                // Recharge la page après 1.5s pour que les nouvelles données s'affichent partout (NavBar, etc.)
                 setTimeout(() => window.location.reload(), 1500);
             } else { setUpdateMsg({ type: "error", text: data.message }); }
 
@@ -147,16 +165,19 @@ const MonCompte = () => {
         }
     };
 
-    // 3. UPDATE MOT DE PASSE
+
+    // --- 8. SOUMISSION: MODIFIER LE MOT DE PASSE ---
     const handleUpdatePassword = async (e) => {
         e.preventDefault();
         setPasswordMsg({ type: "", text: "" });
 
+        // Contrôle de sécurité en Front-end. Si les mots de passe ne correspondent pas --> bloque l'envoi vers le serveur
         if (passwordData.nouveau !== passwordData.confirmation) {
             return setPasswordMsg({ type: "error", text: "Les mots de passe ne correspondent pas." });
         }
 
         try {
+            // Requête PUT pour modifier le mot de passe
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/clients/password`, {
                 method: 'PUT', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
                 body: JSON.stringify({ actuel: passwordData.actuel, nouveau: passwordData.nouveau })
@@ -164,7 +185,7 @@ const MonCompte = () => {
             const data = await response.json();
             if (response.ok) {
                 setPasswordMsg({ type: "success", text: "Mot de passe modifié avec succès !" });
-                setPasswordData({ actuel: "", nouveau: "", confirmation: "" });
+                setPasswordData({ actuel: "", nouveau: "", confirmation: "" }); // On vide les cases pour la sécurité.
             } else {
                 setPasswordMsg({ type: "error", text: data.message });
             }
@@ -173,14 +194,18 @@ const MonCompte = () => {
         }
     };
 
-    // C. COMMANDER À NOUVEAU (Version corrigée pour plusieurs articles)
-    const handleReorder = (produits) => {
+
+    // --- 9. COMMANDER À NOUVEAU (depuis L'onglet " historique des commandes" ---
+
+        // Prend les produits d'une ancienne commande, les adapte au format requis par mon Panier (notamment la gestion des Vracs en grammes), et les ajoute en masse.
+        const handleReorder = (produits) => {
         if (!produits || produits.length === 0) {
             toast.error("Impossible de récupérer les articles de cette commande.");
             return;
         }
 
-        // 1. On prépare la liste formatée pour le Context
+
+        // Reformate les données issues de la base de données pour qu'elles collent à la structure de CartContext
         const produitsAajouter = produits.map(prod => {
             const typeVente = prod.type_vente || prod.TYPE_VENTE || "Unité";
 
@@ -195,23 +220,30 @@ const MonCompte = () => {
                     TYPE: prod.type || ""
                 },
                 quantite: prod.quantite || prod.QUANTITE_COMMANDEE || 1,
-                poidsChoisi: typeVente === 'Vrac' ? 0.25 : null
+                poidsChoisi: typeVente === 'Vrac' ? 0.25 : null // Si c'est du vrac, on remet le sachet par défaut à 250g
             };
         });
 
-        // 2. On envoie TOUTE la commande d'un seul coup au cerveau du panier
+        // Appel de la fonction du CartContext pour tout ajouter d'un coup
         addMultipleToCart(produitsAajouter);
 
         toast.success("Commande ajoutée au panier !");
-        navigate('/panier');
+        navigate('/panier'); // Redirection automatique vers la page panier.
     };
-
 
 
 
     // ---- CE QUI S'AFFICHE A L'ECRAN ----
 
     return (
+
+        <>
+            {/*REFERENCEMENT SEO */}
+            <title>Panier - CafThé</title>
+            <meta name="description" content="Page compte client d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
+            <meta name="keywords"
+                  content="CafThé, compte client, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
+
         <main>
             {/* --- HERO SECTION --- */}
             <section className="compte-hero">
@@ -220,8 +252,7 @@ const MonCompte = () => {
                     alt="Espace client CafThé"
                     fetchPriority="high"
                     loading="eager"
-                    className="hero-image"
-                />
+                    className="hero-image"/>
 
                 <div className="compte-filtre">
                     <div className="compte-entete">
@@ -233,8 +264,7 @@ const MonCompte = () => {
                                 stroke="currentColor"
                                 strokeWidth="1.5"
                                 strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
+                                strokeLinejoin="round">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                                 <circle cx="12" cy="7" r="4" />
                             </svg>
@@ -267,9 +297,10 @@ const MonCompte = () => {
                         </button>
                     </nav>
 
-                    <div className="dashboard-content">
+                    <div className="dashboard-contenu">
 
                         {/* ================= ONGLET 1 : PERSONNEL ================= */}
+                        {/*  && --> "Si ce qui est à gauche est VRAI, alors affiche ce qui est à droite entre parenthèses". */}
                         {activeTab === 'personnel' && (
                             <section className="tab-pane fade-in" aria-label="Vos informations personnelles">
 
@@ -386,7 +417,7 @@ const MonCompte = () => {
                                     </div>
                                 </article>
 
-                                {/* --- BLOC 3: SÉCURITÉ --- */}
+                                {/* --- BLOC 3: CHANGER MOT DE PASSE --- */}
                                 <article className="content-block">
                                     <h2>SÉCURITÉ DU COMPTE</h2>
                                     <form onSubmit={handleUpdatePassword} className="password-form">
@@ -522,6 +553,7 @@ const MonCompte = () => {
                 </div>
             </div>
         </main>
+        </>
     );
 };
 

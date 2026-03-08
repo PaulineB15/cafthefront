@@ -1,3 +1,9 @@
+
+/* ===============
+      HEADER / NAVBAR
+   =============== */
+
+
 :root {
     --gold-detail: #C4A484; /* Définition de la variable si elle n'est pas globale */
     --dark-bg: #1A1A1A;
@@ -53,18 +59,18 @@
 
 .navbar-menu a:hover,
 .navbar-menu a.active {
-    color: var(--gold-detail); /* Couleur dorée/beige de la maquette */
+    color: var(--gold-detail);
     text-decoration: underline;
 
 }
 
-.user-logged {
+.compte-client {
     display: flex;
     align-items: center;
     gap: 15px;
 }
 
-.user-link:hover {
+.client-identification:hover {
 color: var(--gold-detail);
     text-decoration: underline;
 }
@@ -94,16 +100,17 @@ color: var(--gold-detail);
     transform: translate(0, -2px);
 }
 
-/* BOUTON DÉCONNEXION (Style similaire au btn-primary mais adapté pour la navbar) */
-.logout-btn {
-    background-color: var(--green-cta); /* Le vert de ta charte */
+
+/* BOUTON DÉCONNEXION */
+.deconnexion-btn {
+    background-color: var(--green-cta);
     color: var(--text-light);
     font-family: var(--font-text);
     text-transform: uppercase;
     font-size: 0.75rem; /* Plus petit qu'un bouton classique pour s'intégrer au menu */
     letter-spacing: 1px;
     font-weight: 600;
-    padding: 8px 16px; /* Des marges internes plus fines */
+    padding: 8px 16px;
     border-radius: 2px;
     border: 1px solid transparent;
     cursor: pointer;
@@ -113,22 +120,21 @@ color: var(--gold-detail);
     justify-content: center;
 }
 
-/* Effet au survol (identique au btn-primary) */
-.logout-btn:hover {
+
+.deconnexion-btn:hover {
     background-color: var(--green-hover);
-    border-color: var(--gold-detail); /* Bordure dorée au survol */
+    border-color: var(--gold-detail);
     transform: translateY(-2px); /* Petit effet de soulèvement */
 }
 
 /* BARRE DE RECHERCHE */
 
-.search-bar {
+.barre-recherche {
     display: flex;
     align-items: center;
     background-color: rgba(245, 245, 240, 0.05); /* Très léger contraste sur le fond sombre */
-    border: 1px solid rgba(197, 160, 89, 0.3); /* Bordure Or Mat fine */
-    border-radius: 2px; /* Micro-arrondi de ta charte */
-    padding: 5px 12px;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 2px;
     margin: 0 20px;
     flex: 1; /* Permet à la barre de prendre l'espace disponible */
     max-width: 300px;
@@ -136,14 +142,14 @@ color: var(--gold-detail);
 }
 
 /* Changement de bordure au survol de tout le bloc recherche */
-.search-bar:hover,
-.search-bar:focus-within {
+.barre-recherche:hover,
+.barre-recherche:focus-within {
     border-color: var(--gold-detail);
     box-shadow: 0 0 5px rgba(197, 160, 89, 0.2);
 }
 
 
-.search-input {
+.recherche-champ {
     background: none;
     border: none;
     color: var(--text-light);
@@ -153,15 +159,15 @@ color: var(--gold-detail);
     outline: none;
 }
 
-.search-input::placeholder {
-    color: #D9C5B2; /* Sable de Grès pour le placeholder */
+.recherche-champ::placeholder {
+    color: #D9C5B2;
     opacity: 0.6;
 }
 
-.search-icon-btn {
+.loupe-btn {
     background: none;
     border: none;
-    color: #C5A059; /* Loupe couleur Or Mat */
+    color: #C5A059;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -169,14 +175,14 @@ color: var(--gold-detail);
     transition: transform 0.2s ease;
 }
 
-.search-icon-btn:hover {
+.loupe-btn:hover {
     transform: scale(1.1);
-    color: #D9C5B2; /* Sable au survol */
+    color: #D9C5B2;
 }
 
 
 /* LE BADGE VERT DU PANIER */
-.cart-badge {
+.panier-notification {
     position: absolute;
     top: -5px;   /* Ajuste pour monter/descendre */
     right: -8px; /* Ajuste pour aller à gauche/droite */
@@ -210,9 +216,10 @@ color: var(--gold-detail);
     100% { transform: scale(1); }
 }
 
-/* =========================================
-   AJOUTS POUR LE RESPONSIVE (MOBILE)
-   ========================================= */
+
+/* ==================
+   MEDIA QUERIES
+   ==================*/
 
 /* Bouton Burger caché par défaut (sur Desktop) */
 .burger-btn {
@@ -234,6 +241,7 @@ color: var(--gold-detail);
 }
 
 /* --- TABLETTE ET MOBILE (Menu Burger) --- */
+
 @media (max-width: 900px) {
     /* La navbar autorise le passage à la ligne (Wrap) */
     .navbar-container {
@@ -241,13 +249,13 @@ color: var(--gold-detail);
         padding: 10px 20px;
     }
 
-    /* 1. Burger à gauche */
+    /* Burger à gauche */
     .burger-btn {
         display: flex;
         order: 1;
     }
 
-    /* 2. Logo au milieu */
+    /* Logo au milieu */
     .navbar-logo {
         order: 2;
         margin-right: auto;
@@ -258,12 +266,12 @@ color: var(--gold-detail);
         height: 60px; /* Réduit un peu le logo sur mobile */
     }
 
-    /* 3. Icônes de connexion/panier à droite */
+    /* Icônes de connexion/panier à droite */
     .navbar-actions {
         order: 3;
     }
 
-    /* 4. Menu des liens : Caché par défaut, forcé en bas */
+    /* Menu des liens : Caché par défaut, forcé en bas */
     .navbar-menu {
         display: none;
         width: 100%;
@@ -276,8 +284,8 @@ color: var(--gold-detail);
         border-top: 1px solid #333;
     }
 
-    /* 5. Barre de recherche : Cachée par défaut, forcée tout en bas */
-    .search-bar {
+    /* Barre de recherche : Cachée par défaut, forcée tout en bas */
+    .barre-recherche {
         display: none;
         width: 100%;
         max-width: 100%;
@@ -287,14 +295,23 @@ color: var(--gold-detail);
 
     /* QUAND ON CLIQUE SUR LE BURGER (La classe 'active' s'ajoute en JS) */
     .navbar-menu.active,
-    .search-bar.active {
+    .barre-recherche.active {
         display: flex;
+    }
+
+    .deconnexion-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
     }
 }
 
+
 /* --- TRES PETIT MOBILE (Ex: iPhone SE) --- */
+
 @media (max-width: 480px) {
-    /* Cache le logo comme demandé */
+
+
     .navbar-logo {
         display: none;
     }
@@ -304,25 +321,11 @@ color: var(--gold-detail);
         margin-right: auto;
     }
 
-    /* Sur petit écran, le nom "Bonjour Prénom" prend trop de place, on le cache */
-    .user-logged span {
-        display: none;
-    }
-}
-
-/* --- RÉDUCTION DU BOUTON DÉCONNEXION SUR MOBILE --- */
-@media (max-width: 900px) {
-    .logout-btn {
-        padding: 5px 10px; /* On divise les marges internes par presque deux */
-        font-size: 0.7rem; /* On réduit très légèrement la police */
-        letter-spacing: 0.5px; /* On resserre un peu les lettres */
-    }
-}
-
-/* Sur les très petits écrans (ex: iPhone SE), on peut le réduire encore plus */
-@media (max-width: 480px) {
-    .logout-btn {
+    .deconnexion-btn {
         padding: 4px 8px;
         font-size: 0.65rem;
     }
+
 }
+
+

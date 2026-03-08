@@ -7,7 +7,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import HeroCompte from "../assets/photo/HeroCompte.webp";
 import "../styles/Login.css"; // Réutilise le design du Login !
 
-const ResetPassword = () => {
+const MotDePasseOublie = () => {
     // --- INITIALISATION DES OUTILS ---
 
     // Permet de lire "?token=xyz" dans l'URL
@@ -104,4 +104,4 @@ const ResetPassword = () => {
     );
 };
 
-export default ResetPassword;
+export default MotDePasseOublie;
