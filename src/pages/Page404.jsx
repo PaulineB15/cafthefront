@@ -1,5 +1,5 @@
 
-// --- IMPORTS REACT ET ROUTER ---
+// IMPORTS REACT ET ROUTER
 import React from 'react';
 import { Link } from 'react-router-dom';
 

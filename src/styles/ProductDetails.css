@@ -1,6 +1,4 @@
-/* ===============
-      PAGE PRODUCT DETAILS
-   =============== */
+/* PAGE PRODUCTDETAILS */
 
 .ficheProduit-page {
     background-color: var(--bg-dark); /* #1A1A1A */
@@ -16,7 +14,7 @@
 }
 
 
-/* --- LIEN RETOUR --- */
+/* LIEN RETOUR */
 .retourProduits {
     margin-bottom: 30px;
 }
@@ -38,7 +36,7 @@
 
 
 
-/* --- LAYOUT 2 COLONNES --- */
+/*  2 COLONNES  */
 .ficheProduit-structure {
     display: flex;
     gap: 60px;
@@ -46,7 +44,7 @@
 }
 
 
-/* --- IMAGE --- */
+/*  IMAGE */
 .ficheProduit-image {
     flex: 1;
     background-color: #fff; /* Fond blanc */
@@ -64,7 +62,7 @@
     object-fit: cover;
 }
 
-/* --- INFOS --- */
+/* INFOS */
 .ficheProduit-info {
     flex: 1;
 }
@@ -155,7 +153,7 @@
 .status-stock.rouge { background-color: #d9534f; }
 
 
-/* --- OPTIONS POIDS (VRAC) --- */
+/*  OPTIONS POIDS (VRAC) */
 
 .options-vrac {
     margin-bottom: 30px;
@@ -201,7 +199,7 @@
 }
 
 
-/* --- ACTIONS (Panier) --- */
+/*  ACTIONS (Panier) */
 .ficheProduit-actions {
     display: flex;
     gap: 15px;
@@ -271,7 +269,7 @@
 }
 
 
-/* --- MEDIA QUERIES --- */
+/* MEDIA QUERIES  */
 
 @media (max-width: 900px) {
     .ficheProduit-structure {

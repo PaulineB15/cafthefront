@@ -58,7 +58,7 @@ const quickAdd = () => {
     };
 
 
-// ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
         <article className="carte-produit">

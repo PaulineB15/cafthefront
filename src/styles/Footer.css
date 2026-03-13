@@ -1,10 +1,8 @@
 
-/* ===============
-      FOOTER
-   =============== */
+/* FOOTER */
 
 
-/* Container principal */
+/* CONTAINER PRINCIPAL */
 
 .footer {
     background-color: var(--bg-dark);
@@ -22,7 +20,7 @@
     padding: 60px 10% 40px;
 }
 
-/* --- COLONNES --- */
+/* COLONNES */
 
 .footer-colonne {
     flex: 1; /* Chaque colonne prend la même largeur */
@@ -52,7 +50,7 @@
     text-transform: uppercase;
 }
 
-/* --- CONTACT (<address>) --- */
+/* CONTACT (<address>)  */
 
 .footer-adresse {
     font-style: normal; /* Annule l'italique par défaut de la balise address */
@@ -76,7 +74,7 @@
     color: var(--gold-detail);
 }
 
-/* --- LISTES DE LIENS (Infos) --- */
+/*  LISTES DE LIENS (Infos) */
 
 .footer-liens {
     list-style: none; /* Enlève les puces */
@@ -102,7 +100,7 @@
     padding-left: 5px; /* Petit effet de glissement au survol */
 }
 
-/* --- RÉSEAUX SOCIAUX --- */
+/*  RÉSEAUX SOCIAUX  */
 
 .social-liens {
     list-style: none;
@@ -130,7 +128,7 @@
 }
 
 
-/* --- COPYRIGHT (Bas de page) --- */
+/*  COPYRIGHT (Bas de page)  */
 .footer-bas {
     width: 100%;
     text-align: center;
@@ -143,7 +141,7 @@
 }
 
 
-/* --- MEDIA QUERIES --- */
+/*  MEDIA QUERIES  */
 
 @media (max-width: 900px) {
     .footer {

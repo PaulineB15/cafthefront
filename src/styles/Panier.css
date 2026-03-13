@@ -1,9 +1,7 @@
-/* ===============
-      PAGE PANIER
-   =============== */
 
+/* PAGE PANIER */
 
-/* --- CONFIGURATION GÉNÉRALE --- */
+/* CONFIGURATION GÉNÉRALE */
 
 .panier-page {
     background-color: var(--bg-dark);
@@ -18,7 +16,7 @@
 }
 
 
-/* --- HÉRO PANIER --- */
+/* HÉRO */
 .hero-panier {
     height: 60vh;
     position: relative; /* Indispensable pour garder l'image et le filtre à l'intérieur */
@@ -78,7 +76,7 @@
 }
 
 
-/* --- MISE EN PAGE (GRID) --- */
+/* MISE EN PAGE (GRID)  */
 .panier-contenu {
     display: grid;
     grid-template-columns: 2fr 1fr; /* 2 tiers produits, 1 tiers résumé */
@@ -87,7 +85,7 @@
 }
 
 
-/* --- PANIER VIDE --- */
+/*  PANIER VIDE */
 .panier-vide {
     text-align: center;
     padding: 80px 20px;
@@ -101,7 +99,7 @@
 }
 
 
-/* --- LISTE DES PRODUITS --- */
+/*  LISTE DES PRODUITS  */
 
 .cart-item {
     display: flex;
@@ -247,7 +245,7 @@
 
 
 
-/* --- RÉCAPITULATIF (DROITE) --- */
+/* RÉCAPITULATIF (DROITE) */
 
 .panier-summary {
     background-color: #222;
@@ -382,7 +380,7 @@
 
 
 
-/* --- MEDIA QUERIES --- */
+/* MEDIA QUERIES */
 
 @media (max-width: 900px) {
     /* Une seule colonne */

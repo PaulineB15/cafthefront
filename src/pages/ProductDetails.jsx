@@ -40,13 +40,13 @@ const ProductDetails = () => {
     // RECUPERER L'AJOUT AU PANIER DANS LE CONTEXTE
     const { addToCart } = useContext(CartContext);
 
-    //-- MÉMOIRE DE LA PAGE (STATES)--
+    // MÉMOIRE DE LA PAGE (STATES)
     const [produit, setProduit] = useState(null); // Stock les infos du produit (titre, prix..)
     const [isLoading, setIsLoading] = useState(true); // Gère le chargement de la page
     const [error, setError] = useState(null); // Gère les erreurs de chargement
 
 
-    // --VARIABLES D'INTERACTION CLIENT--
+    // VARIABLES D'INTERACTION CLIENT
     // Quantité choisie (par défaut 1)
     const [quantite, setQuantite] = useState(1);
     // Pour le vrac : 0.25 = 250g, 0.50 = 500g, etc. Par défaut, on présélectionne 250g.
@@ -89,7 +89,7 @@ const ProductDetails = () => {
 
 
 
-    // --- CALCUL DU PRIX ---
+    // CALCUL DU PRIX
     const getPrixAffiché = () => {
         if (!produit) return 0; // Si le produit n'est pas encore chargé
         const prixBase = parseFloat(produit.PRIX_TTC);
@@ -104,7 +104,7 @@ const ProductDetails = () => {
     };
 
 
-    // --- AJOUT AU PANIER ---
+    // AJOUT AU PANIER
     const handleAddToCart = () => {
         // Sécurité : on n'ajoute pas si le produit n'est pas chargé
         if (!produit) return;
@@ -133,7 +133,7 @@ const ProductDetails = () => {
     };
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+    //  CE QUI S'AFFICHE A L'ECRAN
 
 
     // 1. SCENARIO 1: EN TRAIN DE CHARGER (Affichage conditionnel)

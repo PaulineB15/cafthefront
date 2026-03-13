@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
 
-    // --- ACTION AUTO: CŒUR DU SYSTÈME (Vérification au démarrage) ---
+    // ACTION AUTO: CŒUR DU SYSTÈME (Vérification au démarrage)
 
     // Dès que le site CafThé se charge (ou qu'on rafraîchit la page F5) :
     //Vérifie si un cookie de session valide existe
@@ -60,7 +60,7 @@ export function AuthProvider({ children }) {
         setUser(userData);
     };
 
-    // --- FONCTION LOGOUT (Quand Sophie clique sur "Déconnexion") ---
+    // FONCTION LOGOUT (Quand Sophie clique sur "Déconnexion")
     const logout = async () => {
         try {
             // 1. On dit au serveur : "Détruis le cookie de session"

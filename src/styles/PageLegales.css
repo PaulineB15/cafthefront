@@ -1,11 +1,9 @@
 
-/* =========================================
-   PAGE FAQ, MENTIONS LEGALES, CGV, POLITIQUE DE CONFIDENTIALITE, PLAN DU SITE
-   ========================================= */
+
+/* PAGE FAQ, MENTIONS LEGALES, CGV, POLITIQUE DE CONFIDENTIALITE, PLAN DU SITE */
 
 
-
-/* --- HERO SECTION COMMUNE --- */
+/*  HERO SECTION COMMUNE  */
 
 .legal-hero {
     position: relative;
@@ -49,7 +47,7 @@
 
 
 
-/* --- CONTENEURS --- */
+/* CONTENEURS */
 
 .legal-container {
     max-width: 850px; /* Étroit pour les CGV/Mentions */
@@ -64,7 +62,7 @@
 
 
 
-/* --- SECTIONS ET TITRES --- */
+/* SECTIONS ET TITRES */
 
 .legal-section {
     margin-bottom: 60px;
@@ -91,7 +89,7 @@
 }
 
 
-/* --- GRILLE FAQ --- */
+/*  GRILLE FAQ  */
 
 .faq-grid {
     display: grid;
@@ -119,9 +117,7 @@
 
 
 
-/* =========================================
-    MEDIA QUERIES
-   ========================================= */
+ /* MEDIA QUERIES */
 
 
 @media (max-width: 1024px) {
@@ -151,12 +147,12 @@
     }
 
 
-    /* --- CONTENEURS --- */
+    /* CONTENEURS  */
     .legal-container {
         padding: 0 15px 50px 15px; /* Moins de padding latéral sur petit écran */
     }
 
-    /* --- SECTIONS ET TITRES --- */
+    /* SECTIONS ET TITRES */
     .legal-section {
         margin-bottom: 40px;
     }
@@ -171,7 +167,7 @@
         font-size: 1rem;
     }
 
-    /* --- TEXTES --- */
+    /* TEXTES */
     p, .legal-liste li {
         font-size: 0.95rem; /* Texte légèrement plus petit pour mobile */
         line-height: 1.5;
@@ -179,7 +175,7 @@
 
 }
 
-/* --- OPTIMISATION PETITS MOBILES (iPhone SE, etc.) --- */
+/* PETIT ECRAN */
 @media (max-width: 480px) {
     .legal-hero {
         height: 35vh;

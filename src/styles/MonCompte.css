@@ -1,8 +1,7 @@
-/* ===============
-   MON COMPTE
-   ============== */
 
-/* --- HERO SECTION --- */
+/* PAGE COMPTE */
+
+/* HERO */
 .compte-hero {
     position: relative;
     height: 50vh;
@@ -73,7 +72,7 @@
     font-size: 1.1rem;
 }
 
-/* --- CONTENEUR PRINCIPAL --- */
+/*  CONTENEUR PRINCIPAL */
 .compte-section {
     padding: 40px 20px;
 }
@@ -83,7 +82,7 @@
     margin: 0 auto;
 }
 
-/* --- ONGLETS DE NAVIGATION --- */
+/* ONGLETS DE NAVIGATION  */
 .dashboard-nav {
     display: flex;
     justify-content: space-between;
@@ -131,7 +130,7 @@
 }
 
 
-/* --- CONTENU DES ONGLETS --- */
+/* CONTENU DES ONGLETS  */
 
 .content-block {
     background-color: #161616;
@@ -175,7 +174,7 @@
 .btn-edit:hover { background-color: rgba(255, 255, 255, 0.2); }
 
 
-/* --- FORMULAIRES --- */
+/* FORMULAIRES  */
 .form-row {
     display: flex;
     gap: 20px;
@@ -208,7 +207,7 @@
 .form-group input:focus { border-color: var(--gold-detail); }
 
 
-/* --- CARTES COMMANDES (Suivi) --- */
+/* CARTES COMMANDES (Suivi)  */
 .order-card {
     background-color: #161616;
     border: 1px solid #2a2a2a;
@@ -265,7 +264,7 @@
 .grid-value.price { color: var(--gold-detail); }
 
 
-/* --- CARTES HISTORIQUE --- */
+/* CARTES HISTORIQUE */
 .history-card {
     background-color: #161616;
     border: 1px solid #2a2a2a;
@@ -303,7 +302,7 @@
 .btn-sm { padding: 10px 20px; font-size: 0.8rem; }
 
 
-/* --- OFFRES EXCLUSIVES --- */
+/* OFFRES EXCLUSIVES */
 .offer-card {
     background-color: #2b352d; /* Fond vert sombre inspiré de la maquette */
     border-left: 4px solid var(--gold-detail);
@@ -351,7 +350,7 @@
 }
 .promo-date span { color: var(--text-light); }
 
-/* --- UTILITAIRES --- */
+/*  UTILITAIRES  */
 .w-100 { width: 100%; }
 .fade-in { animation: fadeIn 0.4s ease-in; }
 @keyframes fadeIn {
@@ -359,7 +358,12 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- MEDIA QUERIES --- */
+
+
+
+/*  MEDIA QUERIES */
+
+
 @media (max-width: 900px) {
     .history-card { flex-direction: column; align-items: flex-start; gap: 20px; }
     .history-actions { width: 100%; justify-content: space-between; }

@@ -1,5 +1,5 @@
 
-// --- IMPORT DES OUTILS REACT ---
+// IMPORT DES OUTILS REACT
 
 // Outil de React qui agit comme un garde du corps en développement.
 import { StrictMode } from 'react'

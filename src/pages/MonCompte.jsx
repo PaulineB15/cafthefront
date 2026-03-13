@@ -1,4 +1,4 @@
-// --- IMPORTS REACT ET ROUTER ---
+// IMPORTS REACT ET ROUTER
 
 // UseState: mémoire locale
 // UseContext: accès aux données globales
@@ -8,26 +8,26 @@ import React, { useState, useContext, useEffect } from "react";
 // UseLocation: récupérer l'URL actuelle
 import { useNavigate, useLocation } from "react-router-dom";
 
-// --- IMPORTS DES CONTEXTES ---
+//  IMPORTS DES CONTEXTES
 import { AuthContext } from "../context/AuthContext.jsx";
 import { CartContext } from "../context/CartContext.jsx";
 
 // --- IMPORT DE TOAST (Pour les notifications pop-up) ---
 import { toast } from "react-hot-toast";
 
-// --- IMPORTS PHOTO + CSS ---
+//  IMPORTS PHOTO + CSS
 import HeroCompte from "../assets/photo/HeroCompte.webp";
 import "../styles/MonCompte.css";
 
 const MonCompte = () => {
-    // --- 1. RÉCUPÉRATION DES OUTILS GLOBAUX
+    // 1. RÉCUPÉRATION DES OUTILS GLOBAUX
     // Récupération des données utilisateur et authentification
     const { user, loading, isAuthenticated } = useContext(AuthContext);
     const { addMultipleToCart } = useContext(CartContext);
     const navigate = useNavigate();
     const location = useLocation();
 
-    // --- 2. GESTION DES ONGLETS (TABS)
+    // 2. GESTION DES ONGLETS (TABS)
     // 'activeTab' = l'interrupteur qui décide quel onglet afficher.
     const [activeTab, setActiveTab] = useState(location.state?.activeTab || "personnel");
 
@@ -38,14 +38,14 @@ const MonCompte = () => {
         }
     }, [location.state]);
 
-    // --- 3. SÉCURITÉ DE LA ROUTE PRIVÉE ---
+    //  3. SÉCURITÉ DE LA ROUTE PRIVÉE
     // Si l'application a fini de charger (!loading) ET que l'utilisateur n'est pas connecté (!isAuthenticated), on l'expulse vers /login.
     useEffect(() => {
         if (!loading && !isAuthenticated) navigate("/login");
     }, [loading, isAuthenticated, navigate]);
 
 
-    // --- 4. MEMOIRE LOCALE DE LA PAGE (state) ---
+    // 4. MEMOIRE LOCALE DE LA PAGE (state)
 
     // Toggle (interrupteur Vrai/Faux) pour afficher soit le texte, soit le formulaire de modification des infos.
     const [isEditingInfo, setIsEditingInfo] = useState(false);
@@ -84,7 +84,7 @@ const MonCompte = () => {
     }, [user]);
 
 
-    // --- 6. APPEL API (FETCH) RECUPERER LES COMMANDES ---
+    //  6. APPEL API (FETCH) RECUPERER LES COMMANDES
     useEffect(() => {
         // Fonction asynchrone pour aller chercher les commandes dans la base de données.
         const fetchDonneesCompte = async () => {
@@ -134,7 +134,7 @@ const MonCompte = () => {
     const handlePasswordChange = (e) => setPasswordData({ ...passwordData, [e.target.name]: e.target.value });
 
 
-    // --- 7. SOUMISSION: MODIFIER LES INFOS PERSONNELLES ---
+    //  7. SOUMISSION: MODIFIER LES INFOS PERSONNELLES
     const handleUpdateInfo = async (e) => {
         e.preventDefault(); // Empêche la page de se recharger brusquement au clic sur le bouton submit.
         setUpdateMsg({ type: "", text: "" }); // Vider les anciens messages d'erreur.
@@ -166,7 +166,7 @@ const MonCompte = () => {
     };
 
 
-    // --- 8. SOUMISSION: MODIFIER LE MOT DE PASSE ---
+    //  8. SOUMISSION: MODIFIER LE MOT DE PASSE
     const handleUpdatePassword = async (e) => {
         e.preventDefault();
         setPasswordMsg({ type: "", text: "" });
@@ -195,7 +195,7 @@ const MonCompte = () => {
     };
 
 
-    // --- 9. COMMANDER À NOUVEAU (depuis L'onglet " historique des commandes" ---
+    // 9. COMMANDER À NOUVEAU (depuis L'onglet " historique des commandes"
 
         // Prend les produits d'une ancienne commande, les adapte au format requis par mon Panier (notamment la gestion des Vracs en grammes), et les ajoute en masse.
         const handleReorder = (produits) => {
@@ -233,13 +233,13 @@ const MonCompte = () => {
 
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
 
 
         <main>
-            {/* --- HERO SECTION --- */}
+            {/*  HERO SECTION  */}
             <section className="compte-hero">
                 <img
                     src={HeroCompte}
@@ -298,7 +298,7 @@ const MonCompte = () => {
                         {activeTab === 'personnel' && (
                             <section className="tab-pane fade-in" aria-label="Vos informations personnelles">
 
-                                {/* --- BLOC 1: INFOS & FACTURATION --- */}
+                                {/* BLOC 1: INFOS & FACTURATION */}
                                 <article className="content-block">
                                     <header className="block-header" style={{ marginBottom: '20px' }}>
                                         <div>
@@ -390,7 +390,7 @@ const MonCompte = () => {
                                     )}
                                 </article>
 
-                                {/* --- BLOC 2: ADRESSE DE LIVRAISON --- */}
+                                {/* BLOC 2: ADRESSE DE LIVRAISON  */}
                                 <article className="content-block">
                                     <header className="block-header">
                                         <div>
@@ -411,7 +411,7 @@ const MonCompte = () => {
                                     </div>
                                 </article>
 
-                                {/* --- BLOC 3: CHANGER MOT DE PASSE --- */}
+                                {/*  BLOC 3: CHANGER MOT DE PASSE */}
                                 <article className="content-block">
                                     <h2>SÉCURITÉ DU COMPTE</h2>
                                     <form onSubmit={handleUpdatePassword} className="password-form">

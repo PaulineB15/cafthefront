@@ -1,8 +1,5 @@
 
-/* ===============
-      HEADER / NAVBAR
-   =============== */
-
+/* NAVBAR */
 
 :root {
     --gold-detail: #C4A484; /* Définition de la variable si elle n'est pas globale */
@@ -217,9 +214,7 @@ color: var(--gold-detail);
 }
 
 
-/* ==================
-   MEDIA QUERIES
-   ==================*/
+/* MEDIA QUERIES */
 
 /* Bouton Burger caché par défaut (sur Desktop) */
 .burger-btn {
@@ -240,7 +235,7 @@ color: var(--gold-detail);
     transition: 0.3s;
 }
 
-/* --- TABLETTE ET MOBILE (Menu Burger) --- */
+/*  Pour mobile & tablette (Menu Burger) */
 
 @media (max-width: 900px) {
     /* La navbar autorise le passage à la ligne (Wrap) */
@@ -307,7 +302,7 @@ color: var(--gold-detail);
 }
 
 
-/* --- TRES PETIT MOBILE (Ex: iPhone SE) --- */
+/* PETIT ECRAN */
 
 @media (max-width: 480px) {
 

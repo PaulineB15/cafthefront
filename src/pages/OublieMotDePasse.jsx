@@ -1,4 +1,4 @@
-// --- IMPORTS REACT ET ROUTER ---
+//  IMPORTS REACT ET ROUTER
 
 import React, { useState } from "react";
 // useSearchParams : Outil pour extraire le jeton (token) de l'URL (ex: ?token=123)
@@ -8,19 +8,19 @@ import HeroCompte from "../assets/photo/HeroCompte.webp";
 import "../styles/Login.css"; // Réutilise le design du Login !
 
 const MotDePasseOublie = () => {
-    // --- INITIALISATION DES OUTILS ---
+    //  INITIALISATION DES OUTILS
 
     // Permet de lire "?token=xyz" dans l'URL
     const [searchParams] = useSearchParams(); // On active la lecture des paramètres d'URL
     const token = searchParams.get("token"); // On récupère spécifiquement la valeur après "?token="
     const navigate = useNavigate(); // On prépare la fonction de redirection
 
-    // --- MÉMOIRE (STATE) POUR LE FORMULAIRE DE CONNEXION ---
+    //  MÉMOIRE (STATE) POUR LE FORMULAIRE DE CONNEXION
     const [password, setPassword] = useState(""); // Stocke le 1er mot de passe saisi
     const [confirm, setConfirm] = useState(""); // Stocke la confirmation
     const [message, setMessage] = useState({ type: "", text: "" }); // Gère les alertes (erreur ou succès)
 
-    // --- FONCTION DE SOUMISSION (Déclenchée au clic sur VALIDER) ---
+    //  FONCTION DE SOUMISSION (Déclenchée au clic sur VALIDER)
     const handleSubmit = async (e) => {
         e.preventDefault(); // Empêche le rechargement de la page par défaut
         setMessage({ type: "", text: "" }); // Réinitialise les messages à chaque tentative
@@ -52,7 +52,7 @@ const MotDePasseOublie = () => {
         }
     };
 
-    // --- SECURITE D'AFFICHAGE---
+    // SECURITE D'AFFICHAGE
     // Si l'URL ne contient pas de token, on affiche un message d'erreur au lieu du formulaire
 
     if (!token) {
@@ -61,7 +61,7 @@ const MotDePasseOublie = () => {
 
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
         <main className="auth-page">

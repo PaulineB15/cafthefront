@@ -12,24 +12,24 @@ import "../styles/Boutique.css";
 
 
 const Boutique = () => {
-    // --- CRÉATION DE LA MÉMOIRE (STATES)---
+    //  CRÉATION DE LA MÉMOIRE (STATES)
 
     const [produits, setProduits] = useState([]); // Stockage des produits venant de la BDD
     const [isLoading, setIsLoading] = useState(true); // Gestion du chargement
     const [error, setError] = useState(null); // Gestion des erreurs
 
 
-    // --- COLONNE FILTRE---
+    //  COLONNE FILTRE
     const [selectedCategory, setSelectedCategory] = useState("Tous"); // Catégorie
     const [selectedType, setSelectedType] = useState("Tous"); // Type
     const [priceRange, setPriceRange] = useState("Tous"); // Prix
 
-    // --- BARRE DE RECHERCHE (NavBar) ---
+    //  BARRE DE RECHERCHE (NavBar)
     const [searchParams] = useSearchParams();  // Récupère le paramètre "search" de l'URL (ex: ?search=cafe)"
     const searchItems = searchParams.get("search") || "";   // Si pas de recherche, chaîne vide
 
 
-    // --- ACTION AUTOMATIQUE (USE EFFECT) ---
+    //  ACTION AUTOMATIQUE (USE EFFECT)
 
     // BUT:  Éviter les conflits de filtres (Navbar VS Colonne filtre)
     // S'active UNIQUEMENT quand l'utilisateur tape une nouvelle recherche dans la navbar
@@ -74,7 +74,7 @@ const Boutique = () => {
     }, []);
 
 
-    // --- BARRE DE RECHERCHE (NavBar) + COLONNE FILTRE  ---
+    //  BARRE DE RECHERCHE (NavBar) + COLONNE FILTRE
 
     // On prend la liste complète des produits et on la filtre pour créer une liste finale (filteredProduits)
     const filteredProduits = produits.filter(produit => {
@@ -109,7 +109,7 @@ const Boutique = () => {
         else if (priceRange === "20-50") matchPrice = prix >= 20 && prix <= 50;
         else if (priceRange === "plus50") matchPrice = prix > 50;
 
-        // --- RESULTAT FINAL ---
+        //  RESULTAT FINAL
         // Le produit n'est affiché que si TOUTES (&&) les conditions sont remplies !
         return matchSearch && matchCategory && matchType && matchPrice;
     });
@@ -123,7 +123,7 @@ const Boutique = () => {
     };
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+    //  CE QUI S'AFFICHE A L'ECRAN
 
     // 1. SCENARIO 1: EN TRAIN DE CHARGER (Affichage conditionnel)
     if (isLoading) {

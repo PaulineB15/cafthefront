@@ -1,9 +1,8 @@
-/* ===============
-      PAGE LIVRAISON ET PAIEMENT
-   =============== */
+
+/* PAGE LIVRAISON ET PAIEMENT */
 
 
-/* --- CONFIGURATION GENERAL --- */
+/* CONFIGURATION GENERAL  */
 
 .commande-page {
     background-color: var(--bg-dark);
@@ -23,7 +22,7 @@
 }
 
 
-/* --- HERO --- */
+/* HERO */
 
 .hero-commande {
     height: 60vh;
@@ -79,7 +78,7 @@
 
 
 
-/* --- SECTIONS (formulaire gauche) --- */
+/* SECTIONS (formulaire gauche) */
 
 .livraison-section {
     background-color: #222;
@@ -115,7 +114,7 @@
 }
 
 
-/* --- OPTIONS (LIVRAISON & PAIEMENT) --- */
+/* OPTIONS (LIVRAISON & PAIEMENT) */
 .options-grid {
     border: none;
     padding: 0;
@@ -168,7 +167,7 @@
     filter: brightness(0) invert(1); /* Icone en blanc */
 }
 
-/* --- textes des options --- */
+/* textes des options  */
 .option-info {
     display: flex;
     flex-direction: column;
@@ -234,7 +233,7 @@
     border-radius: 2px;
 }
 
-/* --- FORMULAIRE ADRESSE --- */
+/* FORMULAIRE ADRESSE */
 
 .form-row { display: flex; gap: 20px; margin-bottom: 20px; }
 .three-cols { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 20px; }
@@ -262,7 +261,7 @@ input {
 input:focus { border-color: var(--gold-detail); }
 
 
-/* --- SECURITÉ --- */
+/* SECURITÉ */
 
 .payment-security {
     display: flex;
@@ -282,7 +281,7 @@ input:focus { border-color: var(--gold-detail); }
 .payment-security p { margin: 0; font-size: 0.8rem; color: #888; }
 
 
-/* --- RÉCAPITULATIF (colonne droite) --- */
+/* RÉCAPITULATIF (colonne droite)  */
 
 .order-summary-box {
     background-color: #222;
@@ -359,9 +358,8 @@ hr { border: 0; border-top: 1px solid #444; margin: 20px 0; }
 .fade-in { animation: fadeIn 0.4s ease-out; }
 
 
-/* ================ */
-/* MEDIA QUERIES   */
-/* ============== */
+
+/* MEDIA QUERIES */
 
 @media (max-width: 900px) {
     /* Grille pour passer sur 1 seule colonne */

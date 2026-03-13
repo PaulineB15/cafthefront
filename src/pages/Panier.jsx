@@ -15,7 +15,7 @@ import "../styles/Panier.css";
 
 
 const Panier = () => {
-    // -- CARTCONTEXT + AUTHCONTEXT --
+    // CARTCONTEXT + AUTHCONTEXT
 
     // 1. Récupèrer les données du Panier (la liste, les fonctions pour modifier/supprimer, et le total)
     const { cart, updateQuantite, removeFromCart, cartTotal } = useContext(CartContext);
@@ -24,14 +24,14 @@ const Panier = () => {
 
     const navigate = useNavigate();
 
-    // --- CRÉATION DE LA MÉMOIRE (STATES) POUR LE CODE PROMO---
+    // CRÉATION DE LA MÉMOIRE (STATES) POUR LE CODE PROMO
     // Ces données ne concernent QUE cette page -> utilise useState locaux.
     const [promoCode, setPromoCode] = useState(""); // Ce que le client tape dans le champ
     const [isPromoValid, setIsPromoValid] = useState(false); // // Est-ce que le code est bon ?
     const [messagePromo, setMessagePromo] = useState(""); //Le texte vert ou rouge à afficher
 
 
-    // --- CALCULS POUR LA REMISE PROMO ---
+    //  CALCULS POUR LA REMISE PROMO
 
     // 1. Calcul de la remise (Si code valide -> 20% du total, sinon (:) 0€)
     const montantRemise = isPromoValid ? (cartTotal * 0.20) : 0;
@@ -85,7 +85,7 @@ const Panier = () => {
 
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
 
     return (

@@ -1,7 +1,7 @@
 // Contruire la structure de page
 
 
-// --- IMPORT DES OUTILS ---
+// IMPORT DES OUTILS
 
 import React from 'react';
 // Outil clé de React Router pour créer des mises en page imbriquées.

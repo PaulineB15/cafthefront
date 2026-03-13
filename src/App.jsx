@@ -1,5 +1,5 @@
 
-// --- IMPORT DES OUTILS ---
+//  IMPORT DES OUTILS
 
 //Imports des outils de routage pour créer les URLs du site
 import { BrowserRouter, Routes, Route } from "react-router-dom";

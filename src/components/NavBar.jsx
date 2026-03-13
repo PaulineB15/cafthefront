@@ -18,7 +18,7 @@ import '../styles/NavBar.css';
 
 
 function NavBar() {
-    // --- RÉCUPÉRATION DES DONNÉES GLOBALES ---
+    // RÉCUPÉRER LES DONNÉES GLOBALES
 
     // Extrais de l'utilisateur, l'état de connexion et la fonction de déconnexion
     const { user, isAuthenticated, logout } = useContext(AuthContext);
@@ -28,7 +28,7 @@ function NavBar() {
 
     const navigate = useNavigate();
 
-    // --- MÉMOIRE LOCALE (STATES) ---
+    //  MÉMOIRE LOCALE (STATES)
 
     // Etat pour stocker le texte de la barre de recherche
     const [searchItems, setSearchItems] = useState("");
@@ -68,7 +68,7 @@ function NavBar() {
                 </div>
 
 
-                {/* --- MENU BURGER (Uniquement sur mobile) --- */}
+                {/* MENU BURGER (Uniquement sur mobile) */}
 
                 <button
                     className="burger-btn"

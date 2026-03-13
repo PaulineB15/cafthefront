@@ -1,6 +1,6 @@
-/* =========================
-    IMPORTS & RESET
-   =========================*/
+
+
+/* INDEX CSS */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tenor+Sans&display=swap');
 
@@ -88,9 +88,9 @@ img {
   object-fit: cover; /* L'image remplit tout l'espace sans se déformer */
 }
 
-/* =========================================
-    VARIABLES GLOBALES (:ROOT)
-   ========================================= */
+
+/* COULEURS + TYPO */
+
 :root {
   /* Couleurs de ta charte */
   --bg-dark: #1A1A1A;
@@ -105,9 +105,10 @@ img {
   --font-text: 'Montserrat', sans-serif;
 }
 
-/* =========================================
-    STYLE GÉNÉRAL (BODY & HTML)
-   ========================================= */
+
+
+/* STYLE GENERAL */
+
 html {
   scroll-behavior: smooth; /* Défilement fluide */
 }
@@ -121,9 +122,10 @@ body {
   -webkit-font-smoothing: antialiased; /* Rendu de police plus net sur Mac */
 }
 
-/* =========================================
-   TYPOGRAPHIE
-   ========================================= */
+
+
+/* TYPOGRAPHIE */
+
 h1, h2, h3, h4 {
   font-family: var(--font-title);
   font-weight: 400;
@@ -169,9 +171,8 @@ a {
   transition: color 0.3s ease;
 }
 
-/* =========================================
-   COMPOSANTS (BOUTONS)
-   ========================================= */
+
+/* LES BOUTONS */
 
 .btn {
   display: inline-block;
@@ -214,9 +215,10 @@ a {
 
 
 
-/* ============
-   PAGE 404
-   ============*/
+
+
+/* CSS DE LA PAGE 404 */
+
 .page-erreur {
   min-height: 80vh;
   display: flex;

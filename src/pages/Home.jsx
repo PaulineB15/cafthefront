@@ -31,10 +31,10 @@ const ProductsSelection = [4, 21, 15, 27];
 
 
 function Home() {
-    // --- CONNEXION AU CONTEXTE ---
+    // CONNEXION AU CONTEXTE
     const { isAuthenticated } = useContext(AuthContext);
 
-    // --- CRÉATION DE LA MÉMOIRE (STATES) ---
+    // CRÉATION DE LA MÉMOIRE (STATES)
 
     // selectionProduits : Va contenir les vraies données des 4 produits (titre, prix, image). Vide [] au départ
     const [selectionProduits, setSelectionProduits] = useState([]);
@@ -42,7 +42,7 @@ function Home() {
     // isLoading : "interrupteur" (vrai/faux) pour dire à la page si elle est en train de chercher les données. Vrai au départ.
     const [isLoading, setIsLoading] = useState(true);
 
-    // --- RÉCUPÉRATION DES DONNÉES (FETCH) ---
+    //  RÉCUPÉRATION DES DONNÉES (FETCH)
     // Action auto: Le code à l'intérieur s'exécutera au moment où la page s'affiche à l'écran
     useEffect(() => {
 
@@ -83,7 +83,7 @@ function Home() {
     }, []);
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
         <>

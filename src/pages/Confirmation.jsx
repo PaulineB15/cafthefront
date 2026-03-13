@@ -15,13 +15,13 @@ import Mail from "../assets/picto/mail1.svg";
 
 
 const Confirmation = () => {
-    // -- RÉCUPÈRER LES DONNÉES ENVOYÉES PAR LA PAGE DE PAIEMENT --
+    // RÉCUPÈRER LES DONNÉES ENVOYÉES PAR LA PAGE DE PAIEMENT --
     const location = useLocation();
     const navigate = useNavigate();
     // orderData contient TOUTES les infos envoyées par LivraisonPaiement (Nom, Email, Total, Produits...)
     const orderData = location.state;
 
-    // -- GESTION DE LA SÉCURITÉ ET DE L'AFFICHAGE --
+    // GESTION DE LA SÉCURITÉ ET DE L'AFFICHAGE --
     useEffect(() => {
         // Force la page à s'afficher tout en haut (parfois React garde le scroll en bas)
         window.scrollTo(0, 0);
@@ -41,7 +41,7 @@ const Confirmation = () => {
         );
     }
 
-    // --- CALCULS DES PRIX ---
+    //  CALCULS DES PRIX
 
     // Extrait les valeurs avec une sécurité (|| 0) au cas où il y aurait un bug
     const safeTotalTTC = orderData.totalTTC || 0;
@@ -52,13 +52,13 @@ const Confirmation = () => {
     const sousTotal = safeTotalTTC - safeFrais + remiseMontant;
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
 
         <main className="confirmation-page">
 
-            {/* --- HERO SECTION --- */}
+            {/* HERO SECTION  */}
 
             <section className="hero-conf">
                 {/* Image de fond (Couche 1) */}
@@ -87,7 +87,7 @@ const Confirmation = () => {
             </section>
 
 
-            {/* --- GRID (2 Colonnes) --- */}
+            {/* GRID (2 Colonnes) */}
             <section className="confirmation-container">
 
                 {/* COLONNE GAUCHE (principal) */}

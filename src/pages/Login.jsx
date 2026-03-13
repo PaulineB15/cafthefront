@@ -6,11 +6,11 @@ import React, { useState, useContext } from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 
-// --- IMPORT AUTHCONTEXT ---
+//  IMPORT AUTHCONTEXT
 // AuthContext permet de dire à TOUT le site : "Cet utilisateur est connecté !"
 import { AuthContext } from "../context/AuthContext.jsx"
 
-// --- IMPORT PHOTO / CSS ---
+//  IMPORT PHOTO / CSS
 import HeroCompte from "../assets/photo/HeroCompte.webp";
 import "../styles/Login.css";
 
@@ -101,7 +101,7 @@ const Login = () => {
         }
     };
 
-    // --- FONCTION POUR L'INSCRIPTION POUR RECUPERER A LA FOIS LES DONNEES EMAIL / MOT DE PASSE + CASE A COCHER RGPD  ---
+    //  FONCTION POUR L'INSCRIPTION POUR RECUPERER A LA FOIS LES DONNEES EMAIL / MOT DE PASSE + CASE A COCHER RGPD
     const handleRegisterChange = (e) => {
         const { name, value, type, checked } = e.target;
         setRegisterData({
@@ -158,7 +158,7 @@ const Login = () => {
     };
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
 
@@ -170,7 +170,7 @@ const Login = () => {
 
         <main className="login-page">
 
-            {/* --- HERO SECTION --- */}
+            {/*  HERO SECTION  */}
 
             <section className="login-hero">
                 <img
@@ -199,7 +199,7 @@ const Login = () => {
             <section className="login-section">
                 <div className="login-container">
 
-                    {/* --- NAVIGATION ONGLETS (TABS) --- */}
+                    {/*  NAVIGATION ONGLETS (TABS)  */}
                     {/* Les boutons changent la valeur de activeTab ('login' ou 'register') au clic */}
                     <nav className="login-onglet">
                         <button
@@ -221,7 +221,7 @@ const Login = () => {
                         {errorMsg && <div className="alert error">{errorMsg}</div>}
                         {successMsg && <div className="alert success">{successMsg}</div>}
 
-                        {/* --- ONGLET 1 : FORMULAIRE DE CONNEXION --- */}
+                        {/*  ONGLET 1 : FORMULAIRE DE CONNEXION  */}
                         {/* N'apparaît que si activeTab === 'login' */}
                         {activeTab === 'login' && (
                             <section className="form-wrapper fade-in">
@@ -267,7 +267,7 @@ const Login = () => {
                             </section>
                         )}
 
-                        {/* --- ONGLET 2 : CREER UN COMPTE --- */}
+                        {/*  ONGLET 2 : CREER UN COMPTE  */}
                         {/* N'apparaît que si activeTab === 'register'*/}
                         {activeTab === 'register' && (
                             <section className="form-wrapper fade-in">
@@ -320,7 +320,7 @@ const Login = () => {
                             </section>
                         )}
 
-                        {/* --- ONGLET 3 : MOT DE PASSE OUBLIÉ --- */}
+                        {/*  ONGLET 3 : MOT DE PASSE OUBLIÉ  */}
                         {/* N'apparaît que si activeTab === 'forgot'*/}
                         {activeTab === 'forgot' && (
                             <section className="form-wrapper fade-in">

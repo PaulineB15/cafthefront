@@ -1,10 +1,8 @@
 
-/* ===============
-      PAGE CONTACT
-   =============== */
+/* PAGE CONTACT */
 
 
-/* --- CONFIGURATION GENERAL --- */
+/* CONFIGURATION GENERAL */
 
 .contact-page {
     background-color: var(--bg-dark);
@@ -12,7 +10,7 @@
 }
 
 
-/* --- HERO SECTION --- */
+/* HERO */
 
 .contact-hero {
     position: relative;
@@ -86,7 +84,7 @@
 
 
 
-/* --- CONTENEUR GLOBAL --- */
+/* CONTENEUR GLOBAL */
 
 .contact-container {
     max-width: 1200px;
@@ -100,7 +98,7 @@
     align-items: flex-start; /* Important pour que les colonnes ne s'étirent pas */
 }
 
-/* --- COLONNE GAUCHE (INFOS) --- */
+/* COLONNE GAUCHE (INFOS) */
 .contact-infos {
     flex: 1;
     min-width: 300px; /* Largeur mini avant de passer en colonne */
@@ -209,7 +207,7 @@
 
 
 
-/* --- COLONNE DROITE (FORMULAIRE) --- */
+/* COLONNE DROITE (FORMULAIRE) */
 
 .contact-form-wrapper {
     flex: 1.3; /* Prend un peu plus de place que les infos */
@@ -291,21 +289,10 @@
     text-decoration: underline;
 }
 
-/* Utilitaire pour centrer le texte et l'icône dans le bouton */
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.w-100 {
-    width: 100%;
-}
 
 
 
-/* --- RESPONSIVE MOBILE --- */
+/* MEDIA QUERIES */
 
 
 @media (max-width: 900px) {

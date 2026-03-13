@@ -214,7 +214,7 @@ const LivraisonPaiement = () => {
 
 
             <form className="commande-container" onSubmit={handlePayment}>
-                {/* --- COLONNE GAUCHE / FORMULAIRE--- */}
+                {/* COLONNE GAUCHE / FORMULAIRE */}
                 <div>
 
                     {/* 1. MODE DE LIVRAISON */}
@@ -403,7 +403,7 @@ const LivraisonPaiement = () => {
                 </div>
 
 
-                {/* --- COLONNE DROITE : RÉCAPITULATIF --- */}
+                {/*  COLONNE DROITE : RÉCAPITULATIF  */}
                 <aside>
                     <div className="order-summary-box">
                         <h3>Récapitulatif</h3>

@@ -51,7 +51,7 @@ const FAQ = () => {
                     </div>
                 </section>
 
-                {/* --- SECTION LIVRAISON --- */}
+                {/* SECTION LIVRAISON */}
                 <section className="legal-section">
                     <h2>Livraison</h2>
                     <div className="faq-grid">
@@ -67,7 +67,7 @@ const FAQ = () => {
                     </div>
                 </section>
 
-                {/* --- SECTION PRODUITS --- */}
+                {/* SECTION PRODUITS */}
                 <section className="legal-section">
                     <h2>Nos produits</h2>
                     <div className="faq-grid">

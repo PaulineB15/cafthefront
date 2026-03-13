@@ -1,9 +1,9 @@
-/* =============
-   LOGIN PAGE
-   ============= */
+
+/* PAGE LOGIN */
 
 
-/* GLOBALE */
+
+/* CONFIGURATION GLOBALE */
 
 .login-page {
     background-color: var(--bg-dark);
@@ -182,7 +182,7 @@ label {
 }
 
 
-/* --- CHECKBOX RGPD --- */
+/* CHECKBOX RGPD */
 .form-checkbox {
     display: flex;
     align-items: flex-start;
@@ -203,7 +203,7 @@ label {
     cursor: pointer;
 }
 
-/* --- BOUTONS UTILITAIRES --- */
+/* BOUTONS UTILITAIRES */
 .w-100 {
     width: 100%;
 }
@@ -264,7 +264,7 @@ label {
 
 
 
-/* --- RESPONSIVE MOBILE --- */
+/* MEDIA QUERIES */
 
 @media (max-width: 600px) {
     .login-section { padding: 40px 15px; }

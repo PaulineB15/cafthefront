@@ -1,10 +1,8 @@
 
-/* ===============
-      PAGE CONFIRMATION
-   =============== */
+/* PAGE CONFIRMATION */
 
 
-/* --- CONFIGURATION GÉNÉRALE --- */
+/* CONFIGURATION GÉNÉRALE */
 
 .confirmation-page {
     background-color: #0F0F0F;
@@ -22,7 +20,7 @@
     position: relative;
     z-index: 10;
 }
-/* --- HERO CONFIRMATION --- */
+/* HERO  */
 
 .hero-conf {
     height: 50vh;
@@ -104,7 +102,7 @@
 .conf-badge strong { font-size: 1.2rem; color: var(--gold-detail, #C5A059); letter-spacing: 1px; }
 
 
-/* --- STYLE DES CARDS --- */
+/*  STYLE DES CARDS */
 
 .conf-card, .sidebar-card {
     background-color: #1A1A1A;
@@ -138,14 +136,14 @@
 
 
 
-/* --- EMAIL BOX --- */
+/* EMAIL BOX  */
 .email-box { border-left: 3px solid var(--gold-detail, #C5A059); }
 .email-box p { color: #DDD; margin: 0 0 5px 0;}
 .small-text { font-size: 0.8rem; color: #777; margin-top: 5px; font-style: italic; }
 
 
 
-/* --- RECAP BOX --- */
+/* RECAPITULATIF */
 .conf-item {
     display: flex;
     align-items: center;
@@ -171,7 +169,7 @@
 
 
 
-/* --- SIDEBAR & BOUTONS --- */
+/* SIDEBAR & BOUTONS */
 .sidebar-card h3 { margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
 .sidebar-card p { font-size: 0.9rem; color: #999; line-height: 1.5; margin-bottom: 15px; }
 
@@ -196,7 +194,7 @@
 
 
 
-/* --- RESPONSIVE MOBILE --- */
+/* MEDIA QUERIES  */
 
 @media (max-width: 900px) {
     /* 1. La grille passe sur 1 seule colonne */

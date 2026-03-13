@@ -1,9 +1,8 @@
-/* ===============
-      PAGE BOUTIQUE
-   =============== */
+
+/* PAGE BOUTIQUE */
 
 
-/* --- HERO SECTION --- */
+/* HERO SECTION  */
 .hero-boutique {
     position: relative;
     height: 60vh;
@@ -43,7 +42,7 @@
 }
 
 
-/* --- CONTAINER GLOBAL (Colonne filtre + Liste produits) --- */
+/* CONTAINER GLOBAL (Colonne filtre + Liste produits)  */
 
 /* FILTRAGE */
 
@@ -56,7 +55,7 @@
     align-items: flex-start; /* Pour que la colonne filtre ne s'étire pas */
 }
 
-/* --- COLONNE FILTRE --- */
+/*  COLONNE FILTRE  */
 .filtrage-container {
     width: 250px;
     flex-shrink: 0; /* Empêche la colonne filtre de rétrécir */
@@ -148,7 +147,7 @@
 
 
 
-/* -- LISTE DES PRODUITS -- */
+/*  LISTE DES PRODUITS  */
 .liste-de-produits {
     flex: 1;
     display: flex;
@@ -183,7 +182,7 @@
 }
 
 
-/* --- CARTE PRODUIT (ProductCard.jsx) --- */
+/* CARTE PRODUIT (ProductCard.jsx) */
 
 .carte-produit {
     background-color: #222;
@@ -262,7 +261,7 @@
 }
 
 
-/* --- BOUTONS --- */
+/* BOUTONS  */
 
 .card-actions {
     display: flex;
@@ -312,15 +311,17 @@
 }
 
 
-/* --- CSS POUR SKELETON --- */
+/*  CSS POUR SKELETON  */
 .skeleton-container {
     padding: 60px 10%;
 }
 
 
-/* =========================================
-   RESPONSIVE (MEDIA QUERIES)
-   ========================================= */
+
+
+/*
+   MEDIA QUERIES
+    */
 
 /* Tablette (max 1024px) */
 @media (max-width: 1024px) {

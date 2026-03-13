@@ -17,7 +17,7 @@ import '../styles/Contact.css';
 
 
 const Contact = () => {
-    //--- MÉMOIRE DU FORMULAIRE ("State")
+    // MÉMOIRE DU FORMULAIRE (State)
     // Regrouper toutes les données du formulaire qui sont necessaires.
     const [formData, setFormData] = useState({
         nom: '',
@@ -27,7 +27,7 @@ const Contact = () => {
     });
 
 
-    // --- FONCTION DE MISE À JOUR (Quand l'utilisateur tape au clavier)
+    // FONCTION DE MISE À JOUR (Quand l'utilisateur tape au clavier)
 
     const handleChange = (e) => {
         // e.target représente le champ HTML exact que l'utilisateur est en train de modifier.
@@ -42,7 +42,7 @@ const Contact = () => {
     };
 
 
-    // --- FONCTION D'ENVOI DU FORMULAIRE (Quand on clique sur "Envoyer")
+    // FONCTION D'ENVOI DU FORMULAIRE (cliquer sur "Envoyer")
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Empêche le rechargement de la page
@@ -55,7 +55,7 @@ const Contact = () => {
             }
         });
 
-        // --- REPONSE DU SERVEUR---
+        // REPONSE DU SERVEUR
         if (response.ok) {
             // Si l'envoi a réussi -> jolie notification via toast
             toast.success(`Merci ${formData.nom} ! Votre message a bien été envoyé.`, {
@@ -77,7 +77,7 @@ const Contact = () => {
         }
     };
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
     return (
         <>
@@ -235,16 +235,15 @@ const Contact = () => {
                                     name="rgpd"
                                     checked={formData.rgpd}
                                     onChange={handleChange}
-                                    required // Case à coché obligatoire
+                                    required // Case à cocher obligatoire
                                 />
                                 <label htmlFor="rgpd" style={{ color: '#aaa', fontSize: '0.85rem', textTransform: 'none', letterSpacing: 'normal' }}>
                                     J'accepte que mes données soient utilisées pour traiter ma demande.
                                 </label>
                             </div>
 
-                            <button type="submit" className="btn btn-primaire w100 flex-center">
+                            <button type="submit" className="btn btn-primaire">
                                 <span>ENVOYER LE MESSAGE</span>
-                                <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                             </button>
                         </form>
                     </section>
