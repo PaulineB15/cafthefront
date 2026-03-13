@@ -1,0 +1,14 @@
+
+#Autoriser tous les robots d'exploration (Google, Bing, etc.)
+User-agent: *
+
+#Bloquer l'accès aux espaces privés et au tunnel d'achat (ces pages n'ont pas à être sur Google)
+Disallow: /panier
+Disallow: /livraison
+Disallow: /paiement
+Disallow: /confirmation
+
+Disallow: /mon-compte
+Disallow: /login
+Disallow: /mot-de-passe-oublie
+

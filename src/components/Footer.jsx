@@ -11,7 +11,7 @@ import "../styles/Footer.css";
 function Footer() {
     return (
 
-        <footer className="footer" role="contenu du footer"> {/* Attribut d'accessibilité (ARIA).*/}
+        <footer className="footer" role="contentinfo"> {/* Attribut d'accessibilité (ARIA).*/}
             <div className="footer-container">
                 {/* LOGO*/}
                 <div className="footer-colonne logo-colonne">

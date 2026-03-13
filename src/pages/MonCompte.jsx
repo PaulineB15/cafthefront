@@ -237,12 +237,6 @@ const MonCompte = () => {
 
     return (
 
-        <>
-            {/*REFERENCEMENT SEO */}
-            <title>Panier - CafThé</title>
-            <meta name="description" content="Page compte client d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
-            <meta name="keywords"
-                  content="CafThé, compte client, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
 
         <main>
             {/* --- HERO SECTION --- */}
@@ -278,7 +272,7 @@ const MonCompte = () => {
             <div className="compte-section">
                 <div className="compte-container">
 
-                    <nav className="dashboard-nav" aria-label="Menu de l'espace client">
+                    <nav className="dashboard-nav" aria-label="Menu de l'espace client" role="tablist">
                         <button className={`dashboard-tab ${activeTab === 'personnel' ? 'active' : ''}`} onClick={() => setActiveTab('personnel')}>
                             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" strokeWidth="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                             ESPACE PERSONNEL
@@ -553,7 +547,6 @@ const MonCompte = () => {
                 </div>
             </div>
         </main>
-        </>
     );
 };
 

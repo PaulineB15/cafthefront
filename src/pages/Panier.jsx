@@ -89,12 +89,6 @@ const Panier = () => {
 
 
     return (
-        <>
-            {/*REFERENCEMENT SEO */}
-            <title>Panier - CafThé</title>
-            <meta name="description" content="Page panier d'un site e-commerce d'une boutique de café et thé haut de gamme"/>
-            <meta name="keywords"
-                  content="CafThé, panier, site e-commerce, haut de gamme, café, thé, produits de qualité, engagement RSE, commerce équitable"/>
 
         <main className="panier-page">
 
@@ -260,7 +254,6 @@ const Panier = () => {
                 )}
             </section>
         </main>
-        </>
 
 
     );
