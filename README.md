@@ -33,7 +33,7 @@ cp .env.example .env
 npm run dev
 ```
 
-L'application sera accessible sur `http://localhost:5173`.
+L'application sera accessible sur `https://cafthev2.pbennoin.dev-campus.fr/`.
 
 ### Variables d'environnement
 
@@ -54,13 +54,13 @@ L'application sera accessible sur `http://localhost:5173`.
 
 <!-- Lister ici les principales routes de votre application avec une courte description -->
 
-| URL                              | Description                                         |
-|----------------------------------|-----------------------------------------------------|
-| `http://localhost:5173/`         | Page d'accueil avec mise en avant des produits      |
-| `http://localhost:5173/login`    | Interface connexion / création de compte            | 
- `http://localhost:5173/boutique` | Catalogue complet des thés et cafés                 |
-| `http://localhost:5173/contact`  | Formulaire de contact via Formspree                 |  
-| `http://localhost:5173/panier`   | Récapitulatif et gestion des produits séléectionnés |
+| URL | Description                                         |
+|----|-----------------------------------------------------|
+| `https://cafthev2.pbennoin.dev-campus.fr/` | Page d'accueil avec mise en avant des produits      |
+| `https://cafthev2.pbennoin.dev-campus.fr/login` | Interface connexion / création de compte            | 
+ `https://cafthev2.pbennoin.dev-campus.fr/boutique` | Catalogue complet des thés et cafés                 |
+| `https://cafthev2.pbennoin.dev-campus.fr/contact` | Formulaire de contact via Formspree                 |  
+
 
 
 
@@ -97,7 +97,7 @@ src/
 │   ├── MentionsLegales.jsx # Informations réglementaires
 │   └── 404.jsx / CGV.jsx # Page 404
              
-├── styles/             # 
+├── styles/             #
 ├── App.jsx             # Configuration des routes (React Router) et des Providers
 └── main.jsx            # Point d'entrée de l'application
 
