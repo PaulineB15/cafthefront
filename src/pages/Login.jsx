@@ -101,7 +101,7 @@ const Login = () => {
         }
     };
 
-    //  FONCTION POUR L'INSCRIPTION POUR RECUPERER A LA FOIS LES DONNEES EMAIL / MOT DE PASSE + CASE A COCHER RGPD
+    //  CREER UN COMPTE = Récupère à la fois l'email / mot de passe / cse à cocher RGPD  
     const handleRegisterChange = (e) => {
         const { name, value, type, checked } = e.target;
         setRegisterData({

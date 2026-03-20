@@ -47,7 +47,7 @@ const Boutique = () => {
     useEffect(() => {
         const fetchProduits = async () => {
             try {
-                setError(null);   // On remet l'erreur à zéro avant de commencer
+                setError(null);   // Remet l'erreur à zéro avant de commencer
                 // 1. Appel avec l'API (Backend) pour récupérer les produits
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/api/produits`);
                 // 2. Gestion de l'erreur si le serveur répond mal (erreur 404, 500...)
@@ -76,7 +76,7 @@ const Boutique = () => {
 
     //  BARRE DE RECHERCHE (NavBar) + COLONNE FILTRE
 
-    // On prend la liste complète des produits et on la filtre pour créer une liste finale (filteredProduits)
+    // Prendre la liste complète des produits et la filtrer pour créer une liste finale (filteredProduits)
     const filteredProduits = produits.filter(produit => {
 
         // 1. Filtrage par mot clé (BARRE DE RECHERCHE)

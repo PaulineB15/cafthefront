@@ -92,15 +92,15 @@ img {
 /* COULEURS + TYPO */
 
 :root {
-  /* Couleurs de ta charte */
+
   --bg-dark: #1A1A1A;
   --text-light: #F5F5F0;
-  --green-cta: #4A5D4E;       /* Ton vert spécifique */
-  --green-hover: #3b4b3e;     /* Ton vert au survol */
+  --green-cta: #4A5D4E;       /* Vert du bouton */
+  --green-hover: #3b4b3e;     /* Vert au survol */
   --gold-detail: #C5A059;
   --sand-text: #D9C5B2;
 
-  /* Polices */
+
   --font-title: 'Tenor Sans', sans-serif;
   --font-text: 'Montserrat', sans-serif;
 }

@@ -1,6 +1,6 @@
 
 //  IMPORT DES OUTILS
-
+import React from 'react';
 //Imports des outils de routage pour créer les URLs du site
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // Squelette/structure visuel (Navbar + Footer)

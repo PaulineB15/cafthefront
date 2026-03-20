@@ -1,6 +1,6 @@
 
 // IMPORT DES OUTILS REACT
-
+import React from 'react'
 // Outil de React qui agit comme un garde du corps en développement.
 import { StrictMode } from 'react'
 // Outil permet de lier React au navigateur (au vrai HTML).

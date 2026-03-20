@@ -46,7 +46,7 @@ function Home() {
     // Action auto: Le code à l'intérieur s'exécutera au moment où la page s'affiche à l'écran
     useEffect(() => {
 
-        //Fonction asynchrone (async) car demander des données au serveur prend un peu de temps.
+        //Fonction asynchrone car demander des données au serveur prend un peu de temps.
         const fetchProduits = async () => {
             try {
                 // 1. Appel avec l'API (Backend) pour récupérer les produits
