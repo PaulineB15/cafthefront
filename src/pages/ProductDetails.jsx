@@ -84,7 +84,7 @@ const ProductDetails = () => {
         };
         void fetchProduit(); // Execution de la fonction asynchrone qui vient d'être créee
         // IMPORTANT --> Tableau vide []: Execute la fonction une seule fois car il y a besoin
-        // seulement de récupérer + afficher les 4 produits UNE SEULE FOIS.
+        // seulement de récupérer + afficher les produits UNE SEULE FOIS.
     }, [id]);
 
 

@@ -103,7 +103,7 @@ const LivraisonPaiement = () => {
     // --- GERER LE CHANGEMENT DE L'ADRESSE DE LIVRAISON  ---
     // Met à jour la mémoire du formulaire à chaque fois que le client tape une lettre
     const handleChange = (e) => {
-        // CORRECTION ICI AUSSI : Permet de gérer la case à cocher CGV correctement
+        // Permet de gérer la case à cocher CGV correctement
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormData({ ...formData, [e.target.name]: value });
         // [e.target.name] est dynamique (si on tape dans le champ 'ville', ça met à jour la case 'ville' du state)
@@ -182,7 +182,7 @@ const LivraisonPaiement = () => {
     };
 
 
-    // ---- CE QUI S'AFFICHE A L'ECRAN ----
+
 
 
     return (

@@ -70,7 +70,7 @@ const Boutique = () => {
         // Lancement de la fonction asynchrone qui vient d'être créee
         void fetchProduits();
         // IMPORTANT --> Tableau vide []: Execute la fonction une seule fois car il y a besoin
-        // seulement de récupérer + afficher les 4 produits UNE SEULE FOIS.
+        // seulement de récupérer + afficher les produits UNE SEULE FOIS.
     }, []);
 
 
@@ -102,7 +102,7 @@ const Boutique = () => {
         // SI OUI vérifie que ce type correspond à ce que l'utilisateur cherche (produit.TYPE === selectedType)."
         const matchType = selectedType === "Tous" || (produit.TYPE && produit.TYPE === selectedType);
 
-        // 3. Filtrage par prix (FILTRE COLONNE)
+        // 4. Filtrage par prix (FILTRE COLONNE)
         let matchPrice = true; // Acceptation du prix par défaut
         const prix = parseFloat(produit.PRIX_TTC); // S'assurer que le prix = nombre à virgule
         if (priceRange === "moin20") matchPrice = prix < 20;

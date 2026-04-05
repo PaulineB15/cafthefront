@@ -52,7 +52,7 @@ const Login = () => {
     // S'il vient du panier, location.state.from vaudra "/commande".
     // Sinon (grâce au ||), il ira vers l'accueil "/" par défaut.
     const from = location.state?.from || "/"; // || --> OU la page d'accueil "/"
-    // Cette variable from contient maintenant soit "/commande" (si on vient du panier), soit "/" (par défaut
+    // Cette variable from contient maintenant soit "/commande" (si on vient du panier), soit "/" (par défaut)
 
 
 

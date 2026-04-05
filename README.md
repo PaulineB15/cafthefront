@@ -105,6 +105,7 @@ src/
 
 ## Deploiement
 
+Plesk
 
 ### Build de production
 
@@ -117,11 +118,18 @@ Les fichiers statiques sont generes dans le dossier `dist/`.
 ### Hebergement
 
 <!-- Décrire la procedure de déploiement (Plesk, o2Switch, etc...) -->
-
+Déploiement de l'API sur Plesk (Exportation de la BDD)
+Déploiement de l'application sur Plesk (npm build)
 
 ## Tests
 <!-- ATTENTION PAS ENCORE VU EN COURS -->
 <!-- Decrire comment lancer les tests -->
+
+Pour installer les outils de test :
+npm install --save-dev vitest @vitest/coverage-v8 jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event @testing-library/dom --legacy-peer-deps
+
+Pour lancer les tests :
+npm run test
 
 ```bash
 # Lancer les tests

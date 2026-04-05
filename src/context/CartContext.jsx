@@ -1,8 +1,8 @@
 // IMPORT DES OUTILS REACT
 
 // createContext : L'outil qui permet de créer l'espace de stockage global.
-// useEffect : L'outil pour déclencher des actions automatiques (ici, la sauvegarde).
-// useState : L'outil pour créer la mémoire du panier.
+// useEffect : Outil pour déclencher des actions automatiques (ici, la sauvegarde).
+// useState : Outil pour créer la mémoire du panier.
 import React, {createContext, useEffect, useState} from 'react';
 
 // CRÉATION DU composant CONTEXTE
